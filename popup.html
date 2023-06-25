@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <script src="popup.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.22.0/tabler-icons.min.css" />
+</head>
+<!-- <style type="text/css">
+    .wrapper{
+        /*max-height: 350px;*/
+        overflow-y: scroll;
+        text-align: center;
+        padding-bottom: 20px;
+    }
+    .flex{
+        display: flex;
+        justify-content: center;
+    }
+    .flex-title{
+        display: flex;
+        justify-content: start;
+        margin: 4px auto 10px;
+        vertical-align: middle;
+        border-bottom: solid 2px #3D2C21;   
+    }
+    body {
+        background-color: rgba(223,220,206,0.2);
+        min-width: 650px;
+        /*max-height: 350px;*/
+        overflow-y: scroll;
+        font-family: Hiragino Maru Gothic Pro,BIZ UDGothic,Roboto,HelveticaNeue,Arial,sans-serif;
+    }
+    .tls{
+        margin: 0px 10px;
+        padding: 2px 15px 14px;
+        text-align: left;
+        background-color: #ffffff; /*(243,238,218,0.2)*/
+        box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.10);
+        border-radius: 10px;
+    }
+    * {
+        color: #3D2C21;
+    }
+    .buttonblock{
+        display: flex;
+        vertical-align: middle;
+    }
+    .buttonlabel {
+        min-width: 100px;
+        font-weight: 400;
+        height:45px;
+        font-size: 14px;
+       line-height: 45px;
+       padding: 0;
+       margin: 0 0 0 10px;
+    }
+    h1{
+        margin-top: 4px;
+    }
+    h2 {
+        line-height: 1;
+        margin-left: 6px;
+    }
+    .ti {
+        font-family: "tabler-icons" !important;
+        font-size: 25px;
+        padding: 12px 3px 0 0;
+    }
+    .ti-home:before{content: "\eac1";}
+    .ti-planet:before{content: "\ec08";}
+    .ti-list:before{content: "\eb6b";}
+    .ti-other:before{content: "\ea03";}
+    .ti-more:before{content: '\ea5f';}
+    input[type="text"]{
+        border: none;
+        background: #f0f0f0;
+        line-height: 25px;
+        padding: 2px 5px;
+        margin: 5px 10px 0px;
+        width: 200px;
+        border-radius: 5px;
+    }
+    .discription{
+        color:rgba(0, 0, 0, 0.40);
+        margin-left: 10px;
+    }
+    /*チェックボックス関係*/
+    .checkbox {
+    margin: 10px 10px;
+	display: block;
+	width: 45px;
+	height: 25px;
+	cursor: pointer;
+	position: relative;
+    }
+    input[type="checkbox"] {
+	display: none;
+    }
+    input[type="checkbox"]:checked+.toggler-slider {
+	background-color: #16b617;
+    }
+    .toggler-slider {
+	background-color: #ccc;
+	position: absolute;
+	border-radius: 100px;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	-webkit-transition: all 300ms ease;
+	transition: all 300ms ease;
+    }
+    .toggler-knob {
+        position: absolute;
+        -webkit-transition: all 300ms ease;
+        transition: all 300ms ease;
+    }
+    input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
+        left: calc(100% - 19px - 3px);
+    }
+    .toggler-knob {
+    width: calc(25px - 6px);
+    height: calc(25px - 6px);
+    border-radius: 50%;
+    left: 3px;
+    top: 3px;
+    background-color: #fff;
+    }
+</style> -->
+
+<body>
+    <div class="wrapper">
+    <h1>Misskey TL filter</h1>
+        <div class="flex">
+
+            <div class="tls">
+                <div class="flex-title">
+                    <div class="ti ti-home"></div><h2>ホーム</h2>
+                </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">RNを非表示</div>
+                        <label class="checkbox">
+                            <input type="checkbox" data-name="ti-home" data-kinds="rn">
+                            <div class="toggler-slider">
+                                <div class="toggler-knob"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">引用を非表示</div>
+                            <label class="checkbox">
+                                <input type="checkbox" data-name="ti-home" data-kinds="quote">
+                                <div class="toggler-slider">
+                                    <div class="toggler-knob"></div>
+                                </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">NSFWを非表示</div>
+                        <label class="checkbox">
+                            <input type="checkbox" data-name="ti-home" data-kinds="nsfw">
+                            <div class="toggler-slider">
+                                <div class="toggler-knob"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                    <div class="buttonlabel">CWを非表示</div>
+                    <label class="checkbox">
+                        <input type="checkbox" data-name="ti-home" data-kinds="cw">
+                        <div class="toggler-slider">
+                            <div class="toggler-knob"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="tls">
+                <div class="flex-title">
+                    <div class="ti ti-planet"></div><h2>ローカル</h2>
+                </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">RNを非表示</div>
+                        <label class="checkbox">
+                            <input type="checkbox" data-name="ti-planet" data-kinds="rn">
+                            <div class="toggler-slider">
+                                <div class="toggler-knob"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">引用を非表示</div>
+                            <label class="checkbox">
+                                <input type="checkbox" data-name="ti-planet" data-kinds="quote">
+                                <div class="toggler-slider">
+                                    <div class="toggler-knob"></div>
+                                </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">NSFWを非表示</div>
+                        <label class="checkbox">
+                            <input type="checkbox" data-name="ti-planet" data-kinds="nsfw">
+                            <div class="toggler-slider">
+                                <div class="toggler-knob"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                    <div class="buttonlabel">CWを非表示</div>
+                    <label class="checkbox">
+                        <input type="checkbox" data-name="ti-planet" data-kinds="cw">
+                        <div class="toggler-slider">
+                            <div class="toggler-knob"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="tls">
+                <div class="flex-title">
+                    <div class="ti ti-list"></div><h2>リスト</h2>
+                </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">RNを非表示</div>
+                        <label class="checkbox">
+                            <input type="checkbox" data-name="ti-list" data-kinds="rn">
+                            <div class="toggler-slider">
+                                <div class="toggler-knob"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">引用を非表示</div>
+                            <label class="checkbox">
+                                <input type="checkbox" data-name="ti-list" data-kinds="quote">
+                                <div class="toggler-slider">
+                                    <div class="toggler-knob"></div>
+                                </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">NSFWを非表示</div>
+                        <label class="checkbox">
+                            <input type="checkbox" data-name="ti-list" data-kinds="nsfw">
+                            <div class="toggler-slider">
+                                <div class="toggler-knob"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                    <div class="buttonlabel">CWを非表示</div>
+                    <label class="checkbox">
+                        <input type="checkbox" data-name="ti-list" data-kinds="cw">
+                        <div class="toggler-slider">
+                            <div class="toggler-knob"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+        <div class="ti ti-more"></div>
+        <div class="flex2">
+            <div class="tls">
+                <div class="flex-title">
+                    <div class="ti ti-other"></div><h2>そのほか</h2>
+                </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">チャンネルノートを非表示</div>
+                        <label class="checkbox">
+                            <input type="checkbox" data-name="no-add" data-kinds="channel">
+                            <div class="toggler-slider">
+                                <div class="toggler-knob"></div>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">他のサーバーからのノートを非表示</div>
+                            <label class="checkbox">
+                                <input type="checkbox" data-name="no-add" data-kinds="rocket">
+                                <div class="toggler-slider">
+                                    <div class="toggler-knob"></div>
+                                </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">misskey.io内のノートを非表示</div>
+                            <label class="checkbox">
+                                <input type="checkbox" data-name="no-add" data-kinds="norocket">
+                                <div class="toggler-slider">
+                                    <div class="toggler-knob"></div>
+                                </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">以下のユーザーIDのノートを非表示</div>
+                            <label>
+                                <input type="text">
+                        </label>
+                    </div>
+                    <div class="discription">複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123 </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

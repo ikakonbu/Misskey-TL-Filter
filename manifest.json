@@ -1,0 +1,30 @@
+{
+    "name": "Misskey TL Filter",
+    "version": "1.0",
+    "manifest_version": 3,
+    "description": "Misskey.ioの各TLに対して、RN非表示などのフィルターを設定できます",
+    "content_scripts": [
+        {
+            "matches": [
+                "https://misskey.io/*"
+            ],
+            "js": [
+                "init.js"
+            ]
+        }
+    ],
+    "permissions": ["scripting"],
+    "host_permissions": [
+        "https://misskey.io/*"
+    ],
+    "background": {
+        "service_worker": "serviceworker.js"
+    },
+    "action": {
+        "default_title": "Misskey TL Filter",
+        "default_popup": "popup.html",
+        "default_icon": {
+            "128": "icon.png"
+        }
+    }
+}
