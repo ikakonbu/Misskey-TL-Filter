@@ -35,7 +35,7 @@ html{
     overflow-y: scroll;
 }
 body {
-    max-width: 550px;
+    max-width: 750px;
     max-height: 370px !important;
     overflow-y:auto;
     background-color: var(--background);
@@ -58,8 +58,8 @@ h1{
     display: flex;
 }
 .center{
-    justify-content: left;
-    overflow-x: scroll;
+    justify-content:center;
+    /*overflow-x: scroll;*/
     padding-bottom: 20px;
 }
 .center::-webkit-scrollbar{
