@@ -1,16 +1,23 @@
 # Misskey-TL-Filter
-misskey.io にて、特定のノートへのフィルタリングをリアルタイムで変更できるchrome拡張機能
+misskey.io にて、特定のノートへのフィルタリングをリアルタイムで変更できるchrome拡張機能  
 
+　  
+
+   
 # 対応環境
 WindowsおよびMacのChrome(もしくはChrome拡張機能をサポートしているブラウザ)  
-デフォルトUI および　デッキUI で動作を確認しています。
+デフォルトUI および　デッキUI で動作を確認しています。  
+
+　  
 
 # 導入方法
 現時点ではChromeの拡張機能としてChromeWebストアには公開していません。  
 ここにあるソースコードから手動でのインストールは可能です。
 
 このリポジトリ全体をダウンロードし、展開したものを下のURLに書かれている手順で開くとインストールされます。  
-https://setup-lab.net/chrome-extended-local-install/
+https://setup-lab.net/chrome-extended-local-install/　　
+
+　  
 
 # 機能説明
 機能はシンプルで,https://Misskey.io を開くと拡張機能が有効になります。  
@@ -24,9 +31,6 @@ https://setup-lab.net/chrome-extended-local-install/
 * **引用を非表示**　　　　引用ノートを全て非表示にします
 * **NSFWを非表示**　　　閲覧注意の設定がされた画像、動画が添付されているノートをすべて非表示にします。
 * **CWを非表示**　　　　`もっと見る` で本文が隠されているノートを全て非表示にします。
-
-
-　　　　　　　　
    
   
 下段では全てのタイムラインで適用されるオプションです。
@@ -37,18 +41,22 @@ https://setup-lab.net/chrome-extended-local-install/
 
   
 >例: 村上さん(@AureoleArk)としゅいろさん(@syuilo) を非表示にしたい場合は, ` AureoleArk,syuilo `と入力すると非表示になります。
->他のサーバーのユーザー(@ikakonbu@nijimiss.moe)の場合は、` ikakonbu@nijimiss.moe ` のように入れてください
+>他のサーバーのユーザー(@ikakonbu@nijimiss.moe)の場合は、` ikakonbu@nijimiss.moe ` のように入れてください  
 
+　  
 
 # 今後の機能追加予定
 * ダークモード/ライトモードの判定をOSの色設定基準からMisskeyページの色設定基準にする(優先度：高）
 * 特定ユーザーのRenoteを非表示にする機能追加(優先度:中)
-* Firefoxへの実装(優先度:中)
+* Firefoxへの実装(優先度:低)
 * Misskey.io以外のインスタンスでも動くようにする(優先度:低)
 
+　  
 
 # 機能追加のリクエストやバグ報告について
-もし何か機能追加やバグ報告について言いたいことがある場合は、私のmisskeyアカウントにDMしてくるか,githubにissue立てるなりしていただいて構いません
+もし何か機能追加やバグ報告について言いたいことがある場合は、私のmisskeyアカウントにDMしてくるか,githubにissue立てるなりしていただいて構いません  
+
+　  
 
 # 再配布、改変など
 再配布、改変しての配布などについては特に制限は設けません、お好きにお使いださい。
