@@ -39,6 +39,14 @@ https://setup-lab.net/chrome-extended-local-install/
 >例: 村上さん(@AureoleArk)としゅいろさん(@syuilo) を非表示にしたい場合は, ` AureoleArk,syuilo `と入力すると非表示になります。
 >他のサーバーのユーザー(@ikakonbu@nijimiss.moe)の場合は、` ikakonbu@nijimiss.moe ` のように入れてください
 
+
+# 今後の機能追加予定
+* ダークモード/ライトモードの判定をOSの色設定基準からMisskeyページの色設定基準にする(優先度：高）
+* 特定ユーザーのRenoteを非表示にする機能追加(優先度:中)
+* Firefoxへの実装(優先度:中)
+* Misskey.io以外のインスタンスでも動くようにする(優先度:低)
+
+
 # 機能追加のリクエストやバグ報告について
 もし何か機能追加やバグ報告について言いたいことがある場合は、私のmisskeyアカウントにDMしてくるか,githubにissue立てるなりしていただいて構いません
 
