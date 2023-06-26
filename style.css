@@ -1,6 +1,5 @@
 .wrapper{
     /*max-height: 350px;*/
-    overflow-y: scroll;
     text-align: center;
     padding-bottom: 20px;
 }
@@ -20,7 +19,7 @@ body {
     min-width: 650px;
     /*max-height: 350px;*/
     overflow-y: scroll;
-    font-family: Hiragino Maru Gothic Pro,BIZ UDGothic,Roboto,HelveticaNeue,Arial,sans-serif;
+    font-family: Hiragino Maru Gothic Pro,Roboto,HelveticaNeue,Arial,sans-serif;
 }
 .tls{
     margin: 0px 10px;
@@ -47,16 +46,29 @@ body {
    margin: 0 0 0 10px;
 }
 h1{
-    margin-top: 4px;
+    padding: 14px auto;
 }
 h2 {
-    line-height: 1;
-    margin-left: 6px;
+    display:table-cell;
+    vertical-align: middle;
+    padding-left: 6px;
+}
+.middle {
+    height: 45px;
+    display:table;
+    text-align: center;
+    vertical-align: middle;
 }
 .ti {
+    display:table-cell;
+    vertical-align: middle;
     font-family: "tabler-icons" !important;
     font-size: 25px;
-    padding: 12px 3px 0 0;
+}
+.ti-center{
+    display: block;
+    font-family: "tabler-icons" !important;
+    font-size: 25px;
 }
 .ti-home:before{content: "\eac1";}
 .ti-planet:before{content: "\ec08";}
