@@ -1,43 +1,100 @@
+/*color variable*/
+:root{
+    /*light mode*/
+    --background: rgb(248,248,245);
+    --cardcolor: rgba(255,255,255,1);
+    --accent: rgb(78,175,47);
+    --textcolor: rgb(61,44,33);
+    --discription: rgba(0,0,0,0.4);
+    --toggle-off:  rgba(190,190,190);
+    --toggle-knob: rgba(250,250,250);
+    --textarea: rgba(240,240,240);
+    --cardshadow: rgba(0,0,0,0.1);
+    --buttoncolor: rgb(240,238,232);
+}
+/*dark mode*/
+@media (prefers-color-scheme: dark) {
+    :root{
+        /*light mode*/
+        --background: rgb(42 40 42);
+        --cardcolor: rgb(60 60 60);
+        --accent: rgb(134 173 113);
+        --textcolor: rgb(229 222 199);
+        --discription: rgba(255,255,255,0.4);
+        --toggle-off:  rgba(130,130,130);
+        --toggle-knob: rgba(255,241,232);
+        --textarea: rgba(80,80,80);
+        --cardshadow: rgba(0,0,0,0.4);
+        --buttoncolor: rgb(96 96 96);
+    }
+}
+
+/*General Setting*/
+html{
+    max-height: 370px !important;
+    overflow-y: scroll;
+}
+body {
+    max-width: 550px;
+    max-height: 370px !important;
+    overflow-y:auto;
+    background-color: var(--background);
+    font-family: Hiragino Maru Gothic Pro,Roboto,HelveticaNeue,Arial,sans-serif;
+}
 .wrapper{
-    max-height: 350px;
+    max-height: 370px;
     text-align: center;
     padding-bottom: 20px;
 }
+* {
+    color: var(--textcolor);
+}
+h1{
+    padding: 6px auto;
+}
+
+/*layout specify CSS*/
 .flex{
     display: flex;
 }
 .center{
-    justify-content: center;
+    justify-content: left;
+    overflow-x: scroll;
+    padding-bottom: 20px;
+}
+.center::-webkit-scrollbar{
+    display:none;
+}
+.middle {
+    height: 45px;
+    display:table;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*card and card title*/
+.tls{
+    margin: 0px 10px;
+    padding: 2px 15px 14px;
+    text-align: left;
+    background-color: var(--cardcolor);
+    box-shadow: 0px 4px 10px 0px var(--cardshadow);
+    border-radius: 10px;
 }
 .flex-title{
     display: flex;
     justify-content: start;
     margin: 4px auto 10px;
     vertical-align: middle;
-    border-bottom: solid 2px #3D2C21;   
+    border-bottom: solid 2px var(--textcolor);   
 }
-html{
-    max-height: 350px !important;
-    overflow-y: scroll;
+h2 {
+    display:table-cell;
+    vertical-align: middle;
+    padding-left: 6px;
 }
-body {
-    max-height: 350px !important;
-    overflow-y:auto;
-    background-color: rgba(223,220,206,0.2);
-    min-width: 650px;
-    font-family: Hiragino Maru Gothic Pro,Roboto,HelveticaNeue,Arial,sans-serif;
-}
-.tls{
-    margin: 0px 10px;
-    padding: 2px 15px 14px;
-    text-align: left;
-    background-color: #ffffff; /*(243,238,218,0.2)*/
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.10);
-    border-radius: 10px;
-}
-* {
-    color: #3D2C21;
-}
+
+/*check button label*/
 .buttonblock{
     display: flex;
     vertical-align: middle;
@@ -51,20 +108,58 @@ body {
    padding: 0;
    margin: 0 0 0 10px;
 }
-h1{
-    padding: 14px auto;
+
+
+/*User Mute setting & howto text*/
+input[type="text"]{
+    border: none;
+    background: var(--textarea);
+    line-height: 25px;
+    padding: 2px 5px;
+    margin: 5px 10px 0px;
+    width: 200px;
+    border-radius: 5px;
 }
-h2 {
-    display:table-cell;
-    vertical-align: middle;
-    padding-left: 6px;
+.discription{
+    color: var(--discription);
+    margin-left: 10px;
 }
-.middle {
-    height: 45px;
-    display:table;
-    text-align: center;
-    vertical-align: middle;
+
+
+/* about and my profile link*/
+.about-wrapper {
+    padding: 10px 10px;
 }
+.about {
+    padding: 6px 30px;
+    text-align: left;
+    background-color: var(--cardcolor);
+    box-shadow: 0px 4px 10px 0px var(--cardshadow);
+    border-radius: 10px;
+}
+a {
+    width: fit-content;
+    margin: 10px 15px 0px;
+    border-radius: 10px;
+    background: var(--buttoncolor);
+    padding: 6px 12px;
+    text-decoration: none;
+    transition: .3s;
+  }
+a:hover{
+    background: var(--accent);
+    transition: .3s;
+    box-shadow: 0px 0px 20px 0px rgba(87, 145, 0, 0.3);
+}
+a:hover div {
+    transition: .5s;
+    color: #fff;
+}
+a div{
+    margin: auto;
+}
+
+ /* icon CSS */
 .ti {
     display:table-cell;
     vertical-align: middle;
@@ -89,52 +184,12 @@ h2 {
 .ti-more:before{content: '\ea5f';}
 .ti-github:before{content: '\ec1c';}
 .ti-prof:before{content: '\eb4d';}
-input[type="text"]{
-    border: none;
-    background: #f0f0f0;
-    line-height: 25px;
-    padding: 2px 5px;
-    margin: 5px 10px 0px;
-    width: 200px;
-    border-radius: 5px;
-}
-.discription{
-    color:rgba(0, 0, 0, 0.40);
-    margin-left: 10px;
-}
-.about-wrapper {
-    padding: 10px 10px;
-}
-.about {
-    padding: 6px 30px;
-    text-align: left;
-    background-color: #ffffff; /*(243,238,218,0.2)*/
-    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.10);
-    border-radius: 10px;
-}
 
-a {
-    width: fit-content;
-    margin: 10px 15px 0px;
-    border-radius: 10px;
-    background: #f0eee9;
-    padding: 6px 12px;
-    text-decoration: none;
-    transition: .3s;
-  }
-a:hover{
-    background: #4daf2f;
-    transition: .3s;
-    box-shadow: 0px 0px 20px 0px rgba(87, 145, 0, 0.3);
+
+/*CheckBox CSS*/
+input[type="checkbox"] {
+    display: none;
 }
-a:hover div {
-    transition: .5s;
-    color: #fff;
-}
- a div{
-    margin: auto;
- }
-/*チェックボックス関係*/
 .checkbox {
 margin: 10px 10px;
 display: block;
@@ -143,36 +198,28 @@ height: 25px;
 cursor: pointer;
 position: relative;
 }
-input[type="checkbox"] {
-display: none;
-}
 input[type="checkbox"]:checked+.toggler-slider {
-background-color: #4daf2f;
+    background-color: var(--accent);
 }
 .toggler-slider {
-background-color: #ccc;
+background-color: var(--toggle-off);
 position: absolute;
 border-radius: 100px;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
--webkit-transition: all 300ms ease;
-transition: all 300ms ease;
+top: 0; left: 0;
+width: 100%; height: 100%;
+transition: 300ms ease;
 }
 .toggler-knob {
     position: absolute;
-    -webkit-transition: all 300ms ease;
-    transition: all 300ms ease;
+    transition: 300ms ease;
 }
 input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
     left: calc(100% - 19px - 3px);
 }
 .toggler-knob {
-width: calc(25px - 6px);
-height: calc(25px - 6px);
-border-radius: 50%;
-left: 3px;
-top: 3px;
-background-color: #fff;
+    width: calc(25px - 6px);
+    height: calc(25px - 6px);
+    border-radius: 50%;
+    left: 3px;  top: 3px;
+    background-color: var(--toggle-knob);
 }
