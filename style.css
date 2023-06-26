@@ -1,10 +1,12 @@
 .wrapper{
-    /*max-height: 350px;*/
+    max-height: 350px;
     text-align: center;
     padding-bottom: 20px;
 }
 .flex{
     display: flex;
+}
+.center{
     justify-content: center;
 }
 .flex-title{
@@ -17,7 +19,7 @@
 body {
     background-color: rgba(223,220,206,0.2);
     min-width: 650px;
-    /*max-height: 350px;*/
+    max-height: 350px;
     overflow-y: scroll;
     font-family: Hiragino Maru Gothic Pro,Roboto,HelveticaNeue,Arial,sans-serif;
 }
@@ -70,11 +72,18 @@ h2 {
     font-family: "tabler-icons" !important;
     font-size: 25px;
 }
+.ti-small {
+    display: inline;
+    font-family: "tabler-icons" !important;
+    font-size: 25px;
+}
 .ti-home:before{content: "\eac1";}
 .ti-planet:before{content: "\ec08";}
 .ti-list:before{content: "\eb6b";}
 .ti-other:before{content: "\ea03";}
 .ti-more:before{content: '\ea5f';}
+.ti-github:before{content: '\ec1c';}
+.ti-prof:before{content: '\eb4d';}
 input[type="text"]{
     border: none;
     background: #f0f0f0;
@@ -88,6 +97,28 @@ input[type="text"]{
     color:rgba(0, 0, 0, 0.40);
     margin-left: 10px;
 }
+.about-wrapper {
+    padding: 10px 10px;
+}
+.about {
+    padding: 6px 30px;
+    text-align: left;
+    background-color: #ffffff; /*(243,238,218,0.2)*/
+    box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.10);
+    border-radius: 10px;
+}
+
+a {
+    width: 100px;
+    border-radius: 10px;
+    background: #ccc;
+    padding: 5px 15px;
+    text-decoration: none;
+  }
+
+ a div{
+    margin: auto;
+ }
 /*チェックボックス関係*/
 .checkbox {
 margin: 10px 10px;
