@@ -5,6 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let targets2 = document.querySelector(`input[type="text"]`);
     // css temp
     let csscode = "";
+    //scroll pixel displacement
+    let scroolloffset = 450; 
 
     // css code templete
     const stylecode = {
@@ -62,6 +64,26 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         targets2.value = localStorage.getItem('list-muteuser');
     }
+
+    //set scroll button event
+    let left = document.querySelector('.scrollleft');
+    let right = document.querySelector('.scrollright');
+    let scrolltarget = document.querySelector('.flex.left');
+
+    left.addEventListener(`click`, () => {
+        var targetpositon = scrolltarget.scrollLeft;
+        scrolltarget.scrollTo({
+            left: /*Math.max(*/ targetpositon - scroolloffset /*, 0)*/,
+            behavior: 'smooth'
+          });
+    })
+    right.addEventListener(`click`, () => {
+        var targetpositon = scrolltarget.scrollLeft;
+        scrolltarget.scrollTo({
+            left: /*Math.min(*/ targetpositon + scroolloffset /*, scrolltarget.clientWidth)*/,
+            behavior: 'smooth'
+          });
+    })
 
     //Set　event listeners to rewrite　CSS when checkbox and textarea are changed
     for (let target of targets) {

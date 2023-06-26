@@ -10,6 +10,7 @@
     --toggle-knob: rgba(250,250,250);
     --textarea: rgba(240,240,240);
     --cardshadow: rgba(0,0,0,0.1);
+    --hovershadow:  rgba(0,0,0,0.5);
     --buttoncolor: rgb(240,238,232);
 }
 /*dark mode*/
@@ -25,6 +26,7 @@
         --toggle-knob: rgba(255,241,232);
         --textarea: rgba(80,80,80);
         --cardshadow: rgba(0,0,0,0.4);
+        --hovershadow:  rgba(0,0,0,0.7);
         --buttoncolor: rgb(96 96 96);
     }
 }
@@ -35,16 +37,19 @@ html{
     overflow-y: scroll;
 }
 body {
-    max-width: 750px;
+    max-width: 550px;
     max-height: 370px !important;
     overflow-y:auto;
     background-color: var(--background);
     font-family: Hiragino Maru Gothic Pro,Roboto,HelveticaNeue,Arial,sans-serif;
+    margin: 0px auto;
+    
 }
 .wrapper{
     max-height: 370px;
     text-align: center;
     padding-bottom: 20px;
+    position: relative;
 }
 * {
     color: var(--textcolor);
@@ -57,13 +62,16 @@ h1{
 .flex{
     display: flex;
 }
+.left{
+    justify-content:left;
+    overflow-x:scroll;
+    padding: 10px 40px 20px 40px;
+}
+.left::-webkit-scrollbar{
+    display:none;
+}
 .center{
     justify-content:center;
-    /*overflow-x: scroll;*/
-    padding-bottom: 20px;
-}
-.center::-webkit-scrollbar{
-    display:none;
 }
 .middle {
     height: 45px;
@@ -94,6 +102,39 @@ h2 {
     padding-left: 6px;
 }
 
+.scrollbutton {
+    z-index: 999;
+    font-size: 26px;
+    position: absolute;
+    overflow: hidden;
+    top: 35%;
+    background-color: var(--cardcolor);
+    color: var(--textcolor);
+    padding: 40px 8px;
+    box-shadow: 0px 0px 20px 0px var(--cardshadow);
+    transition: .5s;
+}
+.scrollbutton:hover{
+    transition: .5s;
+    transform: scaleY(1.1);
+    box-shadow: 0px 0px 20px 0px var(--hovershadow);
+}
+.scrollbutton:active{
+    transition: 0s;
+    transform: scaleY(1);
+    background: var(--accent);
+}
+.scrollleft {
+    left: 0px;
+    border-radius: 0 10px 10px 0;
+}
+.scrollright {
+    right: 0px;
+    border-radius: 10px 0 0 10px;;
+}
+.scrollbutton i{
+    pointer-events: none;
+}
 /*check button label*/
 .buttonblock{
     display: flex;
@@ -184,7 +225,10 @@ a div{
 .ti-more:before{content: '\ea5f';}
 .ti-github:before{content: '\ec1c';}
 .ti-prof:before{content: '\eb4d';}
-
+.ti-rocket:before{content:"\ec45";}
+.ti-whirl:before{content: "\f51d"}
+.ti-left:before{content: '\ea60';}
+.ti-right:before{content: '\ea61';}
 
 /*CheckBox CSS*/
 input[type="checkbox"] {
