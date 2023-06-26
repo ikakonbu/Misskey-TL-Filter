@@ -39,6 +39,8 @@ https://setup-lab.net/chrome-extended-local-install/
 >例: 村上さん(@AureoleArk)としゅいろさん(@syuilo) を非表示にしたい場合は, ` AureoleArk,syuilo `と入力すると非表示になります。
 >他のサーバーのユーザー(@ikakonbu@nijimiss.moe)の場合は、` ikakonbu@nijimiss.moe ` のように入れてください
 
+# 機能追加のリクエストやバグ報告について
+もし何か機能追加やバグ報告について言いたいことがある場合は、私のmisskeyアカウントにDMしてくるか,githubにissue立てるなりしていただいて構いません
 
 # 再配布、改変など
 再配布、改変しての配布などについては特に制限は設けません、お好きにお使いださい。
