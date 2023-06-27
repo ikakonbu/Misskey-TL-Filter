@@ -11,10 +11,11 @@ WindowsおよびMacのChrome(もしくはChrome拡張機能をサポートして
 　  
 
 # 導入方法
-現時点ではChromeの拡張機能としてChromeWebストアには公開していません。  
-ここにあるソースコードから手動でのインストールは可能です。
+普通に利用するだけの方はChrome webストアからインストールできます
+https://chrome.google.com/webstore/detail/misskey-tl-filter/gligjcdfcokjfdkpmjgncgdoefnpkpej?hl=ja
 
-このリポジトリ全体をダウンロードし、展開したものを下のURLに書かれている手順で開くとインストールされます。  
+開発、デバッグ目的で利用したい方は、ここにあるソースコードから手動でのインストールが可能です。
+このリポジトリ全体をDonwonload ZIPでダウンロードし、展開したものを下のURLに書かれている手順で開くとインストールされます。  
 https://setup-lab.net/chrome-extended-local-install/　　
 
 　  
