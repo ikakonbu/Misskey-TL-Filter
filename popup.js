@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     //scroll pixel displacement
     let scroolloffset = 450; 
 
+    let transitioncode = "<style> * { transition: background-color .5s; } </style>"
+    setTimeout(function(){ document.querySelector(`head`).insertAdjacentHTML('beforeend', transitioncode)},500);
+
     // css code templete
     const stylecode = {
         rn:':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.xBwhh) { display: none;}',
