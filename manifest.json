@@ -6,16 +6,16 @@
     "content_scripts": [
         {
             "matches": [
-                "https://misskey.io/*"
+                "<all_urls>"
             ],
             "js": [
                 "init.js"
             ]
         }
     ],
-    "permissions": ["scripting"],
+    "permissions": ["scripting","storage"],
     "host_permissions": [
-        "https://misskey.io/*"
+        "<all_urls>"
     ],
     "background": {
         "service_worker": "serviceworker.js"

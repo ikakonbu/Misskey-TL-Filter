@@ -1,14 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     // element of checkbox and text input
-    let targets = document.querySelectorAll(`input[type="checkbox"]`);
-    let targets2 = document.querySelector(`input[type="text"]`);
-    // css temp
-    let csscode = "";
-    //scroll pixel displacement
-    let scroolloffset = 450; 
+    const targets = document.querySelectorAll(`input[type="checkbox"].filterbtn`);
+    const targets2 = document.querySelectorAll(`input[type="text"]`);
 
-    let transitioncode = "<style> * { transition: background-color .5s; } </style>"
+    //scroll pixel displacement
+    const scroolloffset = 450; 
+    var csscode='';
+    //Add style code for light-dark mode transition
+    //Insert later to prevent color fade when the popup is open
+    const transitioncode = "<style> * { transition: background-color .5s; } </style>"
     setTimeout(function(){ document.querySelector(`head`).insertAdjacentHTML('beforeend', transitioncode)},500);
 
     // css code templete
@@ -19,13 +20,14 @@ document.addEventListener('DOMContentLoaded', function () {
         cw: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.xd2wm) { display: none;}',
         channel: '.xcSej.x3762:has(.xww2J) { display: none;}',
         usermute: '.xcSej.x3762:has(a[href="/@unko"]){ display: none; }',
+        userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
         rocket: '.xcSej.x3762:has(.xuevx){ display: none; }',
         norocket: '.xcSej.x3762:not(:has(.xuevx)) { display: none; }'
     };
     
     /*create css code and save from now settings*/
     function CreateCSS(){
-        csscode = "";
+        csscode="";
         //Judges which CSS to apply based on the unique attributes assigned to the HTML of the checkbox and generates code
         for (let target of targets) {
             if(target.checked){
@@ -33,10 +35,17 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         //User Mute input
-        if(targets2.value != ''){
-            var muteuserlist = targets2.value.split(',');
+        if(targets2[0].value != ''){
+            let muteuserlist = targets2[0].value.split(',');
             for(let name of muteuserlist){
                 csscode += stylecode['usermute'].replaceAll('unko',name) + "\n";
+            }
+        }
+        //User Renote Mute input
+        if(targets2[1].value != ''){
+            let muteuserlist = targets2[1].value.split(',');
+            for(let name of muteuserlist){
+                csscode += stylecode['userrenotemute'].replaceAll('unko',name) + "\n";
             }
         }
         //console.log(csscode);
@@ -53,7 +62,11 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let target of targets) {
             localStorage.setItem('button-' + target.dataset.name + '-' + target.dataset.kinds, target.checked? 1 : 0);
         }
-        localStorage.setItem('list-muteuser', targets2.value);
+        localStorage.setItem('list-muteuser', targets2[0].value);
+        localStorage.setItem('list-muteuserrenote', targets2[1].value);
+        localStorage.setItem('allow-other-server', targets2[2].value);
+        /*this setting use service worker. but this dont access localstorage. so save to chrome storage API*/
+        chrome.storage.local.set({setting1: targets2[2].value})
         localStorage.setItem('saved' , '1');
     }
 
@@ -65,7 +78,9 @@ document.addEventListener('DOMContentLoaded', function () {
             target.checked = (localStorage.getItem('button-' + target.dataset.name + '-' + target.dataset.kinds)== '1')? 1: 0;
             //console.log(localStorage.getItem('button-' + target.dataset.name + '-' + target.dataset.kinds));
         }
-        targets2.value = localStorage.getItem('list-muteuser');
+        targets2[0].value = localStorage.getItem('list-muteuser');
+        targets2[1].value = localStorage.getItem('list-muteuserrenote');
+        targets2[2].value = localStorage.getItem('allow-other-server');
     }
 
     //set scroll button event
@@ -102,16 +117,18 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     })
     }
-    targets2.addEventListener(`change`, () => {
-        CreateCSS();
-        SaveSetting();
-        chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-            chrome.scripting.executeScript({
-                target : {tabId : tabs[0].id},
-                func : UpdateCSS,
-                args : [csscode]
+    for (let target of targets2) {
+        target.addEventListener(`change`, () => {
+            CreateCSS();
+            SaveSetting();
+            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+                chrome.scripting.executeScript({
+                    target : {tabId : tabs[0].id},
+                    func : UpdateCSS,
+                    args : [csscode]
+                });
             });
-        });
-    })
+        })
+    }
     LoadSetting();
 });
