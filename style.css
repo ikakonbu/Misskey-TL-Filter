@@ -111,6 +111,7 @@ h2 {
 }
 
 .scrollbutton {
+    z-index: 100;
     font-size: 26px;
     position: absolute;
     overflow: hidden;
