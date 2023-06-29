@@ -38,12 +38,12 @@
 
 /*General Setting*/
 html{
-    max-height: 370px !important;
+    max-height: 420px !important;
     overflow-y: scroll;
 }
 body {
     max-width: 550px;
-    max-height: 370px !important;
+    max-height: 420px !important;
     overflow-y:auto;
     background-color: var(--background);
     font-family: Hiragino Maru Gothic Pro,Roboto,HelveticaNeue,Arial,sans-serif;
@@ -51,7 +51,7 @@ body {
     font-size: 13px;
 }
 .wrapper{
-    max-height: 370px;
+    max-height: 420px;
     text-align: center;
     padding-bottom: 20px;
     position: relative;
