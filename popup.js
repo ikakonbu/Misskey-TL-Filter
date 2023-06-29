@@ -1,16 +1,13 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // element of checkbox and text input
+    // element of checkbox ,text input and scroll button
     const targets = document.querySelectorAll(`input[type="checkbox"].filterbtn`);
     const targets2 = document.querySelectorAll(`input[type="text"]`);
-
-    //scroll pixel displacement
+    let left = document.querySelector('.scrollleft');
+    let right = document.querySelector('.scrollright');
+    let scrolltarget = document.querySelector('.flex.left');
     const scroolloffset = 450; 
     var csscode='';
-    //Add style code for light-dark mode transition
-    //Insert later to prevent color fade when the popup is open
-    const transitioncode = "<style> * { transition: background-color .5s; } </style>"
-    setTimeout(function(){ document.querySelector(`head`).insertAdjacentHTML('beforeend', transitioncode)},500);
 
     // css code templete
     const stylecode = {
@@ -24,7 +21,10 @@ document.addEventListener('DOMContentLoaded', function () {
         rocket: '.xcSej.x3762:has(.xuevx){ display: none; }',
         norocket: '.xcSej.x3762:not(:has(.xuevx)) { display: none; }'
     };
-    
+    const transitioncode = "<style> * { transition: background-color .5s; } </style>"
+
+
+
     /*create css code and save from now settings*/
     function CreateCSS(){
         csscode="";
@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 csscode += stylecode['userrenotemute'].replaceAll('unko',name) + "\n";
             }
         }
-        //console.log(csscode);
     }
 
     /*Update CSS from arg*/
@@ -76,29 +75,25 @@ document.addEventListener('DOMContentLoaded', function () {
         if(!localStorage.getItem('saved')) return;
         for (let target of targets) {
             target.checked = (localStorage.getItem('button-' + target.dataset.name + '-' + target.dataset.kinds)== '1')? 1: 0;
-            //console.log(localStorage.getItem('button-' + target.dataset.name + '-' + target.dataset.kinds));
         }
         targets2[0].value = localStorage.getItem('list-muteuser');
         targets2[1].value = localStorage.getItem('list-muteuserrenote');
         targets2[2].value = localStorage.getItem('allow-other-server');
     }
 
-    //set scroll button event
-    let left = document.querySelector('.scrollleft');
-    let right = document.querySelector('.scrollright');
-    let scrolltarget = document.querySelector('.flex.left');
 
+    /*scroll button event*/
     left.addEventListener(`click`, () => {
         var targetpositon = scrolltarget.scrollLeft;
         scrolltarget.scrollTo({
-            left: /*Math.max(*/ targetpositon - scroolloffset /*, 0)*/,
+            left: targetpositon - scroolloffset,
             behavior: 'smooth'
           });
     })
     right.addEventListener(`click`, () => {
         var targetpositon = scrolltarget.scrollLeft;
         scrolltarget.scrollTo({
-            left: /*Math.min(*/ targetpositon + scroolloffset /*, scrolltarget.clientWidth)*/,
+            left: targetpositon + scroolloffset,
             behavior: 'smooth'
           });
     })
@@ -131,4 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     }
     LoadSetting();
+    setTimeout(function(){ 
+        document.querySelector(`head`).insertAdjacentHTML('beforeend', transitioncode)
+    },500);
 });

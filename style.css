@@ -34,6 +34,8 @@
     }
 }
 
+
+
 /*General Setting*/
 html{
     max-height: 370px !important;
@@ -62,6 +64,8 @@ h1{
     padding: 6px auto;
 }
 
+
+
 /*layout specify CSS*/
 .flex{
     display: flex;
@@ -89,6 +93,8 @@ h1{
     text-align: center;
     vertical-align: middle;
 }
+
+
 
 /*card and card title*/
 .tls{
@@ -173,6 +179,8 @@ input[type="text"]{
     border-radius: 5px;
 }
 
+
+
 /*description popup*/
 .popup{
     position: relative;
@@ -227,6 +235,7 @@ input[type="text"]{
 }
 
 
+
 /* about and my profile link*/
 .about-wrapper {
     padding: 10px 30px;
@@ -264,6 +273,8 @@ div.version{
    text-align: right;
 }
 
+
+
  /* icon CSS */
 .ti {
     display:table-cell;
@@ -294,6 +305,9 @@ div.version{
 .ti-left:before{content: '\ea60';}
 .ti-right:before{content: '\ea61';}
 .ti-info:before{content: '\eac5';}
+
+
+
 /*CheckBox CSS*/
 input[type="checkbox"] {
     display: none;
