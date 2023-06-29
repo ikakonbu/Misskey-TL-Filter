@@ -189,46 +189,47 @@ input[type="text"]{
     display: block;
     opacity: 0;
     position: absolute;
-    padding: 10px;
+    padding: 16px 16px;
     font-size: 13px;
     line-height: 1.6em;
-    color: var(--textcolor);
-    border-radius: 8px;
-    background: var(--cardcolor);
+    color: #fff;
+    border-radius: 13px;
+    background: rgba(0,0,0,0.8);
     box-shadow: 0px 4px 10px 0px var(--cardshadow);
     width: 0px;
     transition: 0.3s;
     z-index: 10000;
+    top: -20px;
+    left: 35px;
 }
 .description-popup:before {
     pointer-events: none;
     content: "";
     position: absolute;
-    top: -24px;
-    right: 93%;
+    top: 19px;
+    left: -7px;
     border: 10px solid transparent;
-    border-top: 14.3px solid var(--cardcolor);
+    border-top: 14.3px solid rgba(0,0,0,0.7);
     margin-left: -15px;
-    transform: rotateZ(180deg);
+    transform: rotateZ(90deg);
 }
 .popup:hover .description-popup{
     transition: 0.5s;
     opacity: 1;
-    top: 30px;
-    left: 0px;
     width: 400px;
 }
-
-
 .flex2 .tls{
-  margin: 10px 20px;
+  margin: 10px 30px;
+  padding: 15px 25px 4px;
 }
 .flex2 .buttonblock{
     justify-content: space-between;
 }
+
+
 /* about and my profile link*/
 .about-wrapper {
-    padding: 10px 20px;
+    padding: 10px 30px;
 }
 .about {
     z-index: -1;
@@ -258,6 +259,9 @@ a:hover div {
 }
 a div{
     margin: auto;
+}
+div.version{
+   text-align: right;
 }
 
  /* icon CSS */
