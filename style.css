@@ -210,6 +210,9 @@ input[type="text"]{
     top: -20px;
     left: 35px;
 }
+.description-popup img{
+    width: 390px;
+}
 .description-popup:before {
     pointer-events: none;
     content: "";

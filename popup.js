@@ -15,11 +15,15 @@ document.addEventListener('DOMContentLoaded', function () {
         quote:':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.xnihJ) { display: none;}',
         nsfw:':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.ti-alert-triangle) { display: none !important; }',
         cw: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.xd2wm) { display: none;}',
+        bot: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.xEKlD) { display: none;}',
+        samesever: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-whirl),header:has(.ti-whirl))~div .xcSej.x3762:not(:has(.xuevx)) { display: none; }',
+        reply: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.x48yH > .x9PYN) { display: none;}',
         channel: '.xcSej.x3762:has(.xww2J) { display: none;}',
         usermute: '.xcSej.x3762:has(a[href="/@unko"]){ display: none; }',
         userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
         rocket: '.xcSej.x3762:has(.xuevx){ display: none; }',
-        norocket: '.xcSej.x3762:not(:has(.xuevx)) { display: none; }'
+        norocket: '.xcSej.x3762:not(:has(.xuevx)) { display: none; }',
+        emojibetter: ':root {    --emoji_default_size: 30px;    --emoji_margin_lr: 6px;    --emoji_margin_tb: 2px;    --emoji_max_size: 80px;    --emoji_displey_style: fill;      --emoji_window_default_height: 400px;      --emoji_window_default_width: 400px;    --emoji_autofill_max_width:  300px;    --emoji_autofill_displey_style: fill;}.emojis {  padding:  10px 5px 5px;  text-align:center;}.emojis section>.body {  display: inline !important;  padding:  0 !important;  line-height: 0;}.emojis section>.body .item{  height: auto !important;}button:has(.emoji){  aspect-ratio: auto!important;  width: fit-content !important;  contain: layout !important;  margin: 0px !important;  padding: var(--emoji_margin_tb)  var(--emoji_margin_lr)  !important;  min-height:  var(--emoji_default_size) !important;}button:has(.emoji) img{  width: auto !important;  height: var(--emoji_default_size) !important;  object-fit: var(--emoji_displey_style) !important;  object-position: 0% 50%;  max-width: var(--emoji_max_size);} .xeJ4G.xuoKL, ._emoji_1pjrm_56 {  width: auto !important;  object-fit: var(--emoji_autofill_displey_style) !important;  object-position: 0% 50%;  max-width: var(--emoji_autofill_max_width);}'
     };
     const transitioncode = "<style> * { transition: background-color .5s; } </style>"
 
@@ -31,7 +35,11 @@ document.addEventListener('DOMContentLoaded', function () {
         //Judges which CSS to apply based on the unique attributes assigned to the HTML of the checkbox and generates code
         for (let target of targets) {
             if(target.checked){
-                csscode += stylecode[target.dataset.kinds].replaceAll('unko',"." + target.dataset.name).replaceAll('.no-add',"") + "\n";
+                if(target.dataset.name == 'ti-list'){
+                    csscode += stylecode[target.dataset.kinds].replaceAll('unko',"." + target.dataset.name).replaceAll('.no-add',"").replaceAll('.xj7PE .xjQuN',"") + "\n";
+                } else {
+                    csscode += stylecode[target.dataset.kinds].replaceAll('unko',"." + target.dataset.name).replaceAll('.no-add',"") + "\n";
+                }
             }
         }
         //User Mute input
