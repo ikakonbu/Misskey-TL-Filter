@@ -20,6 +20,11 @@
     "background": {
         "scripts": ["serviceworker.js"]
     },
+    "browser_specific_settings": {
+        "gecko": {
+          "id": "misskeytlfilter@ikakonbu.io"
+        }
+    },
     "action": {
         "default_title": "Misskey TL Filter",
         "default_popup": "popup.html",
