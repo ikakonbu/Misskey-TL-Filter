@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
         //Judges which CSS to apply based on the unique attributes assigned to the HTML of the checkbox and generates code
         for (let target of targets) {
             if(target.checked){
-                if(target.dataset.name == 'ti-list'){
+                if(target.dataset.name == 'x5oN2.xbw4c'){
                     csscode += stylecode[target.dataset.kinds].replaceAll('unko',"." + target.dataset.name).replaceAll('.no-add',"").replaceAll('.xj7PE .xjQuN',"") + "\n";
                 } else {
                     csscode += stylecode[target.dataset.kinds].replaceAll('unko',"." + target.dataset.name).replaceAll('.no-add',"") + "\n";
