@@ -224,6 +224,7 @@ input[type="text"]{
 }
 .description-popup {
     pointer-events: none;
+    overflow: hidden;
     white-space: nowrap;
     display: block;
     opacity: 0;
@@ -251,7 +252,7 @@ input[type="text"]{
     top: 19px;
     left: -7px;
     border: 10px solid transparent;
-    border-top: 14.3px solid rgba(0,0,0,0.7);
+    border-top: 14.3px solid rgba(0,0,0,0.8);
     margin-left: -15px;
     transform: rotateZ(90deg);
 }
