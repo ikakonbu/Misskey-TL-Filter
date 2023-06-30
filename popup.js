@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let target of targets) {
             if(target.checked){
                 if(target.dataset.name == 'x5oN2.xbw4c'){
-                    csscode += stylecode[target.dataset.kinds].replaceAll('unko',"." + target.dataset.name).replaceAll('.no-add',"").replaceAll('.xj7PE .xjQuN',"") + "\n";
+                    csscode += stylecode[target.dataset.kinds].replaceAll('header:has(unko)',".ti-list").replaceAll('unko',"." + target.dataset.name).replaceAll('.no-add',"").replaceAll('.xj7PE .xjQuN',"") + "\n";
                 } else {
                     csscode += stylecode[target.dataset.kinds].replaceAll('unko',"." + target.dataset.name).replaceAll('.no-add',"") + "\n";
                 }
