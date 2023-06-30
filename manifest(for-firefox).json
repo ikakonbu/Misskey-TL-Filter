@@ -1,6 +1,6 @@
 {
     "name": "Misskey TL Filter",
-    "version": "1.0",
+    "version": "1.1.1",
     "manifest_version": 3,
     "description": "Misskey.ioの各TLに対して、RN非表示などのフィルターを設定できます",
     "content_scripts": [
