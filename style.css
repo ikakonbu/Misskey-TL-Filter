@@ -65,6 +65,37 @@ h1{
 }
 
 
+/*warning popup (for firefox)*/
+.warning{
+    position: fixed;
+    z-index: 200;
+}
+.warning-back{
+    position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+    background-color: rgba(0,0,0,0.8);
+}
+.warning .tls{
+    margin: 0;
+    position: fixed;
+    width: 400px;
+    top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+    z-index: 300;
+}
+.warning b {
+    background-color: var(--textarea);
+}
+.warning li{
+    margin-left: 10px;
+}
+.warning:has(.tls){
+    display: none;
+}
 
 /*layout specify CSS*/
 .flex{

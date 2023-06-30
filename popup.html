@@ -10,6 +10,23 @@
 <body>
     <div class="wrapper">
     <h1>Misskey TL filter</h1>
+        <div class="warning">
+            <div class="warning-back"></div>
+            <div class="tls">
+                <div class="flex left-small middle">
+                    <div class="ti ti-info"></div>
+                    <h2>このままでは動きません</h2>
+                </div>
+                お使いのブラウザでは動作しません。<br>Firefoxの方は設定を変更することで利用できます。<br>
+                <br>
+                <li>アドレスバーに <b>about:config</b> を入力</li>
+                <li>警告が出るがOKを押して進む</li>
+                <li>設定の中から <b>layout.css.has-selector.enabled</b> を探す</li>
+                　(画面上の検索バーに入力すると出てきます)
+                <li>該当する設定をダブルクリックし、値を<b>"true"</b>にする</li>
+                <li>Firefoxを再起動</li>
+            </div>
+        </div>
         <div class="flex left">
             <div class="scrollbutton scrollleft"><i class="ti ti-left"></i></div>
 
