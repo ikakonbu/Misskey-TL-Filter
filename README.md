@@ -1,3 +1,5 @@
+english → https://github.com/ikakonbu/Misskey-TL-Filter/blob/main/README-en.md
+
 # Misskey-TL-Filter
 Misskeyで、フィルタリングを設定して特定の投稿を非表示にできるchrome拡張機能  
 
