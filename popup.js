@@ -16,10 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
         quote:':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.xnihJ) { display: none;}',
         nsfw:':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.ti-alert-triangle) { display: none !important; }',
         cw: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.xd2wm) { display: none;}',
+        media: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.xbIzI){ display: none;}',
         bot: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.xEKlD) { display: none;}',
         samesever: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-whirl),header:has(.ti-whirl))~div .xcSej.x3762:not(:has(.xuevx)) { display: none; }',
         reply: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN unko),header:has(unko))~div .xcSej.x3762:has(.x48yH > .x9PYN) { display: none;}',
         channel: '.xcSej.x3762:has(.xww2J) { display: none;}',
+        allmedia: '.xcSej.x3762:has(.xbIzI){ display: none;}',
         usermute: '.xcSej.x3762:has(a[href="/@unko"]){ display: none; }',
         userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
         rocket: '.xcSej.x3762:has(.xuevx){ display: none; }',
@@ -79,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('list-muteuserrenote' + domainname, targets2[1].value);
         localStorage.setItem('allow-other-server' + domainname, targets2[2].value);
         /*this setting use service worker. but this dont access localstorage. so save to chrome storage API*/
-        chrome.storage.local.set({setting1: targets2[2].value})
+        chrome.storage.local.set({setting1: targets2[2].value});
         localStorage.setItem('saved' + domainname , '1');
     }
 
@@ -95,7 +97,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         targets2[0].value = localStorage.getItem('list-muteuser' + domainname);
         targets2[1].value = localStorage.getItem('list-muteuserrenote' + domainname);
-        targets2[2].value = localStorage.getItem('allow-other-server' + domainname);
+        chrome.storage.local.get(["setting1"]).then((result) => {
+            targets2[2].value = result.setting1;
+        });
     }
 
 

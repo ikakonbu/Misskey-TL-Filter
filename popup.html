@@ -71,9 +71,9 @@
                     </label>
                     </div>
                     <div class="buttonblock">
-                        <div class="buttonlabel">返信を非表示</div>
+                        <div class="buttonlabel">メディア非表示</div>
                         <label class="checkbox">
-                            <input type="checkbox" class="filterbtn" data-name="ti-home" data-kinds="reply">
+                            <input type="checkbox" class="filterbtn" data-name="ti-home" data-kinds="media">
                             <div class="toggler-slider">
                                 <div class="toggler-knob"></div>
                             </div>
@@ -174,9 +174,9 @@
                     </label>
                     </div>
                     <div class="buttonblock">
-                        <div class="buttonlabel">返信を非表示</div>
+                        <div class="buttonlabel">メディア非表示</div>
                         <label class="checkbox">
-                            <input type="checkbox" class="filterbtn" data-name="x5oN2.xbw4c" data-kinds="reply">
+                            <input type="checkbox" class="filterbtn" data-name="x5oN2.xbw4c" data-kinds="media">
                             <div class="toggler-slider">
                                 <div class="toggler-knob"></div>
                             </div>
@@ -292,7 +292,7 @@
         <div class="flex2">
             <div class="tls">
                 <div class="flex-title">
-                    <div class="middle"><div class="ti ti-other"></div><h2>そのほか</h2></div>
+                    <div class="middle"><div class="ti ti-other"></div><h2>すべてのTLで適用される設定</h2></div>
                 </div>
                     <div class="buttonblock">
                         <div class="buttonlabel">チャンネルノートを非表示</div>
@@ -313,9 +313,18 @@
                         </label>
                     </div>
                     <div class="buttonblock">
-                        <div class="buttonlabel">misskey.io内のノートを非表示</div>
+                        <div class="buttonlabel">同一サーバー内のノートを非表示</div>
                             <label class="checkbox">
                                 <input type="checkbox" class="filterbtn" data-name="no-add" data-kinds="norocket">
+                                <div class="toggler-slider">
+                                    <div class="toggler-knob"></div>
+                                </div>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">画像、動画をすべて非表示</div>
+                            <label class="checkbox">
+                                <input type="checkbox" class="filterbtn" data-name="no-add" data-kinds="allmedia">
                                 <div class="toggler-slider">
                                     <div class="toggler-knob"></div>
                                 </div>
@@ -366,7 +375,7 @@
                         <div class="flex left-small">
                             <div class="popup">
                                 <p class="ti ti-info"></p>
-                                <div class="description-popup">他のサーバーでも動かせるようになります。<br>複数サーバある場合は、「,」で区切って入力してください<br>例: misskey.art,misskey.cf<br><br>Misskey.io以外での動作は保証していません。<br>動いたらラッキー程度に考えてください </div>
+                                <div class="description-popup">他のサーバーでも動かせるようになります。<br><br>下にある「標準設定で動くサーバー一覧」<br>にあるサーバーでは、そのまま動きます。<br><br>複数サーバある場合は、「,」で区切って入力してください<br>例: misskey.art,misskey.cf<br><br>Misskey.io以外での動作は保証していません。<br>動いたらラッキー程度に考えてください </div>
                             </div>
                             <div class="buttonlabel">他のサーバでも動かす</div>
                         </div>
@@ -389,6 +398,12 @@
                         <div class="ti-small ti-github"></div>
                         <div>Github(説明書)</div>
                     </a>
+                </div>
+                <div class="flex center">
+                <a href='serverlist.html' class="flex">
+                    <div class="ti-small ti-server"></div>
+                    <div>標準設定で動作するするサーバー一覧</div>
+                </a>
                 </div>
                 <p>こんな機能欲しい！とかここ直して欲しいとかはぜひ連絡ください<br>当ソフトウェアは個人が趣味で作っています。バグなどがあるかもしれないので、もし動かなければご報告ください</p>
                 <div class="version">ver1.1<p>

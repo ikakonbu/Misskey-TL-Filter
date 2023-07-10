@@ -1,6 +1,56 @@
 chrome.action.disable();
 chrome.action.setIcon({path:"icon_disable.png"});
 
+const serverlist = ['misskey.io',
+'misskey.design',
+'nijimiss.moe',
+'sushi.ski',
+'trpger.us',
+'oekakiskey.com',
+'novelskey.tarbin.net',
+'misskey.yukineko.me',
+'submarin.online',
+'misskey.art',
+'nekomiya.net',
+'ikaskey.bktsk.com',
+'misskey.gamelore.fun',
+'mattyaski.co',
+'misskey.ranranhome.info',
+'eostagram.com',
+'side.misskey.productions',
+'labo.wovs.tk',
+'buicha.social',
+'misskey.niri.la',
+'voskey.icalo.net',
+'misskey.04.si',
+'live-theater.net',
+'otoskey.tarbin.net',
+'rhythmisskey.games',
+'misskey.backspace.fm',
+'mk.shrimpia.network',
+'misskey.systems',
+'seikora.one',
+'mi.cbrx.io',
+'misskey.life',
+'yurisskey.yubarira.net',
+'drdr.club',
+'invillage-outvillage.com',
+'sk.204.jp',
+'45sukey.net',
+'misskey.kindworld.one',
+'misskey.sda1.net',
+'ojousama-tea.party',
+'mof.rorea.moe',
+'mk.yopo.work',
+'maniakey.com',
+'friendsyu.me',
+'warpday.net',
+'mi-wo.site',
+'kawaiivrc.site',
+'n-kaiwai.work',
+'fix.misskey.life',
+'msk.ilnk.info'];
+
 async function getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
@@ -10,8 +60,11 @@ async function getCurrentTab() {
 
 const currenttab = getCurrentTab();
 currenttab.then((result) => {
-    console.log(result.id)
-    chrome.tabs.get(result.id, (tab) => { CheckURL(tab);}); 
+    if(result.id){
+        chrome.tabs.get(result.id, (tab) => { 
+            CheckURL(tab);
+        }); 
+    }
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeinfo, tab) => {
@@ -32,9 +85,9 @@ chrome.tabs.onActivated.addListener((result) => {
   when url is misskey.io or user seted url*/
 function CheckURL(tab){
     let uri = new URL(tab.url);
-
     /*check default setting*/
-    if(uri.hostname.indexOf('misskey.io') != -1){
+    if(serverlist.indexOf(uri.hostname) != -1){
+        console.log('hit default serverlist');
         setpopupstate(tab.id, true);
         return;
     } else {

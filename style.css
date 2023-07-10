@@ -340,8 +340,8 @@ div.version{
 .ti-left:before{content: '\ea60';}
 .ti-right:before{content: '\ea61';}
 .ti-info:before{content: '\eac5';}
-
-
+.ti-back:before{content: '\ea19';}
+.ti-server:before{content: '\eb1f';}
 
 /*CheckBox CSS*/
 input[type="checkbox"] {
@@ -379,4 +379,32 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
     border-radius: 50%;
     left: 3px;  top: 3px;
     background-color: var(--toggle-knob);
+}
+
+/*server list page*/
+.backbtn{
+    margin: auto 20px;
+
+}
+
+.tls.serverlist{
+    width: 450px;
+    padding: 20px 20px;
+    animation: 1s ease-in-out 0s fade;
+    overflow-y: hidden;
+}
+.tls.serverlist li{
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+@keyframes fade{
+    0% {
+        height: 0px;
+        opacity: 0.4;
+    }
+    100% {
+        height: 1200px;
+        opacity: 1;
+    }
 }
