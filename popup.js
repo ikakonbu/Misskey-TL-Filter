@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let scrolltarget = document.querySelector('.flex.left');
     const scroolloffset = 450; 
     var csscode='';
+    let domainname = '';
 
     // css code templete
     const stylecode = {
@@ -64,29 +65,37 @@ document.addEventListener('DOMContentLoaded', function () {
         localStorage.setItem('lastcss',styles);
     }
 
+    /*Get page Domain*/
+    function GetDomain(){
+        return document.domain;
+    }
+
     /*save current setting in localstorage*/
     function SaveSetting(){
         for (let target of targets) {
-            localStorage.setItem('button-' + target.dataset.name + '-' + target.dataset.kinds, target.checked? 1 : 0);
+            localStorage.setItem('button-' + target.dataset.name + '-' + target.dataset.kinds + domainname, target.checked? 1 : 0);
         }
-        localStorage.setItem('list-muteuser', targets2[0].value);
-        localStorage.setItem('list-muteuserrenote', targets2[1].value);
-        localStorage.setItem('allow-other-server', targets2[2].value);
+        localStorage.setItem('list-muteuser' + domainname, targets2[0].value);
+        localStorage.setItem('list-muteuserrenote' + domainname, targets2[1].value);
+        localStorage.setItem('allow-other-server' + domainname, targets2[2].value);
         /*this setting use service worker. but this dont access localstorage. so save to chrome storage API*/
         chrome.storage.local.set({setting1: targets2[2].value})
-        localStorage.setItem('saved' , '1');
+        localStorage.setItem('saved' + domainname , '1');
     }
 
     /*load settings from localStorage*/
     function LoadSetting(){
         /*when first time, previous setup don't exist, so nothing*/
-        if(!localStorage.getItem('saved')) return;
-        for (let target of targets) {
-            target.checked = (localStorage.getItem('button-' + target.dataset.name + '-' + target.dataset.kinds)== '1')? 1: 0;
+        if(!localStorage.getItem('saved' + domainname)) {
+            alert("設定が見つからなかったから、初期値に戻したよ\n(バージョンアップに伴ってv1.1以前の設定は吹き飛びました。ごめんね)");
+            return;
         }
-        targets2[0].value = localStorage.getItem('list-muteuser');
-        targets2[1].value = localStorage.getItem('list-muteuserrenote');
-        targets2[2].value = localStorage.getItem('allow-other-server');
+        for (let target of targets) {
+            target.checked = (localStorage.getItem('button-' + target.dataset.name + '-' + target.dataset.kinds + domainname)== '1')? 1: 0;
+        }
+        targets2[0].value = localStorage.getItem('list-muteuser' + domainname);
+        targets2[1].value = localStorage.getItem('list-muteuserrenote' + domainname);
+        targets2[2].value = localStorage.getItem('allow-other-server' + domainname);
     }
 
 
@@ -105,6 +114,21 @@ document.addEventListener('DOMContentLoaded', function () {
             behavior: 'smooth'
           });
     })
+
+    /*Get the domain of tab which currently open 
+    & load setting for current domain*/
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        const tabquery = chrome.scripting.executeScript({
+            target: { tabId : tabs[0].id },
+            func: GetDomain,
+        });
+        tabquery.then((value) => {
+            console.log(value[0].result);
+            domainname = value[0].result; 
+            LoadSetting();
+        })
+        .catch(err => alert("設定の読み込みでエラーが発生しました、再読み込みしてみてね"));
+    });
 
     //Set　event listeners to rewrite　CSS when checkbox and textarea are changed
     for (let target of targets) {
@@ -133,7 +157,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         })
     }
-    LoadSetting();
     setTimeout(function(){ 
         document.querySelector(`head`).insertAdjacentHTML('beforeend', transitioncode)
     },500);
