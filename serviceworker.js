@@ -1,6 +1,19 @@
 chrome.action.disable();
 chrome.action.setIcon({path:"icon_disable.png"});
 
+async function getCurrentTab() {
+    let queryOptions = { active: true, lastFocusedWindow: true };
+    // `tab` will either be a `tabs.Tab` instance or `undefined`.
+    let [tab] = await chrome.tabs.query(queryOptions);
+    return tab;
+}
+
+const currenttab = getCurrentTab();
+currenttab.then((result) => {
+    console.log(result.id)
+    chrome.tabs.get(result.id, (tab) => { CheckURL(tab);}); 
+});
+
 chrome.tabs.onUpdated.addListener((tabId, changeinfo, tab) => {
     if(changeinfo.status == "complete"){
         CheckURL(tab);
