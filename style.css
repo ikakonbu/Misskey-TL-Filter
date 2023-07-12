@@ -358,6 +358,7 @@ div.version{
 .ti-back:before{content: '\ea19';}
 .ti-server:before{content: '\eb1f';}
 .ti-other:before{content: '\eb20';}
+.ti-badge:before{content: '\efc2';}
 
 /*CheckBox CSS*/
 input[type="checkbox"] {

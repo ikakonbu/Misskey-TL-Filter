@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if(target.checked){
                 if(target.dataset.name == 'x5oN2.xbw4c'){
                     csscode += stylecode[target.dataset.kinds].replaceAll('header:has(unko)',"header:has(.ti-list)").replaceAll('unko',"." + target.dataset.name).replaceAll('.no-add',"").replaceAll('.xj7PE .xjQuN',"") + "\n";
+                } else if(target.dataset.name == 'ti-badge'){
+                    csscode += stylecode[target.dataset.kinds].replaceAll('header:has(unko)',"header:has(.ti-badge)").replaceAll('unko',"." + target.dataset.name).replaceAll('.no-add',"").replaceAll('.xj7PE .xjQuN',"").replaceAll(':is(',":is(.xbt7a:has(.ti-badge),") + "\n";
                 } else {
                     csscode += stylecode[target.dataset.kinds].replaceAll('unko',"." + target.dataset.name).replaceAll('.no-add',"") + "\n";
                 }
