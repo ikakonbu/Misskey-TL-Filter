@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // element of checkbox ,text input and scroll button
     const targets = document.querySelectorAll(`input[type="checkbox"].filterbtn`);
     const targets2 = document.querySelectorAll(`input[type="text"]`);
+    const exportbtn = document.querySelector(`button[class="export"]`);
     let left = document.querySelector('.scrollleft');
     let right = document.querySelector('.scrollright');
     let scrolltarget = document.querySelector('.flex.left');
@@ -26,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function () {
         userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
         rocket: '.xcSej.x3762:has(.xuevx){ display: none; }',
         norocket: '.xcSej.x3762:not(:has(.xuevx)) { display: none; }',
+        userstatus: '.status a:nth-child(n+2)  b,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2), .xyEEg .x8w8X:nth-child(n+2) span{font-size: 0;}.status a:nth-child(n+2)  b:after,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2):after, .xyEEg .x8w8X:nth-child(n+2) span:after{ content: "???"; font-size: 14px;}',
         emojibetter: ':root {    --emoji_default_size: 30px;    --emoji_margin_lr: 6px;    --emoji_margin_tb: 2px;    --emoji_max_size: 80px;    --emoji_displey_style: fill;      --emoji_window_default_height: 400px;      --emoji_window_default_width: 400px;    --emoji_autofill_max_width:  300px;    --emoji_autofill_displey_style: fill;}.emojis {  padding:  10px 5px 5px;  text-align:center;}.emojis section>.body {  display: inline !important;  padding:  0 !important;  line-height: 0;}.emojis section>.body .item{  height: auto !important;}button:has(.emoji){  aspect-ratio: auto!important;  width: fit-content !important;  contain: layout !important;  margin: 0px !important;  padding: var(--emoji_margin_tb)  var(--emoji_margin_lr)  !important;  min-height:  var(--emoji_default_size) !important;}button:has(.emoji) img{  width: auto !important;  height: var(--emoji_default_size) !important;  object-fit: var(--emoji_displey_style) !important;  object-position: 0% 50%;  max-width: var(--emoji_max_size);} .xeJ4G.xuoKL, ._emoji_1pjrm_56 {  width: auto !important;  object-fit: var(--emoji_autofill_displey_style) !important;  object-position: 0% 50%;  max-width: var(--emoji_autofill_max_width);}'
     };
     const transitioncode = "<style> * { transition: background-color .5s; } </style>"
@@ -61,13 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    /*Update CSS from arg*/
+    /*Update CSS from arg (excute script)*/
     function UpdateCSS(styles){
         document.querySelector(`.filtercsswrapper`).innerHTML=styles;
         localStorage.setItem('lastcss',styles);
     }
 
-    /*Get page Domain*/
+    /*Get page Domain (excute script)*/
     function GetDomain(){
         return document.domain;
     }
@@ -89,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function LoadSetting(){
         /*when first time, previous setup don't exist, so nothing*/
         if(!localStorage.getItem('saved' + domainname)) {
-            alert("設定が見つからなかったから、初期値に戻したよ\n(バージョンアップに伴ってv1.1以前の設定は吹き飛びました。ごめんね)");
             return;
         }
         for (let target of targets) {
@@ -102,6 +103,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    /*export css code*/
+    function ExportCSS(){
+        CreateCSS();
+        const blob = new Blob(['/*今のMisskey-TL-FIlterの設定と同一のフィルタリングができるカスタムCSSです。\nこのコードをコピーして、フィルタを設定したいパソコン、スマホのmisskeyの設定→全般→カスタムCSS の中に貼り付けてください*/\n' + csscode],{type:"text/plain"});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'Export.css';
+        link.click();
+        link.remove();
+    }
 
     /*scroll button event*/
     left.addEventListener(`click`, () => {
@@ -161,6 +172,11 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         })
     }
+    /*set export button event*/
+    exportbtn.addEventListener('click', () => {
+        ExportCSS();
+    })
+
     setTimeout(function(){ 
         document.querySelector(`head`).insertAdjacentHTML('beforeend', transitioncode)
     },500);

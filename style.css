@@ -270,6 +270,21 @@ input[type="text"]{
 }
 
 
+/*CSS Export button*/
+.export{
+    margin: 6px 10px;
+    padding: 6px 30px;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--buttoncolor);
+}
+.export:hover{
+    color: #fff;
+    background-color: var(--accent);
+    transition: .3s;
+    box-shadow: 0px 0px 20px 0px rgba(87, 145, 0, 0.3);
+}
+
 
 /* about and my profile link*/
 .about-wrapper {
@@ -331,7 +346,7 @@ div.version{
 .ti-home:before{content: "\eac1";}
 .ti-planet:before{content: "\ec08";}
 .ti-list:before{content: "\eb6b";}
-.ti-other:before{content: "\ea03";}
+.ti-allstg:before{content: "\ea03";}
 .ti-more:before{content: '\ea5f';}
 .ti-github:before{content: '\ec1c';}
 .ti-prof:before{content: '\eb4d';}
@@ -342,6 +357,7 @@ div.version{
 .ti-info:before{content: '\eac5';}
 .ti-back:before{content: '\ea19';}
 .ti-server:before{content: '\eb1f';}
+.ti-other:before{content: '\eb20';}
 
 /*CheckBox CSS*/
 input[type="checkbox"] {
@@ -380,6 +396,8 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
     left: 3px;  top: 3px;
     background-color: var(--toggle-knob);
 }
+
+
 
 /*server list page*/
 .backbtn{

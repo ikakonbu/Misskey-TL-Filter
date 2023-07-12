@@ -292,7 +292,7 @@
         <div class="flex2">
             <div class="tls">
                 <div class="flex-title">
-                    <div class="middle"><div class="ti ti-other"></div><h2>すべてのTLで適用される設定</h2></div>
+                    <div class="middle"><div class="ti ti-allstg"></div><h2>すべてのTLで適用される設定</h2></div>
                 </div>
                     <div class="buttonblock">
                         <div class="buttonlabel">チャンネルノートを非表示</div>
@@ -331,23 +331,6 @@
                         </label>
                     </div>
                     <div class="buttonblock">
-                            <div class="flex left-small">
-                                <div class="popup">
-                                    <p class="ti ti-info"></p>
-                                    <div class="description-popup">投稿時、リアクション時の絵文字画面を変えます。<br>下の写真のように見やすくなります
-                                        <br><img src="emojibetter.png">
-                                    </div>
-                                </div>
-                                <div class="buttonlabel">横長絵文字を見やすくする</div>
-                            </div>
-                            <label class="checkbox">
-                                <input type="checkbox" class="filterbtn" data-name="no-add" data-kinds="emojibetter">
-                                <div class="toggler-slider">
-                                    <div class="toggler-knob"></div>
-                                </div>
-                        </label>
-                    </div>
-                    <div class="buttonblock">
                         <div class="flex left-small">
                             <div class="popup">
                                 <p class="ti ti-info"></p>
@@ -371,22 +354,67 @@
                                 <input type="text" data-name="userrenotemute">
                         </label>
                     </div>
-                    <div class="buttonblock">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">他のサーバーでも動かせるようになります。<br><br>下にある「標準設定で動くサーバー一覧」<br>にあるサーバーでは、そのまま動きます。<br><br>複数サーバある場合は、「,」で区切って入力してください<br>例: misskey.art,misskey.cf<br><br>Misskey.io以外での動作は保証していません。<br>動いたらラッキー程度に考えてください </div>
-                            </div>
-                            <div class="buttonlabel">他のサーバでも動かす</div>
-                        </div>
-                        <label>
-                                <input type="text" class="specsetting" data-name="no-add">
-                        </label>
-                    </div>
                     <div class="popup">
             </div>
         </div>
-
+        <div class="flex2">
+            <div class="tls">
+                <div class="flex-title">
+                    <div class="middle"><div class="ti ti-other"></div><h2>その他の設定</h2></div>
+                </div>
+                <div class="buttonblock">
+                    <div class="buttonlabel">フォロー、フォロワー数を隠す</div>
+                        <label class="checkbox">
+                            <input type="checkbox" class="filterbtn" data-name="no-add" data-kinds="userstatus">
+                            <div class="toggler-slider">
+                                <div class="toggler-knob"></div>
+                            </div>
+                    </label>
+                </div>
+                <div class="buttonblock">
+                    <div class="flex left-small">
+                        <div class="popup">
+                            <p class="ti ti-info"></p>
+                            <div class="description-popup">投稿時、リアクション時の絵文字画面を変えます。<br>下の写真のように見やすくなります
+                                <br><img src="emojibetter.png">
+                            </div>
+                        </div>
+                        <div class="buttonlabel">横長絵文字を見やすくする</div>
+                    </div>
+                    <label class="checkbox">
+                        <input type="checkbox" class="filterbtn" data-name="no-add" data-kinds="emojibetter">
+                        <div class="toggler-slider">
+                            <div class="toggler-knob"></div>
+                        </div>
+                </label>
+            </div>
+                <div class="buttonblock">
+                    <div class="flex left-small">
+                        <div class="popup">
+                            <p class="ti ti-info"></p>
+                            <div class="description-popup">他のサーバーでも動かせるようになります。<br><br>下にある「標準設定で動くサーバー一覧」<br>にあるサーバーでは、そのまま動きます。<br><br>複数サーバある場合は、「,」で区切って入力してください<br>例: misskey.art,misskey.cf<br><br>Misskey.io以外での動作は保証していません。<br>動いたらラッキー程度に考えてください </div>
+                        </div>
+                        <div class="buttonlabel">他のサーバでも動かす</div>
+                    </div>
+                    <label>
+                            <input type="text" class="specsetting" data-name="no-add">
+                    </label>
+                </div>
+                <div class="buttonblock">
+                    <div class="flex left-small">
+                        <div class="popup">
+                            <p class="ti ti-info"></p>
+                            <div class="description-popup">今の設定をCSSとして出力します。<br>出力されたコードをスマホでコピーして、設定→全般→カスタムCSS<br>に貼り付けることで、スマホでも同じフィルタリングをかけられます。</div>
+                        </div>
+                        <div class="buttonlabel">今の設定をCSSに</div>
+                    </div>
+                    <label>
+                            <button class="export">出力する</button>
+                    </label>
+                </div>
+                    <div class="popup">
+            </div>
+        </div>
         <div class="about-wrapper">
             <div class="about">
                 <div class="flex center">
