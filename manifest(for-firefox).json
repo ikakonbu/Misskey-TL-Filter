@@ -9,7 +9,7 @@
                 "<all_urls>"
             ],
             "js": [
-                "init.js"
+                "js/init.js"
             ]
         }
     ],
@@ -18,7 +18,7 @@
         "<all_urls>"
     ],
     "background": {
-        "scripts": ["serviceworker.js"]
+        "scripts": ["js/serviceworker.js"]
     },
     "browser_specific_settings": {
         "gecko": {
@@ -29,9 +29,9 @@
         "default_title": "Misskey TL Filter",
         "default_popup": "popup.html",
         "default_icon": {
-	        "16": "icon_16.png",
-	        "48": "icon_48.png",
-            "128": "icon_128.png"
+	        "16": "img/icon_16.png",
+	        "48": "img/icon_48.png",
+            "128": "img/icon_128.png"
         }
     }
 }
