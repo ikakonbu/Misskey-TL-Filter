@@ -1,4 +1,4 @@
-english → https://github.com/ikakonbu/Misskey-TL-Filter/blob/main/README-en.md
+english → https://github.com/ikakonbu/Misskey-TL-Filter/blob/main/README-en.md  
 まもなくV1.2がリリースされるため、1.2の情報を掲載しています。
 
 # Misskey-TL-Filter
