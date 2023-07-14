@@ -1,5 +1,5 @@
 chrome.action.disable();
-chrome.action.setIcon({path:"/img/icon_disable.png"});
+chrome.action.setIcon({path:"../img/icon_disable.png"});
 
 const serverlist = ['misskey.io',
 'misskey.design',
@@ -111,9 +111,9 @@ function CheckURL(tab){
 function setpopupstate(tabid, flag){
     if(flag){
         chrome.action.enable(tabid);
-        chrome.action.setIcon({path:"/img/icon_48.png"});
+        chrome.action.setIcon({path:"../img/icon_48.png"});
     } else {
         chrome.action.disable(tabid);
-        chrome.action.setIcon({path:"/img/icon_disable.png"});
+        chrome.action.setIcon({path:"../img/icon_disable.png"});
     }
 }
