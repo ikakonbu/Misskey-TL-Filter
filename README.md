@@ -85,7 +85,7 @@ zipをダウンロードして、各ブラウザの手動インストール方�
 
 　  
 
-<h2 id="forFirefox">Firefoxの方へ</h2>
+<h1 id="forFirefox">Firefoxの方へ</h2>
 firefoxでは、他のブラウザで対応している機能が標準でオフになっており、それが原因でうまく動作しません。  
 そのため、以下の手順を踏んで設定を変更する必要があります。
 * ` about:config `とURL欄に入力してenter
