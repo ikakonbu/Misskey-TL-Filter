@@ -1,11 +1,21 @@
-english → https://github.com/ikakonbu/Misskey-TL-Filter/blob/main/README-en.md
+english → https://github.com/ikakonbu/Misskey-TL-Filter/blob/main/README-en.md  
 
 # Misskey-TL-Filter
 Misskeyで、フィルタリングを設定して特定の投稿を非表示にできるchrome拡張機能  
-
 　  
 
    
+# もくじ
+* [対応環境](#対応環境)
+* [機能の説明](#機能の説明)
+* [導入方法](#導入方法)
+* [今後の開発予定](#今後の機能追加で検討しているもの)
+* [Firefoxの人へ](#forFirefox)
+* [io以外のサーバーの人へ](#他サーバーへの対応)
+* [デフォルトで利用可能なサーバー一覧](#動作可能なサーバー一覧)
+* [質問集など](#質問集)
+　  
+
 # 対応環境
 WindowsおよびMacのChrome,Miscrost EdgeなどのChromium系ブラウザ, Firefox  
 デフォルトUI および　デッキUI で動作を確認しています。  
@@ -15,7 +25,7 @@ WindowsおよびMacのChrome,Miscrost EdgeなどのChromium系ブラウザ, Fire
 
 　  
 
-# 機能説明
+# 機能の説明
 機能はシンプルで,https://Misskey.io(設定した場合は他のサーバーでも) を開くと拡張機能が有効になります。  
 開いている状態で拡張機能アイコンをクリックすると、各種フィルタの設定画面が開きます。
 
@@ -75,7 +85,7 @@ zipをダウンロードして、各ブラウザの手動インストール方�
 
 　  
 
-# Firefoxの方へ
+<h1 id="forFirefox">Firefoxの方へ</h2>
 firefoxでは、他のブラウザで対応している機能が標準でオフになっており、それが原因でうまく動作しません。  
 そのため、以下の手順を踏んで設定を変更する必要があります。
 * ` about:config `とURL欄に入力してenter
@@ -103,12 +113,8 @@ firefoxでは、他のブラウザで対応している機能が標準でオフ�
 
 　  
 
-# 機能追加のリクエストやバグ報告について
-もし何か機能追加やバグ報告について言いたいことがある場合は、私のmisskeyアカウントにDMしてくるか,githubにissue立てるなりしていただいて構いません  
-
-　  
-
 # 動作可能なサーバー一覧
+ここにあるサーバーでは、事前設定なしで拡張機能を利用できます。
 * 45sukey.net
 * buicha.social
 * drdr.club
@@ -159,7 +165,15 @@ firefoxでは、他のブラウザで対応している機能が標準でオフ�
 * warpday.net
 * yurisskey.yubarira.net
 
+
 　  
+
+# 質問集
+[こちらのページにまとめてあります](q&a.md)
+
+# 機能追加のリクエストやバグ報告について
+もし何か機能追加やバグ報告について言いたいことがある場合は、私のmisskeyアカウントにDMしてくるか,githubにissue立てるなりしていただいて構いません  
+
 
 # 再配布、改変など
 MITライセンスに従います。
