@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
         nsfw: '.xcSej.x3762:has(.ti-alert-triangle) { display: none !important; }',
         cw: '.xcSej.x3762:has(.xd2wm) { display: none;}',
         media: '.xcSej.x3762:has(.xbIzI){ display: none;}',
+        nomedia: '.xcSej.x3762:not(:has(.xbIzI)){ display: none;}',
         bot: '.xcSej.x3762:has(.xEKlD) { display: none;}',
         rerly: '.xcSej.x3762:has(.x48yH > .x9PYN) { display: none;}',
         sameserver: '.xcSej.x3762:not(:has(.xuevx)) { display: none; }',
