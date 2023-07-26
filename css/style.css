@@ -162,6 +162,9 @@ h2 {
     box-shadow: 0px 0px 20px 0px var(--btnshadow);
     transition: .5s;
 }
+.scrollbutton i{
+    font-style: normal;
+}
 .scrollbutton:hover{
     transition: .5s;
     transform: scaleY(1.1);
@@ -331,6 +334,14 @@ div.version{
 
 
  /* icon CSS */
+
+ @font-face {
+    font-family: "tabler-icons";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../tabler-icons.ttf");
+  }
+
 .ti {
     display:table-cell;
     vertical-align: middle;
@@ -354,7 +365,7 @@ div.version{
 .ti-allstg:before{content: "\ea03";}
 .ti-more:before{content: '\ea5f';}
 .ti-github:before{content: '\ec1c';}
-.ti-prof:before{content: '\eb4d';}
+.ti-user:before{content: '\eb4d';}
 .ti-rocket:before{content:"\ec45";}
 .ti-whirl:before{content: "\f51d"}
 .ti-left:before{content: '\ea60';}
