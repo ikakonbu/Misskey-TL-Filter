@@ -104,7 +104,7 @@ h1{
 .left{
     justify-content:left;
     overflow-x:scroll;
-    padding: 10px 40px 20px 40px;
+    padding: 10px 36px 20px 36px;
     scrollbar-width: none;
 }
 .left-small{
@@ -130,7 +130,7 @@ h1{
 /*card and card title*/
 .tls{
     margin: 0px 10px;
-    padding: 2px 15px 14px;
+    padding: 2px 18px 14px;
     text-align: left;
     background-color: var(--cardcolor);
     box-shadow: 0px 4px 10px 0px var(--cardshadow);
@@ -218,6 +218,7 @@ input[type="text"]{
     cursor: pointer;
     display: inline-block;
     margin: auto;
+    transform: translateX(8px);
 }
 .popup .ti{
     font-size: 22px;
@@ -261,8 +262,12 @@ input[type="text"]{
     opacity: 1;
     width: 400px;
 }
+.flex2 .tls:nth-child(1){
+    margin: 15px 30px;
+    padding: 15px 25px 4px;
+  }
 .flex2 .tls{
-  margin: 10px 30px;
+  margin: 30px 30px;
   padding: 15px 25px 4px;
 }
 .flex2 .buttonblock{
@@ -288,7 +293,7 @@ input[type="text"]{
 
 /* about and my profile link*/
 .about-wrapper {
-    padding: 10px 30px;
+    padding: 0px 30px 15px;
 }
 .about {
     z-index: -1;
@@ -358,6 +363,7 @@ div.version{
 .ti-back:before{content: '\ea19';}
 .ti-server:before{content: '\eb1f';}
 .ti-other:before{content: '\eb20';}
+.ti-badge:before{content: '\efc2';}
 
 /*CheckBox CSS*/
 input[type="checkbox"] {
