@@ -19,7 +19,7 @@
         "cw": "Hide CW",
         "media": "Hide media",
         "bot": "Hide bot",
-        "local": "Hide Local Note",
+        "sameserver": "Hide Local",
         "cmt": ".flex.leftのbuttonlabelで引っかかる"
     },
     "MoreSetting": [
