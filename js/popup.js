@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let titles = document.querySelectorAll("h2");
             let MainSettings = document.querySelectorAll(".flex.left .buttonblock");
             let MoreSettings = document.querySelectorAll(".flex2 .buttonlabel");
-            let Descriptions = document.querySelectorAll(".description-popip");
+            let Descriptions = document.querySelectorAll(".description-popup");
             let links = document.querySelectorAll("a div:nth-child(2)");
             let cssbtn = document.querySelector(".export");
             let lasttxt = document.querySelector(".about p");
@@ -186,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 counter=0;
                 for(let key of Descriptions){
-                    key.innerText = langdata.Description[counter].text;
+                    key.innerHTML = langdata.Description[counter].text;
                     counter += 1;
                 }
 
