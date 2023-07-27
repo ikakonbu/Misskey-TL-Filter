@@ -5,6 +5,21 @@ Browser Extension at misskey that allows you to apply specific hide filters to p
 
 　  
 
+# Support for other servers
+This extension is initially configured to work only on Misskey.io, but users can configure it to work on other sites as well.
+* Access https://Misskey.io once, with or without an account.
+* Click on the extension icon in this state to open the settings window.  
+>(If you are using Chrome, click on the puzzle piece icon in the upper right corner, and you will see a list of the extensions you currently have.
+  You can also click the pin icon on the right to have it always displayed at the top of your browser.)  
+! [image](https://github.com/ikakonbu/Misskey-TL-Filter/assets/82440954/4ad28793-a2bf-4b70-961f-754ee53042ba)
+* Scroll down the configuration page and enter the name of the server you want to run in the "Run on other servers" option at the bottom.
+>Example: ` misskey.art `  
+>If you have more than one server you want to run, enter ` misskey.design,nijimiss.moe,misskey.04.si `.
+
+By accessing your server in this state, the extension will be activated.  
+However, we do not guarantee that it will work with anything other than misskey.io. It may not work.  
+
+　  
    
 # Supported Browser and site
 Chrome(windows,macOS), Chromium Browser, Firefox  
@@ -22,25 +37,33 @@ Clicking on the extension icon with misskey.io open will open the various filter
 
 In the upper section, you can set the filtering to be applied to each Timeline.  
 
-* **RNを非表示 Hide RN** Hide a all renotes.
-* **引用を非表示 Hide Quotes** hides all quoted notes
-* **NSFW非表示 Hide NSFW** hides all notes with images or videos attached that have been set NSFW.
-* **CWを非表示 Hide CW** Hides all notes whose text is hidden in `Show Content`
-* **返信を非表示 Hide replies** Hide reply notes. (Can only be set in Home, List)
-* **botを非表示 Hide bot** hide posts from accounts that have been set as a bot (can only be set in Local, Social)
-* **ローカルを非表示 Hide local** hide posts from the your server (can be set in global only)
+* **Hide RN** Hide a all renotes.
+* **Hide Quotes** hides all quoted notes
+* **Hide NSFW** hides all notes with images or videos attached that have been set NSFW (sensitive media).
+* **Hide CW** Hides all notes whose text is hidden in `Show Content`
+* **Hide Media** Hide notes which include image, videos (Can be set in local,profile,list)
+* **Hide Bot** Hide bot's notes (local, social only)
+* **ローカルを非表示 Hide Local** hide posts from the your server (can be set in global only)
   
-The bottom section is an option that applies to all timeline
-* **チャンネルノートを非表示 Hide channel notes** Hides all notes set for channel notes.
-* **他のサーバーからのノートを非表示 Hide notes from other servers** hide all notes posted from servers other than misskey.io
-* **misskey.io内のノートを非表示 Hide notes from misskey.io**Hide only notes posted from servers other than misskey.io
-* **横長絵文字を見やすくする Make horizontal pictograms easier to see** Display unequal width pictograms as rectangles instead of squares in the pictogram selection screen to make it easier to type pictograms
-* **ユーザーミュート User Mute** Hides all notes from the user ID set in the right input field.
-* **ユーザーRenoteミュート User Renote Mute** Hides all renotes from the user ID set in the right input field
+The middle section is an option that applies to all timeline
+* **Hide notes from channel** Hides all notes set for channel notes.
+* **Hide notes with images,videos** Hides notes with images and videos attached
+* **Hide notes except those with images,videos** Hides all notes except those with images or videos attached.
+* **Hide notes posted from same server** hide all notes posted from same server.
+* **Hide notes posted from different server**Hide posts from servers other than the one you belong to
+* **Mute specific users"** Hides all notes from the user ID set in the right input field.
+* **Mute user's renote** Hides all renotes from the user ID set in the right input field
+  
+>Example: If you hide all note from 村上さん(@AureoleArk) and しゅいろ(@syuilo),  Please input ` AureoleArk,syuilo `
+>if you hide other server (@ikakonbu@nijimiss.moe), Please input ` ikakonbu@nijimiss.moe `
 
-  
->Example: If you hide all note from 村上さん(@AureoleArk) and しゅいろ(@syuilo),  Please input ` AureoleArk,syuilo `  
->if you hide other server (@ikakonbu@nijimiss.moe), Please input ` ikakonbu@nijimiss.moe `   
+The under section is other options.
+* **Hide the number: following and follower"** Hide the number of follows and followers
+* **Better design for emoji piccker** Change the layout of the reaction picker to display horizontal emojis more legibly.instead of squares in the emojis selection screen to make it easier to type emojis
+* **Use other servers** If you are running on a server that is not on the "server list" below, please enter the domain name of the server here.
+* **Export filtering setting as CSS**　Output the current settings as CSS code. If you are using misskey from a browser on another device, you can paste the output code into 'Settings → General → Custom CSS' to use the same filtering settings.  (This will not work with third-party client apps.)
+
+   
 
 　  
 
@@ -67,23 +90,7 @@ Therefore, you need to change the settings by following the steps below.
 * In the search bar of the screen that comes up, type `layout.css.has-selector.enabled` to bring up a setting with this name.
 * Double click on the setting that comes up and set the value to `**True**`.
 * Restart Firefox and go to misskey.io.
-(In some cases, you may need to reload the page a couple of times to get it to work properly.)
-
-　  
-
-# Support for other servers
-This extension is initially configured to work only on Misskey.io, but users can configure it to work on other sites as well.
-* Access https://Misskey.io once, with or without an account.
-* Click on the extension icon in this state to open the settings window.  
->(If you are using Chrome, click on the puzzle piece icon in the upper right corner, and you will see a list of the extensions you currently have.
-  You can also click the pin icon on the right to have it always displayed at the top of your browser.)  
-! [image](https://github.com/ikakonbu/Misskey-TL-Filter/assets/82440954/4ad28793-a2bf-4b70-961f-754ee53042ba)
-* Scroll down the configuration page and enter the name of the server you want to run in the "Run on other servers" option at the bottom.
->Example: ` misskey.art `  
->If you have more than one server you want to run, enter ` misskey.design,nijimiss.moe,misskey.04.si `.
-
-By accessing your server in this state, the extension will be activated.  
-However, we do not guarantee that it will work with anything other than misskey.io. It may not work.  
+(In some cases, you may need to reload the page a couple of times to get it to work properly.
 
 　  
 
