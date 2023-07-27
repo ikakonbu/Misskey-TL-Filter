@@ -1,0 +1,8 @@
+{
+    "Name":{
+        "message":"Misskey TL Filter"
+    },
+    "Description":{
+        "message":"Misskey.ioの各TLに対して、RN非表示などのフィルターを設定できます"
+    }
+}

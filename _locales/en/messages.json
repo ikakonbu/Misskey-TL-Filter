@@ -1,0 +1,8 @@
+{
+    "Name":{
+        "message":"Misskey TL Filter"
+    },
+    "Description":{
+        "message":"Various filters can be applied to posts on the Misskey timeline"
+    }
+}
