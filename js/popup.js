@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let scrollleft  = document.querySelector('.scrollleft');
     let scrollright = document.querySelector('.scrollright');
     let scrolltarget = document.querySelector('.flex.left');
+    let langage = document.querySelector('#langage');
 
     const scroolloffset = 462; 
     let willscroll = 0;
@@ -76,7 +77,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         //this setting use service worker. but this dont access localstorage. so save to chrome storage API
         chrome.storage.local.set({setting1: text_elements[2].value});
+        localStorage.setItem('langage', langage.value);
         localStorage.setItem('saved' + domainname , '1');
+        console.log(localStorage.getItem('langage'));
     }
 
     /*load settings*/
@@ -94,6 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
         chrome.storage.local.get(["setting1"]).then((result) => {
             text_elements[2].value = result.setting1;
         });
+        langage.selectedIndex = (localStorage.getItem('langage')=="japanese")? 0 : 1;
     }
 
     /*create css code file and download*/
@@ -140,6 +144,64 @@ document.addEventListener('DOMContentLoaded', function () {
        } else {
         willscroll = clamp(0, willscroll-scroolloffset , targetwidth);
        }
+    }
+
+    /*Change Display Langage*/
+    function ChangeLang(){
+        if(localStorage.getItem('langage')=="japanese"){
+            return;
+        } else {
+            let titles = document.querySelectorAll("h2");
+            let MainSettings = document.querySelectorAll(".flex.left .buttonblock");
+            let MoreSettings = document.querySelectorAll(".flex2 .buttonlabel");
+            let Descriptions = document.querySelectorAll(".description-popip");
+            let links = document.querySelectorAll("a div:nth-child(2)");
+            let cssbtn = document.querySelector(".export");
+            let lasttxt = document.querySelector(".about p");
+            let warning = document.querySelector(".warning .tls");
+            let counter = 0;
+            let langdata = "";
+
+            fetch("/lang/" + localStorage.getItem("langage") + ".json")
+            .then( response => response.json())
+		    .then( (data) => {
+                langdata = data;
+
+                counter=0;
+                for(let key of titles){
+                    key.innerText = langdata.title[counter].text;
+                    counter += 1;
+                }
+
+                for(let key of MainSettings){
+                    key.querySelector(".buttonlabel").innerText = langdata['MainSetting'][key.querySelector("input").dataset.kinds];
+                    counter += 1;
+                }
+
+                counter=0;
+                for(let key of MoreSettings){
+                    key.innerText = langdata.MoreSetting[counter].text;
+                    counter += 1;
+                }
+
+                counter=0;
+                for(let key of Descriptions){
+                    key.innerText = langdata.Description[counter].text;
+                    counter += 1;
+                }
+
+                counter=0;
+                for(let key of links){
+                    key.innerText = langdata.Link[counter].text;
+                    counter += 1;
+                }
+
+                cssbtn.innerText = langdata.other.exportbtn
+                lasttxt.innerText = langdata.other.lasttext
+                warning.innerHTML = langdata.other.warning
+            });
+            
+        }
     }
 
     /*scroll button event*/
@@ -202,8 +264,10 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         })
     }
-
-
+    langage.addEventListener(`change`, () => {
+        SaveSetting();
+        location.reload()
+    })
     
     /*set export button event*/
     exportbtn.addEventListener('click', () => {
@@ -214,4 +278,5 @@ document.addEventListener('DOMContentLoaded', function () {
     setTimeout(function(){ 
         document.querySelector(`head`).insertAdjacentHTML('beforeend', transitioncode)
     },500);
+    ChangeLang();
 });

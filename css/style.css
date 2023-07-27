@@ -126,6 +126,56 @@ h1{
 }
 
 
+/*langage selecter*/
+.lang-container{
+    position: relative;
+}
+.ti-lang {
+    color: #fff;
+}
+.flex.lang:has(.middle) .ti-lang{
+    color: var(--textcolor);
+}
+.lang{
+    color: var(--textcolor);
+    position: absolute;
+    top: 16px;
+    right: 14px;
+    z-index: 999;
+}
+.lang-select {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+.lang-select::after {
+    z-index: 1000;
+    position: absolute;
+    right: 4px;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    color: var(--textcolor);
+    font-family: "tabler-icons";
+    font-weight: 900;
+    content: '\eb1d';
+    pointer-events: none;
+}
+
+select {
+    appearance: none;
+    min-width: 80px;
+    height: 2.5em;
+    padding: .4em calc(.8em + 30px) .4em .8em;
+    margin: 6px 0;
+    padding: 0px 5px;
+    background-color: var(--cardcolor);
+    border: 1px solid rgba(160,160,160,0.4);
+    border-radius: 5px;
+    color: var(--textcolor);
+}
+
+
 
 /*card and card title*/
 .tls{
@@ -375,6 +425,7 @@ div.version{
 .ti-server:before{content: '\eb1f';}
 .ti-other:before{content: '\eb20';}
 .ti-badge:before{content: '\efc2';}
+.ti-lang:before{content: '\ef77';}
 
 /*CheckBox CSS*/
 input[type="checkbox"] {

@@ -1,0 +1,59 @@
+{
+    "title": [
+        {"text": "Please Read"},
+        {"text": "Home"},
+        {"text": "Local"},
+        {"text": "Lists"},
+        {"text": "Profile"},
+        {"text": "Social"},
+        {"text": "Global"},
+        {"text": "Roles"},
+        {"text": "Settings for All Timelines"},
+        {"text": "Other settings"},
+        {"cmt": "h2で引っかかる、基本innertextで書き換える"}
+    ],
+    "MainSetting": {
+        "rn": "Hide renote",
+        "quote": "Hide quote",
+        "nsfw": "Hide NSFW",
+        "cw": "Hide CW",
+        "media": "Hide media",
+        "bot": "Hide bot",
+        "local": "Hide Local Note",
+        "cmt": ".flex.leftのbuttonlabelで引っかかる"
+    },
+    "MoreSetting": [
+        {"text": "Hide notes from channel"},
+        {"text": "Hide notes with images,videos"},
+        {"text": "Hide notes except those with images,videos"},
+        {"text": "Hide notes posted from same server"},
+        {"text": "Hide notes posted from different servers"},
+        {"text": "Mute specific users"},
+        {"text": "Mute user's renote"},
+        {"text": "Hide the number: following and follower"},
+        {"text": "Better design for emoji piccker"},
+        {"text": "Use Other Server"},
+        {"text": "Export Filter Settings as CSS"},
+        {"cmt": "flex2配下のbuttonlabelに引っかかる"}
+    ],
+    "Description":[
+        {"text": "Hides all notes by the specified user.\nPlease enter userID.\n(separated by , if there are multiple users)\nExample:  ikakonbu, syuilo, abc123"},
+        {"text": "Hides renotes by the specified user.\nPlease enter userID.\n(separated by , if there are multiple users)\nExample:  ikakonbu, syuilo, abc123"},
+        {"text": "Change the display format of the emoji picker.\nMakes it easier to select horizontal emojis."},
+        {"text": "It will work on servers that do not exist in the [server list]\nat the bottom of this page.\n\nPlease enter the domain name of your server\n(If you want to use multiple servers, please separate them with `,` )\nHowever, it may not work on other servers than Misskey.io"},
+        {"text": "Output the current settings as CSS code.\nIf you are using misskey from a browser on another device,\nyou can paste the output code into\n'Settings → General → Custom CSS'\nto use the same filtering settings.\n\n(This will not work with third-party client apps.)"},
+        {"cmt": "description-popupに引っかかる"}
+    ],
+    "Link": [
+        {"text": "Developper Profile"},
+        {"text": "User Manual"},
+        {"text": "Server list (work default setting)"},
+        {"cmt": "a直下のdivの２番目"}
+    ],
+    "other": {
+        "exportbtn": "Export",
+        "lasttext": "I am the sole developer of this extension. Sorry if it doesn't work.😇",
+        "warning": "\n<div class=\"flex left-small middle\">\n<div class=\"ti ti-info\"></div>\n<h2>Please read</h2>\n</div>\nThis extension not work.<br>If you are using firefox, you can change your settings to use it.<br>\n<br>\n<li>Type <b> about:config </b> in address bar</li>\n<li>A warning message appears, ignore and continue.</li>\n<li>Find setting: <b> layout.css.has-selector.enabled </b></li>\n(Type in the textbox on the screen, it will come right up)\n<li>Double-click on the that and set the value to <b>true</b></li>\n<li>Restart Firefox</li>\n",
+        "cmt": "warningだけinnerHTMLで置き換えること"
+    }
+}
