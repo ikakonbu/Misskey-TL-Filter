@@ -242,6 +242,8 @@ h2 {
     vertical-align: middle;
 }
 .buttonlabel {
+    display: flex;
+    justify-content: flex-start;
     min-width: 100px;
     font-weight: 400;
     height:45px;
@@ -409,6 +411,13 @@ div.version{
     font-size: 30px;
     margin-right: 10px;
 }
+.ti-tiny {
+    display: inline;
+    font-weight: 600;
+    font-family: "tabler-icons" !important;
+    font-size: 20px;
+    margin-right: 0.5em;
+}
 .ti-home:before{content: "\eac1";}
 .ti-planet:before{content: "\ec08";}
 .ti-list:before{content: "\eb6b";}
@@ -493,4 +502,13 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
         height: 1200px;
         opacity: 1;
     }
+}
+
+
+/*selectbox*/
+.buttonblock select {
+    margin-right: 10px;
+    appearance: auto;
+    width: 210px;
+    text-align-last: left;
 }
