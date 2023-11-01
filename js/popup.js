@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     /*element of checkbox ,text input, button, scroll button, and scroll target*/
     const chcckbox_elements = document.querySelectorAll(`input[type="checkbox"].filterbtn`);
     const text_elements = document.querySelectorAll(`input[type="text"]`);
+    const select_elements =  document.querySelectorAll(`select:not(#langage)`);
     const exportbtn = document.querySelector(`button[class="export"]`);
     let scrollleft  = document.querySelector('.scrollleft');
     let scrollright = document.querySelector('.scrollright');
@@ -20,17 +21,18 @@ document.addEventListener('DOMContentLoaded', function () {
         local: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-planet),header:has(.ti-planet))~div ',
         social: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-rocket),header:has(.ti-rocket))~div ',
         global: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-whirl),header:has(.ti-whirl))~div ',
-        list: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.x5oN2.xbw4c),header:has(.ti-list))~div ',
+        list: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.x5oN2.xbw4c),div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-star),header:has(.ti-list))~div ',
         role: ':is(.xbt7a:has(.ti-badge), div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.ti-badge),header:has(.ti-badge))~div ',
         user: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xy0IK), .xbt7a:has(.ti-user))~div ',
         all: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:not(:has(.ti-bell)), header:not(:has(.ti-at)))~div '
     }
     /*CSSs which select specfic note and other CSS*/
     const hidecss = {
+        //for spscfic timeline
         rn: '.xcSej.x3762:has(.xBwhh) { display: none;}',
         quote: '.xcSej.x3762:has(.xnihJ) { display: none;}',
-        nsfw: '.xcSej.x3762:has(.ti-alert-triangle) { display: none !important; }',
-        cw: '.xcSej.x3762:has(.xd2wm) { display: none;}',
+        nsfw: '.xcSej.x3762:has(.ti-eye-exclamation) { display: none !important; }',
+        cw: '.xcSej.x3762:has(.xd2wm, .xossv) { display: none;}',
         media: '.xcSej.x3762:has(.xbIzI){ display: none;}',
         nomedia: '.xcSej.x3762:not(:has(.xbIzI)){ display: none;}',
         bot: '.xcSej.x3762:has(.xEKlD) { display: none;}',
@@ -38,6 +40,17 @@ document.addEventListener('DOMContentLoaded', function () {
         sameserver: '.xcSej.x3762:not(:has(.xuevx)) { display: none; }',
         remoteserver: '.xcSej.x3762:has(.xuevx){ display: none; }',
         channel: '.xcSej.x3762:has(.xww2J) { display: none;}',
+        
+        //for selectbox
+        channel_hide: '.xcSej.x3762:has(.xww2J) { display: none;}',
+        nsfw_hide: '.xcSej.x3762:has(.ti-eye-exclamatione) { display: none !important; }',
+        nsfw_only: '.xcSej.x3762:not(:has(.ti-eye-exclamation)) { display: none !important; }',
+        server_myonly: '.xcSej.x3762:has(.xuevx){ display: none; }',
+        server_otheronly: '.xcSej.x3762:not(:has(.xuevx)){ display: none; }',
+        media_only: '.xcSej.x3762:not(:has(.xbIzI)){ display: none;}',
+        media_hide: '.xcSej.x3762:has(.xbIzI){ display: none;}',
+        
+        //for all timeline
         usermute: '.xcSej.x3762:has(a[href="/@unko"]){ display: none; }',
         userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
         userstatus: '.status a:nth-child(n+2)  b,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2), .xyEEg .x8w8X:nth-child(n+2) span{font-size: 0;}.status a:nth-child(n+2)  b:after,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2):after, .xyEEg .x8w8X:nth-child(n+2) span:after{ content: "???"; font-size: 14px;}',
@@ -65,6 +78,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         }
+        //pulldowm select
+        for (let target of select_elements) {
+            if(target.value != "no"){
+                csscode += hidecss[target.value] + '\n';
+            }
+        }
     }
 
     /*save current settings*/
@@ -74,6 +93,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         for (let target of text_elements) {
             localStorage.setItem('list-' + target.dataset.kinds + domainname, target.value);
+        }
+        for (let target of select_elements) {
+            localStorage.setItem('select-' + target.id + domainname, target.selectedIndex);
         }
         //this setting use service worker. but this dont access localstorage. so save to chrome storage API
         chrome.storage.local.set({setting1: text_elements[2].value});
@@ -91,6 +113,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         for (let target of chcckbox_elements) {
             target.checked = (localStorage.getItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + domainname)== '1')? 1: 0;
+        }
+        for (let target of select_elements) {
+            if(localStorage.getItem('select-' + target.id + domainname) != null){
+                target.selectedIndex = localStorage.getItem('select-' + target.id + domainname);
+            }
         }
         text_elements[0].value = localStorage.getItem('list-' + text_elements[0].dataset.kinds + domainname);
         text_elements[1].value = localStorage.getItem('list-' + text_elements[1].dataset.kinds + domainname);
@@ -264,6 +291,19 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         })
     }
+    for (let target of select_elements) {
+        target.addEventListener(`change`, () => {
+            CreateCSS();
+            SaveSetting();
+            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+                chrome.scripting.executeScript({
+                    target : {tabId : tabs[0].id},
+                    func : UpdateCSS,
+                    args : [csscode]
+                });
+            });
+        })
+        }
     langage.addEventListener(`change`, () => {
         SaveSetting();
         location.reload()
