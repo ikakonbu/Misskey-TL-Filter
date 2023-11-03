@@ -32,6 +32,7 @@
         {"text": "Mute user's renote"},
         {"text": "Hide the number: following and follower"},
         {"text": "Better design for emoji piccker"},
+        {"text": "Bigger madia hide button"},
         {"text": "Use Other Server"},
         {"text": "Export Filter Settings as CSS"},
         {"cmt": "flex2配下のbuttonlabelに引っかかる"}
@@ -40,6 +41,7 @@
         {"text": "Hides all notes by the specified user.<br>Please enter userID.<br>(separated by , if there are multiple users)<br>Example:  ikakonbu, syuilo, abc123"},
         {"text": "Hides renotes by the specified user.<br>Please enter userID.<br>(separated by , if there are multiple users)<br>Example:  ikakonbu, syuilo, abc123"},
         {"text": "Change the display format of the emoji picker.<br>Makes it easier to select horizontal emojis.<br><img src=\"img/emojibetter.png\">"},
+        {"text": "Make the button to hide the image larger. <br>This makes it easier to press. <br><img src=\"img/imagehidebutton.png\">"},
         {"text": "It will work on servers that do not exist in the [server list]<br>at the bottom of this page.<br><br>Please enter the domain name of your server<br>(If multiple servers, please separate them with `,` )<br>However, it may not work on other servers than Misskey.io"},
         {"text": "Output the current settings as CSS code.<br>If you are using misskey from a browser on another device,<br>you can paste the output code into<br>'Settings → General → Custom CSS'<br>to use the same filtering settings.<br><br>(This will not work with third-party client apps.)"},
         {"cmt": "description-popupに引っかかる"}
