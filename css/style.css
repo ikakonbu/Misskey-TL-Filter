@@ -275,6 +275,7 @@ input[type="text"]{
     display: inline-block;
     margin: auto;
     transform: translateX(8px);
+    z-index: 100;
 }
 .popup .ti{
     font-size: 22px;
@@ -295,7 +296,6 @@ input[type="text"]{
     box-shadow: 0px 4px 10px 0px var(--cardshadow);
     width: 0px;
     transition: 0.3s;
-    z-index: 10000;
     top: -20px;
     left: 35px;
 }
