@@ -97,6 +97,7 @@ h1{
     display: none;
 }
 
+
 /*layout specify CSS*/
 .flex{
     display: flex;
@@ -391,7 +392,8 @@ div.version{
     font-family: "tabler-icons";
     font-style: normal;
     font-weight: 400;
-    src: url("../tabler-icons.ttf");
+    src: url("../tabler-icons-min.woff")format('woff');
+    font-display: swap;
   }
 
 .ti {
@@ -458,6 +460,7 @@ border-radius: 100px;
 top: 0; left: 0;
 width: 100%; height: 100%;
 transition: 300ms ease;
+z-index: 10;
 }
 .toggler-knob {
     position: absolute;
@@ -511,4 +514,64 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
     appearance: auto;
     width: 210px;
     text-align-last: left;
+}
+
+.hovertext {
+    text-align: left;
+    font-size: 0em;
+    transition: 0.2s;
+}
+
+.buttonblock .multiselect {
+    display: flex;
+    vertical-align: middle;
+}
+.buttonblock .multiselect  button{
+    background: var(--buttoncolor);
+    margin: auto;
+    border-radius: 4px;
+    border: none; /*solid 1px var(--btnshadow);*/
+    height: 2.5em;
+    margin-right: 10px;
+    width: 210px;
+    transition: ease-in 0.2s;
+}
+
+.buttonblock .multiselect  button:hover{
+    transform: scale(1.05);
+    transition: ease-in 0.2s;
+    box-shadow: 0 0 10px 0 var(--btnshadow);
+    height: 3em;
+}
+
+.buttonblock .multiselect  button:hover div:nth-child(1){
+    font-size: 0.9em;
+    transition: 0.2s;
+}
+
+.buttonblock .multiselect  button:hover .hovertext{
+    transition: font-size 0.3s;
+    font-size: 0.7em;
+}
+
+
+.buttonblock .multiselect  button:active{
+    transition: ease-out 0.1s;
+    transform: scale(0.96);
+    background: var(--accent);
+}
+
+.multiselect .multitext.change{
+    animation: 0.2s ease-out slidein;
+}
+
+@keyframes slidein {
+    0%{
+        transform: translateX(50px);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 0.5;
+    }
 }

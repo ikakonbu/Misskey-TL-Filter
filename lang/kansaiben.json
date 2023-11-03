@@ -1,0 +1,59 @@
+{
+    "title": [
+        {"text": "読んでや"},
+        {"text": "ホーム"},
+        {"text": "ローカル"},
+        {"text": "リスト"},
+        {"text": "プロフィール"},
+        {"text": "ソーシャル"},
+        {"text": "グローバル"},
+        {"text": "ロール"},
+        {"text": "全TLではたらく設定"},
+        {"text": "細かい愚痴はここで聞くで"},
+        {"cmt": "h2で引っかかる、基本innertextで書き換える"}
+    ],
+    "MainSetting": {
+        "rn": "リノートなし",
+        "quote": "引用なし",
+        "nsfw": "キワドいのなし",
+        "cw": "隠し事なし",
+        "media": "文字だけ",
+        "bot": "bot見たくない",
+        "sameserver": "ローカルを消す",
+        "cmt": ".flex.leftのbuttonlabelで引っかかる"
+    },
+    "MoreSetting": [
+        {"text": "<span class='ti-tiny'>&#xea8d</span>チャンネルのノート"},
+        {"text": "<span class='ti-tiny'>&#xea06</span>キワドい内容の投稿"},
+        {"text": "<span class='ti-tiny'>&#xeb1f</span>サーバーひいき"},
+        {"text": "<span class='ti-tiny'></span>画像とか動画とか</div>"},
+
+        {"text": "嫌いなユーザー"},
+        {"text": "RNがウザいユーザー"},
+        {"text": "フォローとかフォロワー数邪魔やから消してや"},
+        {"text": "横長の絵文字見やすくしてや"},
+        {"text": "別鯖でも使いたいんや"},
+        {"text": "今の設定CSSにまとめて出してくれへん？"},
+        {"cmt": "flex2配下のbuttonlabelに引っかかる"}
+    ],
+    "Description":[
+        {"text": "正味嫌な奴おるやろ？<br>ええ感じにそいつの投稿だけ消したるけん名前言ってや<br>ややこしいんやけどユーザーID(@から始まるやつ)で<br>教えてくれへん？.<br><br>(あと何人もいるときは , で区切ってもらってええか？)<br>書き方例:  ikakonbu, syuilo, abc123"},
+        {"text": "本人の発言は好きやけど、リノートがウザい奴おらへんか？<br>言うてくれたらリノートだけガーッと消して見やすくするわ<br>すまんけどこっちもユーザーIDで教えてや<br><br>(何人もいるときは , で区切って貰わんと動かんで)<br>書き方例:  ikakonbu, syuilo, abc123"},
+        {"text": "デカい絵文字は横にビーっと引き伸ばして<br>ごっつええ感じにするで<br>うちが言うより下の写真見てもうたほうがわかりやすいねんな<br><br><img src=\"img/emojibetter.png\">"},
+        {"text": "あんたの使っとるMisskeyサーバーが下の「ひいきしてるサーバー」<br>に乗ってへんかったらここにサーバー名書いてや。<br>うちも全部のMisskeyサーバーは覚えれへんさかい<br>書いてくれたらあんたのとこでも仕事したる<br>"},
+        {"text": "スマホで同じ設定で嫌なもん消してMisskeyしたいんか？<br>それやったら右のボタン押してや<br>今の設定をCSSっちゅうもんに書き直してパソコンに保存するけん<br>その中身を丸々スマホの設定にコピペしてや<br><br>（スマホのMisskeyの「設定」→「全般」→「カスタムCSS」<br>って場所にコピペするんやで！）"},
+        {"cmt": "description-popupに引っかかる"}
+    ],
+    "Link": [
+        {"text": "これ作った人"},
+        {"text": "Github(説明書)"},
+        {"text": "ひいきしてるサーバー"},
+        {"cmt": "a直下のdivの２番目"}
+    ],
+    "other": {
+        "exportbtn": "出す",
+        "lasttext": "このアプリは個人がちびちび作っとるさかい、あんたのパソコンでうまく動かんくても怒らんといて",
+        "warning": "\n<div class=\"flex left-small middle\">\n<div class=\"ti ti-info\"></div>\n<h2>読んでや</h2>\n</div>\n今調べたらあんたのパソコンでよう動かへんわ.<br>ブラウザがChromeとかEdgeやったらアップデートしてや<br>firefoxで見とるなら設定を変えたら動くけん下の文章見てほしいわ<br>\n<br>\n<li>URL入れるところに<b> about:config </b>って打ってみい</li>\n<li>なんか物騒な画面出るかもしれへんけどOKで進んでや</li>\n<li>その中から <b> layout.css.has-selector.enabled </b> っちゅうもん<br>を見つけてや</li>\n(ちまちま探すよりページの上の方にある検索使って探したほうが早いで)\n<li>見つけれたらその設定をダブルクリックして <b>true</b> にする </li>\n<li>Firefoxを再起動してここに戻ってくる</li>\n",
+        "cmt": "warningだけinnerHTMLで置き換えること"
+    }
+}

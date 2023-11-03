@@ -23,11 +23,11 @@
         "cmt": ".flex.leftのbuttonlabelで引っかかる"
     },
     "MoreSetting": [
-        {"text": "Hide notes from channel"},
-        {"text": "Hide notes with images,videos"},
-        {"text": "Hide notes except those with images,videos"},
-        {"text": "Hide notes posted from same server"},
-        {"text": "Hide notes posted from different servers"},
+        {"text": "<span class='ti-tiny'>&#xea8d</span>Channel Notes"},
+        {"text": "<span class='ti-tiny'>&#xea06</span>NSFW Media"},
+        {"text": "<span class='ti-tiny'>&#xeb1f</span>Source Server"},
+        {"text": "<span class='ti-tiny'></span>Media</div>"},
+        
         {"text": "Mute specific users"},
         {"text": "Mute user's renote"},
         {"text": "Hide the number: following and follower"},

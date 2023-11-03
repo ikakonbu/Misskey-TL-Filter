@@ -16,10 +16,12 @@
                 <select id="langage">
                     <option value="japanese">日本語</option>
                     <option value="english">English</option>
+                    <option value="kansaiben">関西弁</option>
                 </select>
             </div>
         </div>
     </div>
+
     <div class="wrapper">
     <h1>Misskey TL filter</h1>
         <div class="warning">
@@ -409,51 +411,6 @@
                 <div class="flex-title">
                     <div class="middle"><div class="ti ti-allstg"></div><h2>すべてのTLで適用される設定</h2></div>
                 </div>
-                <!-- <div class="buttonblock">
-                    <div class="buttonlabel">チャンネルノートを非表示</div>
-                    <label class="checkbox">
-                        <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="channel">
-                        <div class="toggler-slider">
-                            <div class="toggler-knob"></div>
-                        </div>
-                    </label>
-                </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">画像、動画をすべて非表示</div>
-                    <label class="checkbox">
-                        <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="media">
-                        <div class="toggler-slider">
-                            <div class="toggler-knob"></div>
-                        </div>
-                    </label>
-                </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">画像、動画だけを表示する</div>
-                    <label class="checkbox">
-                        <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="nomedia">
-                        <div class="toggler-slider">
-                            <div class="toggler-knob"></div>
-                        </div>
-                    </label>
-                </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">自分のサーバーからのノートを非表示</div>
-                    <label class="checkbox">
-                        <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="sameserver">
-                        <div class="toggler-slider">
-                            <div class="toggler-knob"></div>
-                        </div>
-                    </label>
-                </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">よそのサーバーからのノートを非表示</div>
-                    <label class="checkbox">
-                        <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="remoteserver">
-                        <div class="toggler-slider">
-                            <div class="toggler-knob"></div>
-                        </div>
-                    </label>
-                </div> -->
                 <div class="buttonblock">
                     <div class="buttonlabel"><span class="ti-tiny">&#xea8d</span>チャンネルからの投稿</div>
                     <label class="select">
@@ -493,6 +450,26 @@
                           </select>
                     </label>
                 </div>
+
+                <!-- <div class="buttonblock">
+                    <div class="buttonlabel"><span class="ti-tiny">&#xeb72</span>リノート</div>
+                    <label class="multiselect">
+                        <button data-index=0 data-kinds="renote"><div class="multitext">なにもしない</div><div class="hovertext">クリックで変更</div></button>
+                    </label>
+                </div>
+                <div class="buttonblock">
+                    <div class="buttonlabel"><span class="ti-tiny">&#xeb72</span>リノート</div>
+                    <label class="multiselect">
+                        <button data-index=0 data-kinds="renote"><div class="multitext">なにもしない</div><div class="hovertext">クリックで変更</div></button>
+                    </label>
+                </div>
+                <div class="buttonblock">
+                    <div class="buttonlabel"><span class="ti-tiny">&#xeb72</span>リノート</div>
+                    <label class="multiselect">
+                        <button data-index=0 data-kinds="renote"><div class="multitext">なにもしない</div><div class="hovertext">クリックで変更</div></button>
+                    </label>
+                </div> -->
+
                 <div class="buttonblock">
                     <div class="flex left-small">
                         <div class="popup">
@@ -537,7 +514,7 @@
                         <div class="popup">
                             <p class="ti ti-info"></p>
                             <div class="description-popup">投稿時、リアクション時の絵文字画面を変えます。<br>下の写真のように見やすくなります
-                                <br><img src="img/emojibetter.png">
+                                <br><img src="img/emojibetter.png" decoding="async">
                             </div>
                         </div>
                         <div class="buttonlabel">横長絵文字を見やすくする</div>
@@ -596,7 +573,7 @@
                     </a>
                 </div>
                 <p>当ソフトウェアは個人が趣味で作っています。動かないとき、新しい機能が欲しい時は連絡ください</p>
-                <div class="version">ver1.3<p></div>
+                <div class="version">ver1.4-beta<p></div>
             </div>
         </div>
     </div>

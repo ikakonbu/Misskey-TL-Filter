@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const chcckbox_elements = document.querySelectorAll(`input[type="checkbox"].filterbtn`);
     const text_elements = document.querySelectorAll(`input[type="text"]`);
     const select_elements =  document.querySelectorAll(`select:not(#langage)`);
+    const multibtn_elements = document.querySelectorAll(`.multiselect button`);
     const exportbtn = document.querySelector(`button[class="export"]`);
     let scrollleft  = document.querySelector('.scrollleft');
     let scrollright = document.querySelector('.scrollright');
@@ -14,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let willscroll = 0;
     var csscode='';
     let domainname = '';
+
+    /*multiselect buttons*/
+    let multibtn_renoteindex = ["なにもしない", "リノートを非表示", "リノート「だけ」を表示"]
 
     /*CSSs which select specfic timeline*/
     const tlselector = {
@@ -124,7 +128,15 @@ document.addEventListener('DOMContentLoaded', function () {
         chrome.storage.local.get(["setting1"]).then((result) => {
             text_elements[2].value = result.setting1;
         });
-        langage.selectedIndex = (localStorage.getItem('langage')=="japanese")? 0 : 1;
+
+        let langsetting = localStorage.getItem('langage');
+        if(langsetting == "japanese"){
+            langage.selectedIndex = 0;
+        } else if(langsetting == "english"){
+            langage.selectedIndex = 1;
+        } else {
+            langage.selectedIndex = 2;
+        }
     }
 
     /*create css code file and download*/
@@ -207,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 counter=0;
                 for(let key of MoreSettings){
-                    key.innerText = langdata.MoreSetting[counter].text;
+                    key.innerHTML = langdata.MoreSetting[counter].text;
                     counter += 1;
                 }
 
@@ -303,7 +315,18 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
             });
         })
-        }
+    }
+    for(let target of multibtn_elements){
+        target.addEventListener(`click`, () => {
+            target.querySelector('.multitext').classList.add("change");
+            console.log('ボタンが押されました')
+            let nextindex = (target.dataset.index +1 )% 3;
+            target.querySelector('.multitext').innerText = multibtn_renoteindex[nextindex];
+            target.dataset.index = nextindex;
+            window.setTimeout(function(){target.querySelector('.multitext').classList.remove("change")},200);
+        })
+    }
+
     langage.addEventListener(`change`, () => {
         SaveSetting();
         location.reload()
@@ -314,9 +337,9 @@ document.addEventListener('DOMContentLoaded', function () {
         ExportCSS();
     })
 
-    const transitioncode = "<style> * { transition: background-color .5s; } </style>"
+    /*const transitioncode = "<style> * { transition: background-color .5s; } </style>"
     setTimeout(function(){ 
         document.querySelector(`head`).insertAdjacentHTML('beforeend', transitioncode)
-    },500);
+    },500);*/
     ChangeLang();
 });
