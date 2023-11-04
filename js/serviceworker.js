@@ -84,7 +84,13 @@ chrome.tabs.onActivated.addListener((result) => {
 /*check url and enable tabid's tab popup 
   when url is misskey.io or user seted url*/
 function CheckURL(tab){
-    let uri = new URL(tab.url);
+    let uri = null;
+    try {
+        uri = new URL(tab.url);
+    } catch (e) {
+        console.log('url get error: URL check process was aborted');
+        return;
+    }
     /*check default setting*/
     if(serverlist.indexOf(uri.hostname) != -1){
         console.log('hit default serverlist');
