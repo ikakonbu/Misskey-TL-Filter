@@ -262,6 +262,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
+    /*チェックボックスの周辺をクリックされてもチェックボックスをクリックしたことにする*/
+    const checkboxs = document.querySelectorAll('.buttonblock:has(input[type="checkbox"])');
+    for(let checkbox of checkboxs){
+        checkbox.addEventListener("click", function(event){
+            var x = event.clientX;
+            var y = event.clientY;
+            var element = document.elementFromPoint(x, y);
+            if(element.className != "toggler-slider" && element.className != "toggler-knob"){
+                this.querySelector('input[type="checkbox"]').click();
+            }
+        })
+    }
+
     /*Get the domain of tab which currently open 
     & load setting for current domain*/
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {

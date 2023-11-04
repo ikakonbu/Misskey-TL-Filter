@@ -13,12 +13,16 @@
     --btnshadow: rgba(0,0,0,0.4);
     --hovershadow:  rgba(0,120,0,0.5);
     --buttoncolor: rgb(240,238,232);
+    --checkboxhover: rgba(159, 142, 89, 0.1);
+
     --descriptioncolor: rgba(0,0,0,0.6);
+    --modalbackground: rgba(0,0,0,0.8);
+    --buttonhovershadow: rgba(87, 145, 0, 0.3);
+    --white: white;
 }
 /*dark mode*/
 @media (prefers-color-scheme: dark) {
     :root{
-        /*light mode*/
         --background: rgb(42 40 42);
         --cardcolor: rgb(60 60 60);
         --accent: rgb(134 173 113);
@@ -31,10 +35,18 @@
         --btnshadow: rgba(0,0,0,0.6);
         --hovershadow:  rgba(100,255,100,0.5);
         --buttoncolor: rgb(96 96 96);
+        --checkboxhover: rgba(210, 193, 145, 0.1);
     }
 }
 
 
+@font-face {
+    font-family: "tabler-icons";
+    font-style: normal;
+    font-weight: 400;
+    src: url("../tabler-icons-min.woff")format('woff');
+    font-display: swap;
+}
 
 /*General Setting*/
 html{
@@ -44,7 +56,7 @@ html{
 body {
     max-width: 550px;
     max-height: 420px !important;
-    overflow-y:auto;
+    overflow-y: auto;
     background-color: var(--background);
     font-family: Hiragino Maru Gothic Pro,Roboto,HelveticaNeue,Arial,sans-serif;
     margin: 0px auto;
@@ -74,15 +86,13 @@ h1{
     position: fixed;
 	width: 100%;
 	height: 100%;
-	top: 0;
-	left: 0;
-    background-color: rgba(0,0,0,0.8);
+    top: 0;
+    background-color: var(--modalbackground);
 }
 .warning .tls{
-    margin: 0;
     position: fixed;
     width: 400px;
-    top: 50%;
+    top: 55%;
 	left: 50%;
 	transform: translate(-50%,-50%);
     z-index: 300;
@@ -93,9 +103,9 @@ h1{
 .warning li{
     margin-left: 10px;
 }
-.warning:has(.tls){
+ .warning:has(.tls){
     display: none;
-}
+} 
 
 
 /*layout specify CSS*/
@@ -105,13 +115,11 @@ h1{
 .left{
     justify-content:left;
     overflow-x:scroll;
-    padding: 10px 36px 20px 36px;
+    padding: 10px 36px 20px;
     scrollbar-width: none;
 }
 .left-small{
     justify-content:left;
-    
-    padding: 0;
 }
 .left::-webkit-scrollbar{
     display:none;
@@ -126,19 +134,15 @@ h1{
     vertical-align: middle;
 }
 
-
 /*langage selecter*/
 .lang-container{
+    color: var(--textcolor);
     position: relative;
 }
-.ti-lang {
-    color: #fff;
-}
-.flex.lang:has(.middle) .ti-lang{
-    color: var(--textcolor);
+.ti-lang{
+    text-shadow: 0px 0px 2px var(--background);
 }
 .lang{
-    color: var(--textcolor);
     position: absolute;
     top: 16px;
     right: 14px;
@@ -239,12 +243,25 @@ h2 {
 }
 /*check button label*/
 .buttonblock{
+    border-radius: 4px;
     display: flex;
     vertical-align: middle;
+}
+.buttonblock:has(input[type="checkbox"]):hover{
+    transition: 0.1s;
+    background: var(--checkboxhover);
+}
+.buttonblock:has(input[type="checkbox"]):active{
+    transition: 0.1s;
+    transform: scale(0.95);
+}
+.buttonblock:has(input[type="checkbox"]) .buttonlabel{
+    cursor: pointer;
 }
 .buttonlabel {
     display: flex;
     justify-content: flex-start;
+    user-select: none;
     min-width: 100px;
     font-weight: 400;
     height:45px;
@@ -290,9 +307,9 @@ input[type="text"]{
     padding: 16px 16px;
     font-size: 13px;
     line-height: 1.6em;
-    color: #fff;
+    color: var(--white);
     border-radius: 13px;
-    background: rgba(0,0,0,0.8);
+    background: var(--modalbackground);
     box-shadow: 0px 4px 10px 0px var(--cardshadow);
     width: 0px;
     transition: 0.3s;
@@ -301,17 +318,6 @@ input[type="text"]{
 }
 .description-popup img{
     width: 390px;
-}
-.description-popup:before {
-    pointer-events: none;
-    content: "";
-    position: absolute;
-    top: 19px;
-    left: -7px;
-    border: 10px solid transparent;
-    border-top: 14.3px solid rgba(0,0,0,0.8);
-    margin-left: -15px;
-    transform: rotateZ(90deg);
 }
 .popup:hover .description-popup{
     transition: 0.5s;
@@ -340,10 +346,10 @@ input[type="text"]{
     background-color: var(--buttoncolor);
 }
 .export:hover{
-    color: #fff;
+    color: var(--white);
     background-color: var(--accent);
     transition: .3s;
-    box-shadow: 0px 0px 20px 0px rgba(87, 145, 0, 0.3);
+    box-shadow: 0px 0px 20px 0px var(--buttonhovershadow);
 }
 
 
@@ -371,11 +377,11 @@ a {
 a:hover{
     background-color: var(--accent);
     transition: .3s;
-    box-shadow: 0px 0px 20px 0px rgba(87, 145, 0, 0.3);
+    box-shadow: 0px 0px 20px 0px var(--buttonhovershadow);
 }
 a:hover div {
     transition: .5s;
-    color: #fff;
+    color: var(--white);
 }
 a div{
     margin: auto;
@@ -387,16 +393,7 @@ div.version{
 
 
  /* icon CSS */
-
- @font-face {
-    font-family: "tabler-icons";
-    font-style: normal;
-    font-weight: 400;
-    src: url("../tabler-icons-min.woff")format('woff');
-    font-display: swap;
-  }
-
-.ti {
+ .ti {
     display:table-cell;
     vertical-align: middle;
     font-family: "tabler-icons" !important;
@@ -438,12 +435,14 @@ div.version{
 .ti-badge:before{content: '\efc2';}
 .ti-lang:before{content: '\ef77';}
 
+
+
 /*CheckBox CSS*/
 input[type="checkbox"] {
     display: none;
 }
 .checkbox {
-margin: 10px 10px;
+margin: 10px;
 display: block;
 width: 45px;
 height: 25px;
@@ -482,9 +481,7 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
 /*server list page*/
 .backbtn{
     margin: auto 20px;
-
 }
-
 .tls.serverlist{
     width: 450px;
     padding: 20px 20px;
@@ -496,6 +493,60 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
     line-height: 1.4;
 }
 
+
+/*selectbox*/
+.buttonblock select {
+    margin-right: 10px;
+    appearance: auto;
+    width: 210px;
+    text-align-last: left;
+}
+
+/*multi select button*/
+.hovertext {
+    text-align: left;
+    font-size: 0em;
+    transition: 0.2s;
+}
+.buttonblock .multiselect {
+    display: flex;
+    vertical-align: middle;
+}
+.buttonblock .multiselect  button{
+    background: var(--buttoncolor);
+    margin: auto;
+    border-radius: 4px;
+    border: none;
+    height: 2.5em;
+    margin-right: 10px;
+    width: 210px;
+    transition: ease-in 0.2s;
+}
+.buttonblock .multiselect  button:hover{
+    transform: scale(1.05);
+    transition: ease-in 0.2s;
+    box-shadow: 0 0 10px 0 var(--btnshadow);
+    height: 3em;
+}
+.buttonblock .multiselect  button:hover div:nth-child(1){
+    font-size: 0.9em;
+    transition: 0.2s;
+}
+.buttonblock .multiselect  button:hover .hovertext{
+    transition: font-size 0.3s;
+    font-size: 0.7em;
+}
+.buttonblock .multiselect  button:active{
+    transition: ease-out 0.1s;
+    transform: scale(0.96);
+    background: var(--accent);
+}
+.multiselect .multitext.change{
+    animation: 0.2s ease-out slidein;
+}
+
+
+/*animations*/
 @keyframes fade{
     0% {
         height: 0px;
@@ -506,65 +557,6 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
         opacity: 1;
     }
 }
-
-
-/*selectbox*/
-.buttonblock select {
-    margin-right: 10px;
-    appearance: auto;
-    width: 210px;
-    text-align-last: left;
-}
-
-.hovertext {
-    text-align: left;
-    font-size: 0em;
-    transition: 0.2s;
-}
-
-.buttonblock .multiselect {
-    display: flex;
-    vertical-align: middle;
-}
-.buttonblock .multiselect  button{
-    background: var(--buttoncolor);
-    margin: auto;
-    border-radius: 4px;
-    border: none; /*solid 1px var(--btnshadow);*/
-    height: 2.5em;
-    margin-right: 10px;
-    width: 210px;
-    transition: ease-in 0.2s;
-}
-
-.buttonblock .multiselect  button:hover{
-    transform: scale(1.05);
-    transition: ease-in 0.2s;
-    box-shadow: 0 0 10px 0 var(--btnshadow);
-    height: 3em;
-}
-
-.buttonblock .multiselect  button:hover div:nth-child(1){
-    font-size: 0.9em;
-    transition: 0.2s;
-}
-
-.buttonblock .multiselect  button:hover .hovertext{
-    transition: font-size 0.3s;
-    font-size: 0.7em;
-}
-
-
-.buttonblock .multiselect  button:active{
-    transition: ease-out 0.1s;
-    transform: scale(0.96);
-    background: var(--accent);
-}
-
-.multiselect .multitext.change{
-    animation: 0.2s ease-out slidein;
-}
-
 @keyframes slidein {
     0%{
         transform: translateX(50px);
