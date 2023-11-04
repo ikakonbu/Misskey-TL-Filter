@@ -15,6 +15,11 @@
         }
     ],
     "permissions": ["scripting","storage","tabs"],
+    "icons": {
+        "16": "./img/icon_16.png",
+	    "48": "./img/icon_48.png",
+        "128": "./img/icon_128.png"
+    },
     "host_permissions": [
         "<all_urls>"
     ],
