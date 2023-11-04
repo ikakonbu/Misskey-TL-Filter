@@ -411,8 +411,8 @@
                 <div class="flex-title">
                     <div class="middle"><div class="ti ti-allstg"></div><h2>すべてのTLで適用される設定</h2></div>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel"><span class="ti-tiny">&#xea8d</span>チャンネルからの投稿</div>
+                <!-- <div class="buttonblock">
+                    <div class="buttonlabel">チャンネルからの投稿</div>
                     <label class="select">
                         <select name="pets" id="allchannel">
                             <option value="no">なにもしない</option>
@@ -421,7 +421,7 @@
                     </label>
                 </div>
                 <div class="buttonblock">
-                    <div class="buttonlabel"><span class="ti-tiny">&#xea06</span>NSFW</div>
+                    <div class="buttonlabel">NSFW</div>
                     <label class="select">
                         <select name="pets" id="allnsfw">
                             <option value="no">なにもしない</option>
@@ -431,7 +431,7 @@
                     </label>
                 </div>
                 <div class="buttonblock">
-                    <div class="buttonlabel"><span class="ti-tiny">&#xeb1f</span>サーバーフィルタ</div>
+                    <div class="buttonlabel">サーバーフィルタ</div>
                     <label class="select">
                         <select name="pets" id="allserver">
                             <option value="no">なにもしない</option>
@@ -441,7 +441,7 @@
                     </label>
                 </div>
                 <div class="buttonblock">
-                    <div class="buttonlabel"><span class="ti-tiny">&#xeb0a</span>メディア</div>
+                    <div class="buttonlabel">メディア</div>
                     <label class="select">
                         <select name="pets" id="allmedia">
                             <option value="no">なにもしない</option>
@@ -449,26 +449,60 @@
                             <option value="media_hide">メディアノート非表示</option>
                           </select>
                     </label>
-                </div>
-
-                <!-- <div class="buttonblock">
-                    <div class="buttonlabel"><span class="ti-tiny">&#xeb72</span>リノート</div>
-                    <label class="multiselect">
-                        <button data-index=0 data-kinds="renote"><div class="multitext">なにもしない</div><div class="hovertext">クリックで変更</div></button>
-                    </label>
-                </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel"><span class="ti-tiny">&#xeb72</span>リノート</div>
-                    <label class="multiselect">
-                        <button data-index=0 data-kinds="renote"><div class="multitext">なにもしない</div><div class="hovertext">クリックで変更</div></button>
-                    </label>
-                </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel"><span class="ti-tiny">&#xeb72</span>リノート</div>
-                    <label class="multiselect">
-                        <button data-index=0 data-kinds="renote"><div class="multitext">なにもしない</div><div class="hovertext">クリックで変更</div></button>
-                    </label>
                 </div> -->
+
+                <div style="margin: 10px 0;">
+                    <div class="buttonblock">
+                        <div class="buttonlabel">チャンネルからの投稿</div>
+                        <label class="multiselect">
+                            <button data-index=0 data-multiindex=0 >
+                                <span class="ti-tiny multiselect-ti">&#xee40</span>
+                                <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
+                               
+                            </button>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">リノート</div>
+                        <label class="multiselect">
+                            <button data-index=0 data-multiindex=1 >
+                                <span class="ti-tiny multiselect-ti">&#xee40</span>
+                                <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
+                                
+                            </button>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">NSFW</div>
+                        <label class="multiselect">
+                            <button data-index=0 data-multiindex=2 >
+                                <span class="ti-tiny multiselect-ti">&#xee40</span>
+                                <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
+                                
+                            </button>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">サーバーフィルタ</div>
+                        <label class="multiselect">
+                            <button data-index=0 data-multiindex=3 >
+                                <span class="ti-tiny multiselect-ti">&#xee40</span>
+                                <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
+                                
+                            </button>
+                        </label>
+                    </div>
+                    <div class="buttonblock">
+                        <div class="buttonlabel">メディア</div>
+                        <label class="multiselect">
+                            <button data-index=0 data-multiindex=4 >
+                                <span class="ti-tiny multiselect-ti">&#xee40</span>
+                                <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
+                                
+                            </button>
+                        </label>
+                    </div>
+                </div>
 
                 <div class="buttonblock">
                     <div class="flex left-small">

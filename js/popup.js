@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
     /*element of checkbox ,text input, button, scroll button, and scroll target*/
     const chcckbox_elements = document.querySelectorAll(`input[type="checkbox"].filterbtn`);
     const text_elements = document.querySelectorAll(`input[type="text"]`);
-    const select_elements =  document.querySelectorAll(`select:not(#langage)`);
     const multibtn_elements = document.querySelectorAll(`.multiselect button`);
     const exportbtn = document.querySelector(`button[class="export"]`);
     let scrollleft  = document.querySelector('.scrollleft');
@@ -17,7 +16,10 @@ document.addEventListener('DOMContentLoaded', function () {
     let domainname = '';
 
     /*multiselect buttons*/
-    let multibtn_renoteindex = ["なにもしない", "リノートを非表示", "リノート「だけ」を表示"]
+    let multibtn_renoteindex = ["なにもしない", "リノートを非表示", "リノート「だけ」を表示"];
+    let multibtn_texts = [["フィルターなし","チャンネル非表示"],["フィルターなし","リノート非表示","リノート「だけ」表示する"], ["フィルターなし","NSFW非表示","NSFW「だけ」表示する"],["フィルターなし","自分のサーバーの投稿だけ","他のサーバーの投稿だけ"],["フィルターなし","メディア非表示","メディア「だけ」表示する"]];
+    const multibtn_index = [["no","channel_hide"],["no","renote_hide","renote_only"], ["no","nsfw_hide","nsfw_only"],["no","server_myonly","server_otheronly"],["no","media_hide","media_only"]];
+    const multibtn_icons = [["&#xee40","&#xf064"],["&#xee40","&#xf18e","&#xeb72"], ["&#xee40","&#xfc69","&#xea06"],["&#xee40","&#xf1ca","&#xeb54"],["&#xee40","&#xecf6","&#xeb0a"]];
 
     /*CSSs which select specfic timeline*/
     const tlselector = {
@@ -46,8 +48,11 @@ document.addEventListener('DOMContentLoaded', function () {
         channel: '.xcSej.x3762:has(.xww2J) { display: none;}',
         
         //for selectbox
+        no: '{}',
+        renote_hide: '.xcSej.x3762:has(.xBwhh) { display: none;}',
+        renote_only: '.xcSej.x3762:not(:has(.xBwhh)) { display: none;}',
         channel_hide: '.xcSej.x3762:has(.xww2J) { display: none;}',
-        nsfw_hide: '.xcSej.x3762:has(.ti-eye-exclamatione) { display: none !important; }',
+        nsfw_hide: '.xcSej.x3762:has(.ti-eye-exclamation) { display: none !important; }',
         nsfw_only: '.xcSej.x3762:not(:has(.ti-eye-exclamation)) { display: none !important; }',
         server_myonly: '.xcSej.x3762:has(.xuevx){ display: none; }',
         server_otheronly: '.xcSej.x3762:not(:has(.xuevx)){ display: none; }',
@@ -83,10 +88,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         }
-        //pulldowm select
-        for (let target of select_elements) {
-            if(target.value != "no"){
-                csscode += hidecss[target.value] + '\n';
+        for (let target of multibtn_elements) {
+            if(Number(target.dataset.index) != 0){
+                csscode += hidecss[multibtn_index[Number(target.dataset.multiindex)][Number(target.dataset.index)]] + '\n';
             }
         }
     }
@@ -99,8 +103,8 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let target of text_elements) {
             localStorage.setItem('list-' + target.dataset.kinds + domainname, target.value);
         }
-        for (let target of select_elements) {
-            localStorage.setItem('select-' + target.id + domainname, target.selectedIndex);
+        for (let target of multibtn_elements) {
+            localStorage.setItem('multiselect-' + target.dataset.multiindex + domainname, target.dataset.index);
         }
         //this setting use service worker. but this dont access localstorage. so save to chrome storage API
         chrome.storage.local.set({setting1: text_elements[2].value});
@@ -119,9 +123,12 @@ document.addEventListener('DOMContentLoaded', function () {
         for (let target of chcckbox_elements) {
             target.checked = (localStorage.getItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + domainname)== '1')? 1: 0;
         }
-        for (let target of select_elements) {
-            if(localStorage.getItem('select-' + target.id + domainname) != null){
-                target.selectedIndex = localStorage.getItem('select-' + target.id + domainname);
+        for (let target of multibtn_elements) {
+            if(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname) != null){
+                let nextindex = Number(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname));
+                target.dataset.index = nextindex;
+                target.querySelector('.multitext').innerText = multibtn_texts[target.dataset.multiindex][nextindex];
+                target.querySelector('.multiselect-ti').innerHTML = multibtn_icons[target.dataset.multiindex][nextindex];
             }
         }
         text_elements[0].value = localStorage.getItem('list-' + text_elements[0].dataset.kinds + domainname);
@@ -135,8 +142,10 @@ document.addEventListener('DOMContentLoaded', function () {
             langage.selectedIndex = 0;
         } else if(langsetting == "english"){
             langage.selectedIndex = 1;
-        } else {
+        } else if(langsetting == "kansaiben"){
             langage.selectedIndex = 2;
+        } else {
+            langage.selectedIndex = 0;
         }
     }
 
@@ -317,8 +326,14 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         })
     }
-    for (let target of select_elements) {
-        target.addEventListener(`change`, () => {
+    for(let target of multibtn_elements){
+        target.addEventListener(`click`, () => {
+            target.querySelector('.multitext').classList.add("change");
+            let nextindex = (Number(target.dataset.index) + 1 ) % multibtn_texts[target.dataset.multiindex].length;
+            target.querySelector('.multitext').innerText = multibtn_texts[target.dataset.multiindex][nextindex];
+            target.dataset.index = nextindex;
+            target.querySelector('.multiselect-ti').innerHTML = multibtn_icons[target.dataset.multiindex][nextindex];
+            window.setTimeout(function(){target.querySelector('.multitext').classList.remove("change")},200);
             CreateCSS();
             SaveSetting();
             chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
@@ -328,17 +343,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     args : [csscode]
                 });
             });
-        })
-    }
-    for(let target of multibtn_elements){
-        target.addEventListener(`click`, () => {
-            target.querySelector('.multitext').classList.add("change");
-            console.log('ボタンが押されました')
-            let nextindex = (target.dataset.index +1 )% 3;
-            target.querySelector('.multitext').innerText = multibtn_renoteindex[nextindex];
-            target.dataset.index = nextindex;
-            window.setTimeout(function(){target.querySelector('.multitext').classList.remove("change")},200);
-        })
+        });
     }
 
     langage.addEventListener(`change`, () => {

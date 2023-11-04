@@ -1,5 +1,5 @@
 /*color variable*/
-:root{
+:root{ 
     /*light mode*/
     --background: rgb(248,248,245);
     --cardcolor: rgba(255,255,255,1);
@@ -493,20 +493,14 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
     line-height: 1.4;
 }
 
-
-/*selectbox*/
-.buttonblock select {
-    margin-right: 10px;
-    appearance: auto;
-    width: 210px;
-    text-align-last: left;
-}
-
 /*multi select button*/
 .hovertext {
     text-align: left;
     font-size: 0em;
     transition: 0.2s;
+}
+.buttonblock:has(.multiselect){
+    height: 3.8em;
 }
 .buttonblock .multiselect {
     display: flex;
@@ -514,27 +508,36 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
 }
 .buttonblock .multiselect  button{
     background: var(--buttoncolor);
+    display: flex;
+    justify-content: start;
+    gap: 0.1em;
+    align-items: center;
     margin: auto;
+    text-align: left;
     border-radius: 4px;
     border: none;
-    height: 2.5em;
+    height: 2.8em;
     margin-right: 10px;
-    width: 210px;
+    width: 220px;
     transition: ease-in 0.2s;
+}
+.buttonblock .multiselect  button:not([data-index="0"]){
+    border: solid 3px var(--accent);
 }
 .buttonblock .multiselect  button:hover{
-    transform: scale(1.05);
-    transition: ease-in 0.2s;
+    transform: scale(1.12);
+    transition:  0.15s;
     box-shadow: 0 0 10px 0 var(--btnshadow);
-    height: 3em;
+    height: 3.2em;
 }
-.buttonblock .multiselect  button:hover div:nth-child(1){
+.buttonblock .multiselect  button:hover div>div:nth-child(1){
     font-size: 0.9em;
-    transition: 0.2s;
+    transition: ease-out 0.15s;
 }
 .buttonblock .multiselect  button:hover .hovertext{
     transition: font-size 0.3s;
     font-size: 0.7em;
+    opacity: 0.6;
 }
 .buttonblock .multiselect  button:active{
     transition: ease-out 0.1s;
@@ -543,6 +546,10 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
 }
 .multiselect .multitext.change{
     animation: 0.2s ease-out slidein;
+}
+.multiselect-ti {
+    font-weight: 400 !important;
+    padding-left: 0.1em;
 }
 
 
@@ -559,11 +566,11 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
 }
 @keyframes slidein {
     0%{
-        transform: translateX(50px);
+        transform: translateX(10px);
         opacity: 0.5;
     }
     100% {
         transform: translateX(0px);
-        opacity: 0.5;
+        opacity: 1;
     }
 }

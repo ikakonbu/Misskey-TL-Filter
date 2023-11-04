@@ -23,6 +23,7 @@
         "cmt": ".flex.leftのbuttonlabelで引っかかる"
     },
     "MoreSetting": [
+        {"text": "<span class='ti-tiny'>&#xeb72</span>Renote"},
         {"text": "<span class='ti-tiny'>&#xea8d</span>Channel Notes"},
         {"text": "<span class='ti-tiny'>&#xea06</span>NSFW Media"},
         {"text": "<span class='ti-tiny'>&#xeb1f</span>Source Server"},
