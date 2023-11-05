@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let domainname = '';
 
     /*multiselect buttons*/
-    let multibtn_renoteindex = ["なにもしない", "リノートを非表示", "リノート「だけ」を表示"];
     let multibtn_texts = [["フィルターなし","チャンネル非表示"],["フィルターなし","リノート非表示","リノート「だけ」表示する"], ["フィルターなし","NSFW非表示","NSFW「だけ」表示する"],["フィルターなし","自分のサーバーの投稿だけ","他のサーバーの投稿だけ"],["フィルターなし","メディア非表示","メディア「だけ」表示する"]];
     const multibtn_index = [["no","channel_hide"],["no","renote_hide","renote_only"], ["no","nsfw_hide","nsfw_only"],["no","server_myonly","server_otheronly"],["no","media_hide","media_only"]];
     const multibtn_icons = [["&#xee40","&#xf064"],["&#xee40","&#xf18e","&#xeb72"], ["&#xee40","&#xfc69","&#xea06"],["&#xee40","&#xf1ca","&#xeb54"],["&#xee40","&#xecf6","&#xeb0a"]];
@@ -110,6 +109,13 @@ document.addEventListener('DOMContentLoaded', function () {
         chrome.storage.local.set({setting1: text_elements[2].value});
         localStorage.setItem('langage', langage.value);
         localStorage.setItem('saved' + domainname , '1');
+        if(langage.value != "japanese"){
+            fetch("/lang/" + localStorage.getItem("langage") + ".json")
+            .then( response => response.json())
+            .then( (data) => {
+                localStorage.setItem("multibtntexts", JSON.stringify(data.MultiselectOptions));
+            })
+        }
         console.log(localStorage.getItem('langage'));
     }
 
@@ -120,6 +126,20 @@ document.addEventListener('DOMContentLoaded', function () {
             SaveSetting();
             return;
         }
+        let langsetting = localStorage.getItem('langage');
+        if(langsetting != "japanese"){
+            multibtn_texts = JSON.parse(localStorage.getItem("multibtntexts")); 
+        }
+        if(langsetting == "japanese"){
+            langage.selectedIndex = 0;
+        } else if(langsetting == "english"){
+            langage.selectedIndex = 1;
+        } else if(langsetting == "kansaiben"){
+            langage.selectedIndex = 2;
+        } else {
+            langage.selectedIndex = 0;
+        }
+        
         for (let target of chcckbox_elements) {
             target.checked = (localStorage.getItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + domainname)== '1')? 1: 0;
         }
@@ -136,17 +156,6 @@ document.addEventListener('DOMContentLoaded', function () {
         chrome.storage.local.get(["setting1"]).then((result) => {
             text_elements[2].value = result.setting1;
         });
-
-        let langsetting = localStorage.getItem('langage');
-        if(langsetting == "japanese"){
-            langage.selectedIndex = 0;
-        } else if(langsetting == "english"){
-            langage.selectedIndex = 1;
-        } else if(langsetting == "kansaiben"){
-            langage.selectedIndex = 2;
-        } else {
-            langage.selectedIndex = 0;
-        }
     }
 
     /*create css code file and download*/
@@ -208,6 +217,7 @@ document.addEventListener('DOMContentLoaded', function () {
             let cssbtn = document.querySelector(".export");
             let lasttxt = document.querySelector(".about p");
             let warning = document.querySelector(".warning .tls");
+            let multiselext_hovertexts = document.querySelectorAll(".hovertext");
             let counter = 0;
             let langdata = "";
 
@@ -245,9 +255,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     counter += 1;
                 }
 
-                cssbtn.innerText = langdata.other.exportbtn
-                lasttxt.innerText = langdata.other.lasttext
-                warning.innerHTML = langdata.other.warning
+                for(let key of multiselext_hovertexts){
+                    key.innerText = langdata.other.multiselecthover;
+                }
+
+                cssbtn.innerText = langdata.other.exportbtn;
+                lasttxt.innerText = langdata.other.lasttext;
+                warning.innerHTML = langdata.other.warning;
+                multibtn_texts = langdata.MultiselectOptions;
             });
             
         }

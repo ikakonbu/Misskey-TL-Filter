@@ -22,6 +22,7 @@
         "sameserver": "ローカルを消す",
         "cmt": ".flex.leftのbuttonlabelで引っかかる"
     },
+    "MultiselectOptions": [["フィルターせんとく","チャンネル消して"],["フィルターせんとく","リノート消して","リノート「だけ」見して"], ["フィルターせんとく","キワドいの消して","キワドいの「だけ」見して"],["フィルターせんとく","自分の鯖をひいき","よその鯖をひいき"],["フィルターせんとく","メディア消して","メディア「だけ」見して"]],
     "MoreSetting": [
         {"text": "<span class='ti-tiny'>&#xeb72</span>リノート"},
         {"text": "<span class='ti-tiny'>&#xea8d</span>チャンネルのノート"},
@@ -57,6 +58,7 @@
         "exportbtn": "出す",
         "lasttext": "このアプリは個人がちびちび作っとるさかい、あんたのパソコンでうまく動かんくても怒らんといて",
         "warning": "\n<div class=\"flex left-small middle\">\n<div class=\"ti ti-info\"></div>\n<h2>読んでや</h2>\n</div>\n今調べたらあんたのパソコンでよう動かへんわ.<br>ブラウザがChromeとかEdgeやったらアップデートしてや<br>firefoxで見とるなら設定を変えたら動くけん下の文章見てほしいわ<br>\n<br>\n<li>URL入れるところに<b> about:config </b>って打ってみい</li>\n<li>なんか物騒な画面出るかもしれへんけどOKで進んでや</li>\n<li>その中から <b> layout.css.has-selector.enabled </b> っちゅうもん<br>を見つけてや</li>\n(ちまちま探すよりページの上の方にある検索使って探したほうが早いで)\n<li>見つけれたらその設定をダブルクリックして <b>true</b> にする </li>\n<li>Firefoxを再起動してここに戻ってくる</li>\n",
+        "multiselecthover": "クリックして変更",
         "cmt": "warningだけinnerHTMLで置き換えること"
     }
 }

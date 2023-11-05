@@ -38,6 +38,7 @@
         {"text": "Export Filter Settings as CSS"},
         {"cmt": "flex2配下のbuttonlabelに引っかかる"}
     ],
+    "MultiselectOptions": [["Not Setting","Hide Channnel note"],["Not Setting","Hide Renote","Show Renote \"only\""], ["Not Setting","Hide NSFW Media","Show NSFW \"only\""],["Not Setting","Show same server \"only\"","Show different server \"only\""],["Not Setting","Hide Media","Show Media \"only\""]],
     "Description":[
         {"text": "Hides all notes by the specified user.<br>Please enter userID.<br>(separated by , if there are multiple users)<br>Example:  ikakonbu, syuilo, abc123"},
         {"text": "Hides renotes by the specified user.<br>Please enter userID.<br>(separated by , if there are multiple users)<br>Example:  ikakonbu, syuilo, abc123"},
@@ -57,6 +58,7 @@
         "exportbtn": "Export",
         "lasttext": "I am the sole developer of this extension. Sorry if it doesn't work.😇",
         "warning": "\n<div class=\"flex left-small middle\">\n<div class=\"ti ti-info\"></div>\n<h2>Please read</h2>\n</div>\nThis extension not work.<br>If you are using firefox, you can change your settings to use it.<br>\n<br>\n<li>Type <b> about:config </b> in address bar</li>\n<li>A warning message appears, ignore and continue.</li>\n<li>Find setting: <b> layout.css.has-selector.enabled </b></li>\n(Type in the textbox on the screen, it will come right up)\n<li>Double-click on the that and set the value to <b>true</b></li>\n<li>Restart Firefox</li>\n",
+        "multiselecthover": "Change to click",
         "cmt": "warningだけinnerHTMLで置き換えること"
     }
 }
