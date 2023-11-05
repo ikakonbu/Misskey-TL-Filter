@@ -49,14 +49,12 @@
 }
 
 /*General Setting*/
-html{
-    max-height: 420px !important;
+html,body{
+    max-height: 440px !important;
     overflow-y: scroll;
 }
 body {
     max-width: 550px;
-    max-height: 420px !important;
-    overflow-y: auto;
     background-color: var(--background);
     font-family: Hiragino Maru Gothic Pro,Roboto,HelveticaNeue,Arial,sans-serif;
     margin: 0px auto;
@@ -89,7 +87,7 @@ h1{
     top: 0;
     background-color: var(--modalbackground);
 }
-.warning .tls{
+.warning_card{
     position: fixed;
     width: 400px;
     top: 55%;
@@ -100,12 +98,12 @@ h1{
 .warning b {
     background-color: var(--textarea);
 }
-.warning li{
+.warning_list{
     margin-left: 10px;
 }
- .warning:has(.tls){
+.warning:has(.warning_card){
     display: none;
-} 
+}
 
 
 /*layout specify CSS*/
@@ -167,7 +165,7 @@ h1{
     pointer-events: none;
 }
 
-select {
+#langage{
     appearance: none;
     min-width: 80px;
     height: 2.5em;
@@ -183,7 +181,7 @@ select {
 
 
 /*card and card title*/
-.tls{
+.card{
     margin: 0px 10px;
     padding: 2px 18px 14px;
     text-align: left;
@@ -244,36 +242,33 @@ h2 {
 /*check button label*/
 .buttonblock{
     border-radius: 4px;
-    display: flex;
-    vertical-align: middle;
 }
-.buttonblock:has(input[type="checkbox"]):hover{
+.buttonblock:has(.filterbtn):hover{
     transition: 0.1s;
     background: var(--checkboxhover);
 }
-.buttonblock:has(input[type="checkbox"]):active{
+.buttonblock:has(.filterbtn):active{
     transition: 0.1s;
     transform: scale(0.95);
 }
-.buttonblock:has(input[type="checkbox"]) .buttonlabel{
+.buttonlabel{
     cursor: pointer;
 }
 .buttonlabel {
-    display: flex;
     justify-content: flex-start;
     user-select: none;
     min-width: 100px;
     font-weight: 400;
     height:45px;
     font-size: 14px;
-   line-height: 45px;
-   padding: 0;
-   margin: 0 0 0 10px;
+    line-height: 45px;
+    padding: 0;
+    margin: 0 0 0 10px;
 }
 
 
 /*User Mute setting*/
-input[type="text"]{
+.textinput{
     border: none;
     background-color: var(--textarea);
     line-height: 25px;
@@ -324,15 +319,15 @@ input[type="text"]{
     opacity: 1;
     width: 400px;
 }
-.flex2 .tls:nth-child(1){
+.all_setting{
     margin: 15px 30px;
     padding: 15px 25px 4px;
-  }
-.flex2 .tls{
-  margin: 30px 30px;
-  padding: 15px 25px 4px;
 }
-.flex2 .buttonblock{
+.more_setting{
+    margin: 30px 30px;
+    padding: 15px 25px 4px;
+}
+.other_setting .buttonblock{
     justify-content: space-between;
 }
 
@@ -373,7 +368,8 @@ a {
     padding: 6px 12px;
     text-decoration: none;
     transition: .3s;
-  }
+    align-items: center;
+}
 a:hover{
     background-color: var(--accent);
     transition: .3s;
@@ -383,17 +379,14 @@ a:hover div {
     transition: .5s;
     color: var(--white);
 }
-a div{
-    margin: auto;
-}
-div.version{
+.version{
    text-align: right;
 }
 
 
 
  /* icon CSS */
- .ti {
+.ti {
     display:table-cell;
     vertical-align: middle;
     font-family: "tabler-icons" !important;
@@ -438,34 +431,34 @@ div.version{
 
 
 /*CheckBox CSS*/
-input[type="checkbox"] {
+.filterbtn{
     display: none;
 }
 .checkbox {
-margin: 10px;
-display: block;
-width: 45px;
-height: 25px;
-cursor: pointer;
-position: relative;
+    margin: 10px;
+    display: block;
+    width: 45px;
+    height: 25px;
+    cursor: pointer;
+    position: relative;
 }
-input[type="checkbox"]:checked+.toggler-slider {
+.filterbtn:checked+.toggler-slider {
     background-color: var(--accent);
 }
 .toggler-slider {
-background-color: var(--toggle-off);
-position: absolute;
-border-radius: 100px;
-top: 0; left: 0;
-width: 100%; height: 100%;
-transition: 300ms ease;
-z-index: 10;
+    background-color: var(--toggle-off);
+    position: absolute;
+    border-radius: 100px;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    transition: 300ms ease;
+    z-index: 10;
 }
 .toggler-knob {
     position: absolute;
     transition: 300ms ease;
 }
-input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
+.filterbtn:checked+.toggler-slider>.toggler-knob {
     left: calc(100% - 19px - 3px);
 }
 .toggler-knob {
@@ -476,6 +469,64 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
     background-color: var(--toggle-knob);
 }
 
+/*multi select button*/
+.hovertext {
+    text-align: left;
+    font-size: 0em;
+    transition: 0.2s;
+}
+.multiblock{
+    vertical-align: middle;
+    justify-content: space-between;
+    height: 3.8em;
+}
+.multiselect {
+    vertical-align: middle;
+}
+.multiselectbtn{
+    background: var(--buttoncolor);
+    justify-content: start;
+    gap: 0.1em;
+    align-items: center;
+    margin: auto;
+    text-align: left;
+    border-radius: 8px;
+    border: none;
+    height: 2.8em;
+    margin-right: 10px;
+    width: 220px;
+    transition: ease-in 0.2s;
+}
+.multiselectbtn:not([data-index="0"]){
+    border: solid 3px var(--accent);
+}
+.multiselectbtn:hover{
+    transform: scale(1.12);
+    transition:  0.15s;
+    box-shadow: 0 0 10px 0 var(--btnshadow);
+    height: 3.2em;
+}
+.multiselectbtn:hover .multitext{
+    font-size: 0.9em;
+    transition: ease-out 0.15s;
+}
+.multiselectbtn:hover .hovertext{
+    transition: font-size 0.3s;
+    font-size: 0.7em;
+    opacity: 0.6;
+}
+.multiselectbtn:active{
+    transition: ease-out 0.1s;
+    transform: scale(0.96);
+    background: var(--accent);
+}
+.multitext.change{
+    animation: 0.2s ease-out slidein;
+}
+.multiselect-ti {
+    font-weight: 400 !important;
+    padding-left: 0.1em;
+}
 
 
 /*server list page*/
@@ -491,65 +542,6 @@ input[type="checkbox"]:checked+.toggler-slider .toggler-knob {
 .tls.serverlist li{
     font-size: 16px;
     line-height: 1.4;
-}
-
-/*multi select button*/
-.hovertext {
-    text-align: left;
-    font-size: 0em;
-    transition: 0.2s;
-}
-.buttonblock:has(.multiselect){
-    height: 3.8em;
-}
-.buttonblock .multiselect {
-    display: flex;
-    vertical-align: middle;
-}
-.buttonblock .multiselect  button{
-    background: var(--buttoncolor);
-    display: flex;
-    justify-content: start;
-    gap: 0.1em;
-    align-items: center;
-    margin: auto;
-    text-align: left;
-    border-radius: 4px;
-    border: none;
-    height: 2.8em;
-    margin-right: 10px;
-    width: 220px;
-    transition: ease-in 0.2s;
-}
-.buttonblock .multiselect  button:not([data-index="0"]){
-    border: solid 3px var(--accent);
-}
-.buttonblock .multiselect  button:hover{
-    transform: scale(1.12);
-    transition:  0.15s;
-    box-shadow: 0 0 10px 0 var(--btnshadow);
-    height: 3.2em;
-}
-.buttonblock .multiselect  button:hover div>div:nth-child(1){
-    font-size: 0.9em;
-    transition: ease-out 0.15s;
-}
-.buttonblock .multiselect  button:hover .hovertext{
-    transition: font-size 0.3s;
-    font-size: 0.7em;
-    opacity: 0.6;
-}
-.buttonblock .multiselect  button:active{
-    transition: ease-out 0.1s;
-    transform: scale(0.96);
-    background: var(--accent);
-}
-.multiselect .multitext.change{
-    animation: 0.2s ease-out slidein;
-}
-.multiselect-ti {
-    font-weight: 400 !important;
-    padding-left: 0.1em;
 }
 
 

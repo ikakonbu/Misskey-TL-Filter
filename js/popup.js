@@ -1,3 +1,61 @@
+const scroolloffset = 462; 
+let willscroll = 0;
+var csscode='';
+let domainname = '';
+
+/*multiselect buttons*/
+let multibtn_texts = [["フィルターなし","チャンネル非表示"],["フィルターなし","リノート非表示","リノート「だけ」表示する"], ["フィルターなし","NSFW非表示","NSFW「だけ」表示する"],["フィルターなし","自分のサーバーの投稿だけ","他のサーバーの投稿だけ"],["フィルターなし","メディア非表示","メディア「だけ」表示する"]];
+const multibtn_index = [["no","channel_hide"],["no","renote_hide","renote_only"], ["no","nsfw_hide","nsfw_only"],["no","server_myonly","server_otheronly"],["no","media_hide","media_only"]];
+const multibtn_icons = [["&#xee40","&#xf064"],["&#xee40","&#xf18e","&#xeb72"], ["&#xee40","&#xfc69","&#xea06"],["&#xee40","&#xf1ca","&#xeb54"],["&#xee40","&#xecf6","&#xeb0a"]];
+
+/*CSSs which select specfic timeline*/
+const tlselector = {
+    home: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:not(:has(.xlwg4>.ti-device-tv)):has(.xj7PE .xjQuN .ti-home),header:has(.ti-home))~div ',
+    local: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-planet),header:has(.ti-planet))~div ',
+    social: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-rocket),header:has(.ti-rocket))~div ',
+    global: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-whirl),header:has(.ti-whirl))~div ',
+    list: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.x5oN2.xbw4c),div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-star),header:has(.ti-list))~div ',
+    role: ':is(.xbt7a:has(.ti-badge), div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.ti-badge),header:has(.ti-badge))~div ',
+    user: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xy0IK), .xbt7a:has(.ti-user))~div ',
+    all: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:not(:has(.ti-bell)), header:not(:has(.ti-at)))~div '
+}
+/*CSSs which select specfic note and other CSS*/
+const hidecss = {
+    //for spscfic timeline
+    rn: '.xcSej.x3762:has(.xBwhh) { display: none;}',
+    quote: '.xcSej.x3762:has(.xnihJ) { display: none;}',
+    nsfw: '.xcSej.x3762:has(.ti-eye-exclamation) { display: none !important; }',
+    cw: '.xcSej.x3762:has(.xd2wm, .xossv) { display: none;}',
+    media: '.xcSej.x3762:has(.xbIzI){ display: none;}',
+    nomedia: '.xcSej.x3762:not(:has(.xbIzI)){ display: none;}',
+    bot: '.xcSej.x3762:has(.xEKlD) { display: none;}',
+    rerly: '.xcSej.x3762:has(.x48yH > .x9PYN) { display: none;}',
+    sameserver: '.xcSej.x3762:not(:has(.xuevx)) { display: none; }',
+    remoteserver: '.xcSej.x3762:has(.xuevx){ display: none; }',
+    channel: '.xcSej.x3762:has(.xww2J) { display: none;}',
+    
+    //for selectbox
+    no: '{}',
+    renote_hide: '.xcSej.x3762:has(.xBwhh) { display: none;}',
+    renote_only: '.xcSej.x3762:not(:has(.xBwhh)) { display: none;}',
+    channel_hide: '.xcSej.x3762:has(.xww2J) { display: none;}',
+    nsfw_hide: '.xcSej.x3762:has(.ti-eye-exclamation) { display: none !important; }',
+    nsfw_only: '.xcSej.x3762:not(:has(.ti-eye-exclamation)) { display: none !important; }',
+    server_myonly: '.xcSej.x3762:has(.xuevx){ display: none; }',
+    server_otheronly: '.xcSej.x3762:not(:has(.xuevx)){ display: none; }',
+    media_only: '.xcSej.x3762:not(:has(.xbIzI)){ display: none;}',
+    media_hide: '.xcSej.x3762:has(.xbIzI){ display: none;}',
+    
+    //for all timeline
+    usermute: '.xcSej.x3762:has(a[href="/@unko"]){ display: none; }',
+    userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
+    userstatus: '{} .status a:nth-child(n+2)  b,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2), .xyEEg .x8w8X:nth-child(n+2) span{font-size: 0;}.status a:nth-child(n+2)  b:after,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2):after, .xyEEg .x8w8X:nth-child(n+2) span:after{ content: "???"; font-size: 14px;}',
+    emojibetter: '{} :root { --emoji_default_size: 30px; --emoji_margin_lr: 6px; --emoji_margin_tb: 2px; --emoji_max_size: 80px; --emoji_displey_style: fill; --emoji_window_default_height: 400px; --emoji_window_default_width: 400px; --emoji_autofill_max_width: 300px; --emoji_autofill_displey_style: fill; } .emojis { padding: 10px 5px 5px; text-align:center; } .emojis .body { display: inline !important; padding: 0 !important; line-height: 0; } .emojis section>.body ._button.item{ height: auto !important; } .emojis ._button.item{ aspect-ratio: auto!important; width: fit-content !important; contain: layout !important; margin: 0px !important; padding: var(--emoji_margin_tb) var(--emoji_margin_lr) !important; min-height: var(--emoji_default_size) !important; } .emojis .xeJ4G{ width: auto !important; height: var(--emoji_default_size) !important; object-fit: var(--emoji_displey_style) !important; object-position: 0% 50%; max-width: var(--emoji_max_size); } .xeJ4G.xuoKL, ._emoji_1pjrm_56 { width: auto !important; object-fit: var(--emoji_autofill_displey_style) !important; object-position: 0% 50%; max-width: var(--emoji_autofill_max_width); } .omfetrab:is(.s1,.s2,.s3)[data-v-c34d1549] .emojis{ --eachSize: fit-content !important; } .emojis .group:not(.index) section{ text-align: left; } .emojis .group:not(.index) section .body{ display: block !important; text-align: center; } .emojis .item:focus, .emojis .item:hover { background: rgba(255,0,0,0.4 ); }',
+    imagehidebtn: '{} .ti.ti-eye-off:is(.xlnR0, .xdz7H){  opacity: 1;  font-size: 20px;  background-color: rgba(10,10,10,0.2);  color: white;  padding: 14px 18px 14px 18px;  margin: 4px;  top: 3px;  right: 3px;  border-radius: 15px;  backdrop-filter: blur(10px);  -webkit-backdrop-filter: blur(10dpx); } .ti.ti-eye-off:is(.xlnR0, .xdz7H):hover{  transition: 0.1s;  transform: scale(1.1);  color: var(--accent);  background: var(--bg);  border: solid 1px var(--accent); } @media screen and (max-width: 600px){ .ti.ti-eye-off:is(.xlnR0, .xdz7H){  opacity: 1;  font-size: 18px;  padding: 13px 12px 13px 12px;  top: 0;  right: 0; } } .xEvDK._button{  display: none; }',
+}
+const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィルタリングができるカスタムCSSです。\nこのコードをコピーして、フィルタを設定したいパソコン、スマホのmisskeyの設定→全般→カスタムCSS の中に貼り付けてください*/\n/*This is a custom CSS that allows filtering identical to the current Misskey-TL-FIlter settings.\n Copy this code and paste it into misskey settings -> General -> Custom CSS on the computer or smartphone where you want to set the filter*/\n';
+
+
 document.addEventListener('DOMContentLoaded', function () {
 
     /*element of checkbox ,text input, button, scroll button, and scroll target*/
@@ -9,65 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
     let scrollright = document.querySelector('.scrollright');
     let scrolltarget = document.querySelector('.flex.left');
     let langage = document.querySelector('#langage');
-
-    const scroolloffset = 462; 
-    let willscroll = 0;
-    var csscode='';
-    let domainname = '';
-
-    /*multiselect buttons*/
-    let multibtn_texts = [["フィルターなし","チャンネル非表示"],["フィルターなし","リノート非表示","リノート「だけ」表示する"], ["フィルターなし","NSFW非表示","NSFW「だけ」表示する"],["フィルターなし","自分のサーバーの投稿だけ","他のサーバーの投稿だけ"],["フィルターなし","メディア非表示","メディア「だけ」表示する"]];
-    const multibtn_index = [["no","channel_hide"],["no","renote_hide","renote_only"], ["no","nsfw_hide","nsfw_only"],["no","server_myonly","server_otheronly"],["no","media_hide","media_only"]];
-    const multibtn_icons = [["&#xee40","&#xf064"],["&#xee40","&#xf18e","&#xeb72"], ["&#xee40","&#xfc69","&#xea06"],["&#xee40","&#xf1ca","&#xeb54"],["&#xee40","&#xecf6","&#xeb0a"]];
-
-    /*CSSs which select specfic timeline*/
-    const tlselector = {
-        home: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:not(:has(.xlwg4>.ti-device-tv)):has(.xj7PE .xjQuN .ti-home),header:has(.ti-home))~div ',
-        local: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-planet),header:has(.ti-planet))~div ',
-        social: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-rocket),header:has(.ti-rocket))~div ',
-        global: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-whirl),header:has(.ti-whirl))~div ',
-        list: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.x5oN2.xbw4c),div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-star),header:has(.ti-list))~div ',
-        role: ':is(.xbt7a:has(.ti-badge), div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.ti-badge),header:has(.ti-badge))~div ',
-        user: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xy0IK), .xbt7a:has(.ti-user))~div ',
-        all: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:not(:has(.ti-bell)), header:not(:has(.ti-at)))~div '
-    }
-    /*CSSs which select specfic note and other CSS*/
-    const hidecss = {
-        //for spscfic timeline
-        rn: '.xcSej.x3762:has(.xBwhh) { display: none;}',
-        quote: '.xcSej.x3762:has(.xnihJ) { display: none;}',
-        nsfw: '.xcSej.x3762:has(.ti-eye-exclamation) { display: none !important; }',
-        cw: '.xcSej.x3762:has(.xd2wm, .xossv) { display: none;}',
-        media: '.xcSej.x3762:has(.xbIzI){ display: none;}',
-        nomedia: '.xcSej.x3762:not(:has(.xbIzI)){ display: none;}',
-        bot: '.xcSej.x3762:has(.xEKlD) { display: none;}',
-        rerly: '.xcSej.x3762:has(.x48yH > .x9PYN) { display: none;}',
-        sameserver: '.xcSej.x3762:not(:has(.xuevx)) { display: none; }',
-        remoteserver: '.xcSej.x3762:has(.xuevx){ display: none; }',
-        channel: '.xcSej.x3762:has(.xww2J) { display: none;}',
-        
-        //for selectbox
-        no: '{}',
-        renote_hide: '.xcSej.x3762:has(.xBwhh) { display: none;}',
-        renote_only: '.xcSej.x3762:not(:has(.xBwhh)) { display: none;}',
-        channel_hide: '.xcSej.x3762:has(.xww2J) { display: none;}',
-        nsfw_hide: '.xcSej.x3762:has(.ti-eye-exclamation) { display: none !important; }',
-        nsfw_only: '.xcSej.x3762:not(:has(.ti-eye-exclamation)) { display: none !important; }',
-        server_myonly: '.xcSej.x3762:has(.xuevx){ display: none; }',
-        server_otheronly: '.xcSej.x3762:not(:has(.xuevx)){ display: none; }',
-        media_only: '.xcSej.x3762:not(:has(.xbIzI)){ display: none;}',
-        media_hide: '.xcSej.x3762:has(.xbIzI){ display: none;}',
-        
-        //for all timeline
-        usermute: '.xcSej.x3762:has(a[href="/@unko"]){ display: none; }',
-        userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
-        userstatus: '.status a:nth-child(n+2)  b,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2), .xyEEg .x8w8X:nth-child(n+2) span{font-size: 0;}.status a:nth-child(n+2)  b:after,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2):after, .xyEEg .x8w8X:nth-child(n+2) span:after{ content: "???"; font-size: 14px;}',
-        emojibetter: '{} :root { --emoji_default_size: 30px; --emoji_margin_lr: 6px; --emoji_margin_tb: 2px; --emoji_max_size: 80px; --emoji_displey_style: fill; --emoji_window_default_height: 400px; --emoji_window_default_width: 400px; --emoji_autofill_max_width: 300px; --emoji_autofill_displey_style: fill; } .emojis { padding: 10px 5px 5px; text-align:center; } .emojis .body { display: inline !important; padding: 0 !important; line-height: 0; } .emojis section>.body ._button.item{ height: auto !important; } .emojis ._button.item{ aspect-ratio: auto!important; width: fit-content !important; contain: layout !important; margin: 0px !important; padding: var(--emoji_margin_tb) var(--emoji_margin_lr) !important; min-height: var(--emoji_default_size) !important; } .emojis .xeJ4G{ width: auto !important; height: var(--emoji_default_size) !important; object-fit: var(--emoji_displey_style) !important; object-position: 0% 50%; max-width: var(--emoji_max_size); } .xeJ4G.xuoKL, ._emoji_1pjrm_56 { width: auto !important; object-fit: var(--emoji_autofill_displey_style) !important; object-position: 0% 50%; max-width: var(--emoji_autofill_max_width); } .omfetrab:is(.s1,.s2,.s3)[data-v-c34d1549] .emojis{ --eachSize: fit-content !important; } .emojis .group:not(.index) section{ text-align: left; } .emojis .group:not(.index) section .body{ display: block !important; text-align: center; } .emojis .item:focus, .emojis .item:hover { background: rgba(255,0,0,0.4 ); }',
-        imagehidebtn: '.ti.ti-eye-off:is(.xlnR0, .xdz7H){  opacity: 1;  font-size: 20px;  background-color: rgba(10,10,10,0.2);  color: white;  padding: 14px 18px 14px 18px;  margin: 4px;  top: 3px;  right: 3px;  border-radius: 15px;  backdrop-filter: blur(10px);  -webkit-backdrop-filter: blur(10dpx); } .ti.ti-eye-off:is(.xlnR0, .xdz7H):hover{  transition: 0.1s;  transform: scale(1.1);  color: var(--accent);  background: var(--bg);  border: solid 1px var(--accent); } @media screen and (max-width: 600px){ .ti.ti-eye-off:is(.xlnR0, .xdz7H){  opacity: 1;  font-size: 18px;  padding: 13px 12px 13px 12px;  top: 0;  right: 0; } } .xEvDK._button{  display: none; }',
-    }
-    const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィルタリングができるカスタムCSSです。\nこのコードをコピーして、フィルタを設定したいパソコン、スマホのmisskeyの設定→全般→カスタムCSS の中に貼り付けてください*/\n/*This is a custom CSS that allows filtering identical to the current Misskey-TL-FIlter settings.\n Copy this code and paste it into misskey settings -> General -> Custom CSS on the computer or smartphone where you want to set the filter*/\n';
-
-
 
     /*create css code from current settings*/
     function CreateCSS(){
@@ -136,10 +135,12 @@ document.addEventListener('DOMContentLoaded', function () {
             langage.selectedIndex = 1;
         } else if(langsetting == "kansaiben"){
             langage.selectedIndex = 2;
+        } else if(langsetting == "ojosama"){
+            langage.selectedIndex = 3;
         } else {
             langage.selectedIndex = 0;
         }
-        
+
         for (let target of chcckbox_elements) {
             target.checked = (localStorage.getItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + domainname)== '1')? 1: 0;
         }
@@ -181,8 +182,6 @@ document.addEventListener('DOMContentLoaded', function () {
     function GetDomain(){
         return document.domain;
     }
-    
-
 
     function clamp(a,b,c){
         if(a>b){
@@ -211,12 +210,12 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             let titles = document.querySelectorAll("h2");
             let MainSettings = document.querySelectorAll(".flex.left .buttonblock");
-            let MoreSettings = document.querySelectorAll(".flex2 .buttonlabel");
+            let MoreSettings = document.querySelectorAll(".other_setting .buttonlabel");
             let Descriptions = document.querySelectorAll(".description-popup");
             let links = document.querySelectorAll("a div:nth-child(2)");
             let cssbtn = document.querySelector(".export");
             let lasttxt = document.querySelector(".about p");
-            let warning = document.querySelector(".warning .tls");
+            let warning = document.querySelector(".warning_card");
             let multiselext_hovertexts = document.querySelectorAll(".hovertext");
             let counter = 0;
             let langdata = "";
@@ -371,9 +370,5 @@ document.addEventListener('DOMContentLoaded', function () {
         ExportCSS();
     })
 
-    /*const transitioncode = "<style> * { transition: background-color .5s; } </style>"
-    setTimeout(function(){ 
-        document.querySelector(`head`).insertAdjacentHTML('beforeend', transitioncode)
-    },500);*/
     ChangeLang();
 });

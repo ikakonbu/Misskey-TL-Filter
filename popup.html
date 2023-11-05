@@ -17,6 +17,7 @@
                     <option value="japanese">日本語</option>
                     <option value="english">English</option>
                     <option value="kansaiben">関西弁</option>
+                    <option value="ojosama">お嬢様</option>
                 </select>
             </div>
         </div>
@@ -26,31 +27,30 @@
     <h1>Misskey TL filter</h1>
         <div class="warning">
             <div class="warning-back"></div>
-            <div class="tls">
+            <div class="warning_card card">
                 <div class="flex left-small middle">
                     <div class="ti ti-info"></div>
                     <h2>このままでは動きません</h2>
                 </div>
                 お使いのブラウザでは動作しません。<br>ChromeやEdgeの場合はブラウザをアップデートしてください<br>Firefoxの方は設定を変更することで利用できます。<br>
                 <br>
-                <li>アドレスバーに <b>about:config</b> を入力</li>
-                <li>警告が出るがOKを押して進む</li>
-                <li>設定の中から <b>layout.css.has-selector.enabled</b> を探す</li>
-                　(画面上の検索バーに入力すると出てきます)
-                <li>該当する設定をダブルクリックし、値を<b>"true"</b>にする</li>
-                <li>Firefoxを再起動</li>
+                <li class="warning_list">アドレスバーに <b>about:config</b> を入力</li>
+                <li class="warning_list">警告が出るがOKを押して進む</li>
+                <li class="warning_list">設定の中から <b>layout.css.has-selector.enabled</b> を探す</li> (画面上の検索バーに入力すると出てきます)
+                <li class="warning_list">該当する設定をダブルクリックし、値を<b>"true"</b>にする</li>
+                <li class="warning_list">Firefoxを再起動</li>
             </div>
         </div>
         <div class="flex left">
             <div class="scrollbutton scrollleft"><i class="ti ti-left"></i></div>
 
 
-            <div class="tls">
+            <div class="card">
                 <div class="flex-title">
                     <div class="middle"><div class="ti ti-home"></div><h2>ホーム</h2></div>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">RNを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">RNを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="home" data-kinds="rn">
                         <div class="toggler-slider">
@@ -58,8 +58,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">引用を非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">引用を非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="home" data-kinds="quote">
                         <div class="toggler-slider">
@@ -67,8 +67,8 @@
                         </div>
                     </label> 
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">NSFWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">NSFWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="home" data-kinds="nsfw">
                         <div class="toggler-slider">
@@ -76,8 +76,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">CWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">CWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="home" data-kinds="cw">
                         <div class="toggler-slider">
@@ -85,8 +85,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">メディア非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">メディア非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="home" data-kinds="media">
                         <div class="toggler-slider">
@@ -96,12 +96,12 @@
                 </div>
             </div>
 
-            <div class="tls">
+            <div class="card">
                 <div class="flex-title">
                     <div class="middle"><div class="ti ti-planet"></div><h2>ローカル</h2></div>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">RNを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">RNを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="local" data-kinds="rn">
                         <div class="toggler-slider">
@@ -109,8 +109,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">引用を非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">引用を非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="local" data-kinds="quote">
                         <div class="toggler-slider">
@@ -118,8 +118,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">NSFWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">NSFWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="local" data-kinds="nsfw">
                         <div class="toggler-slider">
@@ -127,8 +127,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">CWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">CWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="local" data-kinds="cw">
                         <div class="toggler-slider">
@@ -136,8 +136,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">botを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">botを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="local" data-kinds="bot">
                         <div class="toggler-slider">
@@ -147,12 +147,12 @@
                 </div>
             </div>
 
-            <div class="tls">
+            <div class="card">
                 <div class="flex-title">
                     <div class="middle"><div class="ti ti-list"></div><h2>リスト</h2></div>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">RNを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">RNを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="list" data-kinds="rn">
                         <div class="toggler-slider">
@@ -160,8 +160,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">引用を非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">引用を非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="list" data-kinds="quote">
                         <div class="toggler-slider">
@@ -169,8 +169,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">NSFWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">NSFWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="list" data-kinds="nsfw">
                         <div class="toggler-slider">
@@ -178,8 +178,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">CWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">CWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="list" data-kinds="cw">
                         <div class="toggler-slider">
@@ -187,8 +187,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">メディア非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">メディア非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="list" data-kinds="media">
                         <div class="toggler-slider">
@@ -198,12 +198,12 @@
                 </div>
             </div>
 
-            <div class="tls">
+            <div class="card">
                 <div class="flex-title">
                     <div class="middle"><div class="ti ti-user"></div><h2>プロフィール</h2></div>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">RNを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">RNを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="user" data-kinds="rn">
                         <div class="toggler-slider">
@@ -211,8 +211,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">引用を非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">引用を非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="user" data-kinds="quote">
                         <div class="toggler-slider">
@@ -220,8 +220,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">NSFWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">NSFWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="user" data-kinds="nsfw">
                         <div class="toggler-slider">
@@ -229,8 +229,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">CWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">CWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="user" data-kinds="cw">
                         <div class="toggler-slider">
@@ -238,8 +238,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">メディア非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">メディア非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="user" data-kinds="media">
                         <div class="toggler-slider">
@@ -249,12 +249,12 @@
                 </div>
             </div>
 
-            <div class="tls">
+            <div class="card">
                 <div class="flex-title">
                     <div class="middle"><div class="ti ti-universe"></div><h2>ソーシャル</h2></div>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">RNを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">RNを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="social" data-kinds="rn">
                         <div class="toggler-slider">
@@ -262,8 +262,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">引用を非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">引用を非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="social" data-kinds="quote">
                         <div class="toggler-slider">
@@ -271,8 +271,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">NSFWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">NSFWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="social" data-kinds="nsfw">
                         <div class="toggler-slider">
@@ -280,8 +280,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">CWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">CWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="social" data-kinds="cw">
                         <div class="toggler-slider">
@@ -289,8 +289,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">botを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">botを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="social" data-kinds="bot">
                         <div class="toggler-slider">
@@ -300,12 +300,12 @@
                 </div>
             </div>
 
-            <div class="tls">
+            <div class="card">
                 <div class="flex-title">
                     <div class="middle"><div class="ti ti-whirl"></div><h2>グローバル</h2></div>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">RNを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">RNを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="global" data-kinds="rn">
                         <div class="toggler-slider">
@@ -313,8 +313,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">引用を非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">引用を非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="global" data-kinds="quote">
                         <div class="toggler-slider">
@@ -322,8 +322,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">NSFWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">NSFWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="global" data-kinds="nsfw">
                         <div class="toggler-slider">
@@ -331,8 +331,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">CWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">CWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="global" data-kinds="cw">
                         <div class="toggler-slider">
@@ -340,8 +340,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">ローカル非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">ローカル非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="global" data-kinds="sameserver">
                         <div class="toggler-slider">
@@ -351,12 +351,12 @@
                 </div>
             </div>
 
-            <div class="tls">
+            <div class="card">
                 <div class="flex-title">
                     <div class="middle"><div class="ti ti-badge"></div><h2>ロール</h2></div>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">RNを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">RNを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="role" data-kinds="rn">
                         <div class="toggler-slider">
@@ -364,8 +364,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">引用を非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">引用を非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="role" data-kinds="quote">
                         <div class="toggler-slider">
@@ -373,8 +373,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">NSFWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">NSFWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="role" data-kinds="nsfw">
                         <div class="toggler-slider">
@@ -382,8 +382,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">CWを非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">CWを非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="role" data-kinds="cw">
                         <div class="toggler-slider">
@@ -391,8 +391,8 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">メディア非表示</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">メディア非表示</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="role" data-kinds="media">
                         <div class="toggler-slider">
@@ -404,99 +404,63 @@
            <div class="scrollbutton scrollright"><i class="ti ti-right"></i></div>
         </div>
 
+
+
         <div class="ti-center ti-more"></div>
 
-        <div class="flex2">
-            <div class="tls">
+
+
+        <div class="other_setting">
+            <div class="card all_setting">
                 <div class="flex-title">
                     <div class="middle"><div class="ti ti-allstg"></div><h2>すべてのTLで適用される設定</h2></div>
                 </div>
-                <!-- <div class="buttonblock">
-                    <div class="buttonlabel">チャンネルからの投稿</div>
-                    <label class="select">
-                        <select name="pets" id="allchannel">
-                            <option value="no">なにもしない</option>
-                            <option value="channel_hide">非表示にする</option>
-                          </select>
-                    </label>
-                </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">NSFW</div>
-                    <label class="select">
-                        <select name="pets" id="allnsfw">
-                            <option value="no">なにもしない</option>
-                            <option value="nsfw_hide">NSFWノートを非表示</option>
-                            <option value="nsfw_only">NSFWノートだけ表示</option>
-                          </select>
-                    </label>
-                </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">サーバーフィルタ</div>
-                    <label class="select">
-                        <select name="pets" id="allserver">
-                            <option value="no">なにもしない</option>
-                            <option value="server_myonly">自分のサーバーのみ表示</option>
-                            <option value="server_otheronly">他のサーバーのみ表示</option>
-                          </select>
-                    </label>
-                </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">メディア</div>
-                    <label class="select">
-                        <select name="pets" id="allmedia">
-                            <option value="no">なにもしない</option>
-                            <option value="media_only">メディア付きノートのみ表示</option>
-                            <option value="media_hide">メディアノート非表示</option>
-                          </select>
-                    </label>
-                </div> -->
-
                 <div style="margin: 10px 0;">
-                    <div class="buttonblock">
-                        <div class="buttonlabel">チャンネルからの投稿</div>
-                        <label class="multiselect">
-                            <button data-index=0 data-multiindex=0 >
-                                <span class="ti-tiny multiselect-ti">&#xee40</span>
+                    <div class="flex multiblock">
+                        <div class="flex buttonlabel"><span class='ti-tiny'>&#xea8d</span>チャンネルからの投稿</div>
+                        <label class="flex multiselect">
+                            <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=0 >
+                                <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                 <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                
                             </button>
                         </label>
                     </div>
-                    <div class="buttonblock">
-                        <div class="buttonlabel">リノート</div>
-                        <label class="multiselect">
-                            <button data-index=0 data-multiindex=1 >
-                                <span class="ti-tiny multiselect-ti">&#xee40</span>
+                    <div class="flex multiblock">
+                        <div class="flex buttonlabel"><span class='ti-tiny'>&#xeb72</span>リノート</div>
+                        <label class="flex multiselect">
+                            <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=1 >
+                                <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                 <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                 
                             </button>
                         </label>
                     </div>
-                    <div class="buttonblock">
-                        <div class="buttonlabel">NSFW</div>
-                        <label class="multiselect">
-                            <button data-index=0 data-multiindex=2 >
-                                <span class="ti-tiny multiselect-ti">&#xee40</span>
+                    <div class="flex multiblock">
+                        <div class="flex buttonlabel"><span class='ti-tiny'>&#xea06</span>NSFW</div>
+                        <label class="flex multiselect">
+                            <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=2 >
+                                <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                 <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                 
                             </button>
                         </label>
                     </div>
-                    <div class="buttonblock">
-                        <div class="buttonlabel">サーバーフィルタ</div>
-                        <label class="multiselect">
-                            <button data-index=0 data-multiindex=3 >
-                                <span class="ti-tiny multiselect-ti">&#xee40</span>
+                    <div class="flex multiblock">
+                        <div class="flex buttonlabel"><span class='ti-tiny'>&#xeb1f</span>サーバーフィルタ</div>
+                        <label class="flex multiselect">
+                            <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=3 >
+                                <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                 <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                 
                             </button>
                         </label>
                     </div>
-                    <div class="buttonblock">
-                        <div class="buttonlabel">メディア</div>
-                        <label class="multiselect">
-                            <button data-index=0 data-multiindex=4 >
-                                <span class="ti-tiny multiselect-ti">&#xee40</span>
+                    <div class="flex multiblock">
+                        <div class="flex buttonlabel"><span class='ti-tiny'></span>メディア</div>
+                        <label class="flex multiselect">
+                            <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=4 >
+                                <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                 <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                 
                             </button>
@@ -504,38 +468,38 @@
                     </div>
                 </div>
 
-                <div class="buttonblock">
+                <div class="flex buttonblock">
                     <div class="flex left-small">
                         <div class="popup">
                             <p class="ti ti-info"></p>
                             <div class="description-popup">入力されたユーザーIDのノートを問答無用ですべて非表示にします。<br>複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123 </div>
                         </div>
-                        <div class="buttonlabel">ユーザーミュート</div>
+                        <div class="flex buttonlabel">ユーザーミュート</div>
                     </div>
                     <label>
-                        <input type="text" data-kinds="usermute">
+                        <input type="text" class="textinput" data-kinds="usermute">
                     </label>
                 </div>
-                <div class="buttonblock">
+                <div class="flex buttonblock">
                     <div class="flex left-small">
                         <div class="popup">
                             <p class="ti ti-info"></p>
                             <div class="description-popup">入力されたユーザーのRenoteだけを非表示にします。<br>複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123 </div>
                         </div>
-                        <div class="buttonlabel">ユーザーRenoteミュート</div>
+                        <div class="flex buttonlabel">ユーザーRenoteミュート</div>
                     </div>
                     <label>
-                        <input type="text" data-kinds="userrenotemute">
+                        <input type="text" class="textinput" data-kinds="userrenotemute">
                     </label>
                 </div>
                 <div class="popup"></div>
             </div>
-            <div class="tls">
+            <div class="card more_setting">
                 <div class="flex-title">
                     <div class="middle"><div class="ti ti-other"></div><h2>その他の設定</h2></div>
                 </div>
-                <div class="buttonblock">
-                    <div class="buttonlabel">フォロー、フォロワー数を隠す</div>
+                <div class="flex buttonblock">
+                    <div class="flex buttonlabel">フォロー、フォロワー数を隠す</div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="userstatus">
                         <div class="toggler-slider">
@@ -543,7 +507,7 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
+                <div class="flex buttonblock">
                     <div class="flex left-small">
                         <div class="popup">
                             <p class="ti ti-info"></p>
@@ -551,7 +515,7 @@
                                 <br><img src="img/emojibetter.png" decoding="async">
                             </div>
                         </div>
-                        <div class="buttonlabel">横長絵文字を見やすくする</div>
+                        <div class="flex buttonlabel">横長絵文字を見やすくする</div>
                     </div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="emojibetter">
@@ -560,7 +524,7 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
+                <div class="flex buttonblock">
                     <div class="flex left-small">
                         <div class="popup">
                             <p class="ti ti-info"></p>
@@ -568,7 +532,7 @@
                             <br><img src="img/imagehidebutton.png" decoding="async">
                             </div>
                         </div>
-                        <div class="buttonlabel">画像を隠すボタンを大きくする</div>
+                        <div class="flex buttonlabel">画像を隠すボタンを大きくする</div>
                     </div>
                     <label class="checkbox">
                         <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="imagehidebtn">
@@ -577,25 +541,25 @@
                         </div>
                     </label>
                 </div>
-                <div class="buttonblock">
+                <div class="flex buttonblock">
                     <div class="flex left-small">
                         <div class="popup">
                             <p class="ti ti-info"></p>
                             <div class="description-popup">他のサーバーでも動かせるようになります。<br><br>下にある「標準設定で動くサーバー一覧」<br>にあるサーバーでは、そのまま動きます。<br><br>複数サーバある場合は、「,」で区切って入力してください<br>例: misskey.art,misskey.cf<br><br>Misskey.io以外での動作は保証していません。<br>動いたらラッキー程度に考えてください </div>
                         </div>
-                        <div class="buttonlabel">他のサーバでも動かす</div>
+                        <div class="flex buttonlabel">他のサーバでも動かす</div>
                     </div>
                     <label>
-                        <input type="text" class="specsetting" data-name="otherserver">
+                        <input type="text" class="textinput specsetting" data-name="otherserver">
                     </label>
                 </div>
-                <div class="buttonblock">
+                <div class="flex buttonblock">
                     <div class="flex left-small">
                         <div class="popup">
                             <p class="ti ti-info"></p>
                             <div class="description-popup">今の設定をCSSとして出力します。<br>出できたコードをコピーして、設定したいPCやスマホの<br>Misskey 設定→全般→カスタムCSSに貼り付けることで、<br>スマホでも同じフィルタリングをかけられます。<br><br>(CSSの動作保証はブラウザ版のみです。<br>クライアントのカスタムCSS機能では動作しない可能性があります)</div>
                         </div>
-                        <div class="buttonlabel">今の設定をCSSに</div>
+                        <div class="flex buttonlabel">今の設定をCSSに</div>
                     </div>
                     <label>
                         <button class="export">出力する</button>
