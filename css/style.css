@@ -50,7 +50,7 @@
 
 /*General Setting*/
 html,body{
-    max-height: 440px !important;
+    max-height: 430px !important;
     overflow-y: scroll;
 }
 body {
@@ -61,7 +61,7 @@ body {
     font-size: 13px;
 }
 .wrapper{
-    max-height: 420px;
+    max-height: 430px;
     text-align: center;
     padding-bottom: 20px;
     position: relative;
@@ -137,9 +137,6 @@ h1{
     color: var(--textcolor);
     position: relative;
 }
-.ti-lang{
-    text-shadow: 0px 0px 2px var(--background);
-}
 .lang{
     position: absolute;
     top: 16px;
@@ -193,7 +190,6 @@ h1{
     display: flex;
     justify-content: start;
     margin: 4px auto 10px;
-    vertical-align: middle;
     border-bottom: solid 2px var(--textcolor);   
 }
 h2 {
@@ -476,12 +472,8 @@ a:hover div {
     transition: 0.2s;
 }
 .multiblock{
-    vertical-align: middle;
     justify-content: space-between;
     height: 3.8em;
-}
-.multiselect {
-    vertical-align: middle;
 }
 .multiselectbtn{
     background: var(--buttoncolor);
@@ -527,23 +519,6 @@ a:hover div {
     font-weight: 400 !important;
     padding-left: 0.1em;
 }
-
-
-/*server list page*/
-.backbtn{
-    margin: auto 20px;
-}
-.tls.serverlist{
-    width: 450px;
-    padding: 20px 20px;
-    animation: 1s ease-in-out 0s fade;
-    overflow-y: hidden;
-}
-.tls.serverlist li{
-    font-size: 16px;
-    line-height: 1.4;
-}
-
 
 /*animations*/
 @keyframes fade{
