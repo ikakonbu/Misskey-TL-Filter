@@ -1,6 +1,6 @@
 const scroolloffset = 462; 
 let willscroll = 0;
-var csscode='';
+let csscode='';
 let domainname = '';
 
 /*multiselect buttons*/
@@ -27,12 +27,10 @@ const hidecss = {
     nsfw: '.xcSej.x3762:has(.ti-eye-exclamation) { display: none !important; }',
     cw: '.xcSej.x3762:has(.xd2wm, .xossv) { display: none;}',
     media: '.xcSej.x3762:has(.xbIzI){ display: none;}',
-    nomedia: '.xcSej.x3762:not(:has(.xbIzI)){ display: none;}',
     bot: '.xcSej.x3762:has(.xEKlD) { display: none;}',
     rerly: '.xcSej.x3762:has(.x48yH > .x9PYN) { display: none;}',
     sameserver: '.xcSej.x3762:not(:has(.xuevx)) { display: none; }',
-    remoteserver: '.xcSej.x3762:has(.xuevx){ display: none; }',
-    channel: '.xcSej.x3762:has(.xww2J) { display: none;}',
+
     
     //for selectbox
     no: '{}',
@@ -56,17 +54,16 @@ const hidecss = {
 const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィルタリングができるカスタムCSSです。\nこのコードをコピーして、フィルタを設定したいパソコン、スマホのmisskeyの設定→全般→カスタムCSS の中に貼り付けてください*/\n/*This is a custom CSS that allows filtering identical to the current Misskey-TL-FIlter settings.\n Copy this code and paste it into misskey settings -> General -> Custom CSS on the computer or smartphone where you want to set the filter*/\n';
 
 
-document.addEventListener('DOMContentLoaded', function () {
 
     /*element of checkbox ,text input, button, scroll button, and scroll target*/
-    const chcckbox_elements = document.querySelectorAll(`input[type="checkbox"].filterbtn`);
+    const chcckbox_elements = document.getElementsByClassName(`filterbtn`);
     const text_elements = document.querySelectorAll(`input[type="text"]`);
-    const multibtn_elements = document.querySelectorAll(`.multiselect button`);
+    const multibtn_elements = document.getElementsByClassName(`multiselectbtn`);
     const exportbtn = document.querySelector(`button[class="export"]`);
-    let scrollleft  = document.querySelector('.scrollleft');
-    let scrollright = document.querySelector('.scrollright');
-    let scrolltarget = document.querySelector('.flex.left');
-    let langage = document.querySelector('#langage');
+    const scrollleft  = document.querySelector('.scrollleft');
+    const scrollright = document.querySelector('.scrollright');
+    const scrolltarget = document.querySelector('.flex.left');
+    const langage = document.getElementById('langage');
 
     /*create css code from current settings*/
     function CreateCSS(){
@@ -115,7 +112,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 localStorage.setItem("multibtntexts", JSON.stringify(data.MultiselectOptions));
             })
         }
-        console.log(localStorage.getItem('langage'));
     }
 
     /*load settings*/
@@ -306,7 +302,6 @@ document.addEventListener('DOMContentLoaded', function () {
             func: GetDomain,
         });
         tabquery.then((value) => {
-            console.log(value[0].result);
             domainname = value[0].result; 
             LoadSetting();
         })
@@ -371,4 +366,3 @@ document.addEventListener('DOMContentLoaded', function () {
     })
 
     ChangeLang();
-});
