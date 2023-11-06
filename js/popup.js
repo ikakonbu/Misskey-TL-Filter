@@ -1,4 +1,6 @@
 const scroolloffset = 462; 
+const autoscrolloffset = 41;
+let autoscrolled = false;
 let willscroll = 0;
 let csscode='';
 let domainname = '';
@@ -8,14 +10,19 @@ let multibtn_texts = [["フィルターなし","チャンネル非表示"],["フ
 const multibtn_index = [["no","channel_hide"],["no","renote_hide","renote_only"], ["no","nsfw_hide","nsfw_only"],["no","server_myonly","server_otheronly"],["no","media_hide","media_only"]];
 const multibtn_icons = [["&#xee40","&#xf064"],["&#xee40","&#xf18e","&#xeb72"], ["&#xee40","&#xfc69","&#xea06"],["&#xee40","&#xf1ca","&#xeb54"],["&#xee40","&#xecf6","&#xeb0a"]];
 
+/*index for autoscroll */
+let tlindex = {"ti-star": "ti-list", "ti-home": "ti-home", "ti-planet": "ti-planet", "ti-universe": "ti-universe", "ti-rocket": "ti-universe", "ti-whirl": "ti-whirl", "ti-device-tv": "ti-device-tv", "ti-badge": "ti-badge", "ti-list": "ti-list","xtWgn":"ti-user", "ti-device-tv":"ti-device-tv", "ti-antenna":"ti-antenna",}
+
 /*CSSs which select specfic timeline*/
 const tlselector = {
     home: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:not(:has(.xlwg4>.ti-device-tv)):has(.xj7PE .xjQuN .ti-home),header:has(.ti-home))~div ',
     local: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-planet),header:has(.ti-planet))~div ',
     social: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-rocket),header:has(.ti-rocket))~div ',
     global: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-whirl),header:has(.ti-whirl))~div ',
-    list: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.x5oN2.xbw4c),div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-star),header:has(.ti-list))~div ',
+    list: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xeHR5 .xlwg4 .ti-list),div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-star),header:has(.ti-list))~div ',
     role: ':is(.xbt7a:has(.ti-badge), div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.ti-badge),header:has(.ti-badge))~div ',
+    channel: ':is(.xbt7a:has(.ti-device-tv), div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xeHR5 .xlwg4  .ti-device-tv),header:has(.ti-device-tv))~div ',
+    antenna: ':is(.xbt7a:has(.ti-antenna), div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xeHR5 .xlwg4 .ti-antenna),header:has(.ti-antenna))~div ',
     user: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xy0IK), .xbt7a:has(.ti-user))~div ',
     all: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:not(:has(.ti-bell)), header:not(:has(.ti-at)))~div '
 }
@@ -179,6 +186,25 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         return document.domain;
     }
 
+    function getTLName(){
+        if( document.querySelectorAll(".xSIzp") != null){
+            let tltarget = document.querySelector("div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] .xlwg4 .ti");
+            if(tltarget == null) {
+                tltarget = document.querySelector("div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] .xy0IK .x6tH3");
+            }
+            if(tltarget == null) {
+                tltarget = document.querySelector("div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] .xj7PE .ti");
+            }
+            if(tltarget != null){
+                return tltarget.classList[2];
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
     function clamp(a,b,c){
         if(a>b){
             return a;
@@ -194,8 +220,12 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
        var targetwidth = scrolltarget.scrollWidth - document.body.clientWidth;
        if(flag) {
         willscroll = clamp(0, willscroll+scroolloffset , targetwidth);
+        if(autoscrolled) willscroll -= (scroolloffset/2);
+        autoscrolled = false;
        } else {
         willscroll = clamp(0, willscroll-scroolloffset , targetwidth);
+        if(autoscrolled) willscroll += (scroolloffset/2);
+        autoscrolled = false;
        }
     }
 
@@ -306,6 +336,26 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
             LoadSetting();
         })
         .catch(err => alert("設定の読み込みでエラーが発生しました、再読み込みしてみてね"));
+    });
+
+    /*今見ているTLの個別設定に自動でスクロールする*/
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        const tabquery = chrome.scripting.executeScript({
+            target: { tabId : tabs[0].id },
+            func: getTLName,
+        });
+        tabquery.then((value) => {
+            console.log(value[0].result);
+            if( value[0].result != null ){
+                if(value[0].result in tlindex){
+                    targetel = document.querySelector(".card:has(." + tlindex[value[0].result] + ")");
+                    willscroll += targetel.getBoundingClientRect().x - autoscrolloffset;
+                    targetel.scrollIntoView({behavior: 'smooth', block: "end", inline:"center"});
+                    autoscrolled = true;
+                }
+            }
+        })
+        .catch(err => console.log("TL取得に失敗"));
     });
 
     /*Set　event listeners*/

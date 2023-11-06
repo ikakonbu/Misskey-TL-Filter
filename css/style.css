@@ -423,8 +423,8 @@ a:hover div {
 .ti-other:before{content: '\eb20';}
 .ti-badge:before{content: '\efc2';}
 .ti-lang:before{content: '\ef77';}
-
-
+.ti-device-tv:before{content: '\ea8d';}
+.ti-antenna:before{content: '\f094';}
 
 /*CheckBox CSS*/
 .filterbtn{
