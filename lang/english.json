@@ -4,6 +4,8 @@
         {"text": "Home"},
         {"text": "Local"},
         {"text": "Lists"},
+        {"text": "Channel"},
+        {"text": "Antenna"},
         {"text": "Profile"},
         {"text": "Social"},
         {"text": "Global"},
@@ -20,6 +22,8 @@
         "media": "Hide media",
         "bot": "Hide bot",
         "sameserver": "Hide Local",
+        "server_myonly": "Local Only",
+        "server_otheronly": "Remote Only",
         "cmt": ".flex.leftのbuttonlabelで引っかかる"
     },
     "MoreSetting": [

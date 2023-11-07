@@ -186,15 +186,19 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         return document.domain;
     }
 
+    /*Get the TL Name which currently looking*/
     function getTLName(){
-        if( document.querySelectorAll(".xSIzp") != null){
-            let tltarget = document.querySelector("div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] .xlwg4 .ti");
+        /*return null when deck UI*/
+        if( document.querySelector(".xAOWy header") == null){
+            let tltarget = document.querySelector("div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] .xlwg4 .ti:not(.ti-star)");
+
             if(tltarget == null) {
                 tltarget = document.querySelector("div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] .xy0IK .x6tH3");
             }
             if(tltarget == null) {
                 tltarget = document.querySelector("div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] .xj7PE .ti");
             }
+
             if(tltarget != null){
                 return tltarget.classList[2];
             } else {
@@ -351,7 +355,9 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
                     targetel = document.querySelector(".card:has(." + tlindex[value[0].result] + ")");
                     willscroll += targetel.getBoundingClientRect().x - autoscrolloffset;
                     targetel.scrollIntoView({behavior: 'smooth', block: "end", inline:"center"});
-                    autoscrolled = true;
+                    if(value[0].result != "ti-home" && value[0].result != "ti-badge" ) {
+                        autoscrolled = true;
+                    }
                 }
             }
         })
