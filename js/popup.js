@@ -113,11 +113,11 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         localStorage.setItem('langage', langage.value);
         localStorage.setItem('saved' + domainname , '1');
         if(langage.value != "japanese"){
-            fetch("/lang/" + localStorage.getItem("langage") + ".json")
-            .then( response => response.json())
-            .then( (data) => {
-                localStorage.setItem("multibtntexts", JSON.stringify(data.MultiselectOptions));
-            })
+        fetch("/lang/" + localStorage.getItem("langage") + ".json")
+        .then( response => response.json())
+        .then( (data) => {
+            localStorage.setItem("multibtntexts", JSON.stringify(data.MultiselectOptions));
+        })
         }
     }
 
@@ -189,14 +189,15 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
     /*Get the TL Name which currently looking*/
     function getTLName(){
         /*return null when deck UI*/
+        baseel = "div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] ";
         if( document.querySelector(".xAOWy header") == null){
-            let tltarget = document.querySelector("div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] .xlwg4 .ti:not(.ti-star)");
+            let tltarget = document.querySelector(baseel + ".xlwg4 .ti:not(.ti-star)");
 
             if(tltarget == null) {
-                tltarget = document.querySelector("div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] .xy0IK .x6tH3");
+                tltarget = document.querySelector(baseel + ".xy0IK .x6tH3");
             }
             if(tltarget == null) {
-                tltarget = document.querySelector("div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] .xj7PE .ti");
+                tltarget = document.querySelector(baseel + ".xj7PE .ti");
             }
 
             if(tltarget != null){
@@ -235,9 +236,10 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
 
     /*Change Display Langage*/
     function ChangeLang(){
-        if(localStorage.getItem('langage')=="japanese"){
+        let lang = localStorage.getItem('langage');
+        if(lang == "japanese"){
             return;
-        } else {
+        } else if(lang != null){
             let titles = document.querySelectorAll("h2");
             let MainSettings = document.querySelectorAll(".flex.left .buttonblock");
             let MoreSettings = document.querySelectorAll(".other_setting .buttonlabel");
@@ -250,7 +252,7 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
             let counter = 0;
             let langdata = "";
 
-            fetch("/lang/" + localStorage.getItem("langage") + ".json")
+            fetch("/lang/" + lang + ".json")
             .then( response => response.json())
 		    .then( (data) => {
                 langdata = data;
@@ -354,7 +356,12 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
                 if(value[0].result in tlindex){
                     targetel = document.querySelector(".card:has(." + tlindex[value[0].result] + ")");
                     willscroll += targetel.getBoundingClientRect().x - autoscrolloffset;
-                    targetel.scrollIntoView({behavior: 'smooth', block: "end", inline:"center"});
+                    let userAgent = window.navigator.userAgent.toLowerCase();
+                    if(userAgent.indexOf('firefox') != -1){
+                        targetel.scrollIntoView({behavior: 'auto', block: "end", inline:"center"});
+                    } else {
+                        targetel.scrollIntoView({behavior: 'auto', block: "end", inline:"center"});
+                    }
                     if(value[0].result != "ti-home" && value[0].result != "ti-badge" ) {
                         autoscrolled = true;
                     }
