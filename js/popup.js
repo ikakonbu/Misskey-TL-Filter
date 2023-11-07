@@ -1,5 +1,6 @@
 const scroolloffset = 462; 
 const autoscrolloffset = 41;
+let arrowautoscroll = 1;
 let autoscrolled = false;
 let willscroll = 0;
 let csscode='';
@@ -63,10 +64,11 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
 
 
     /*element of checkbox ,text input, button, scroll button, and scroll target*/
-    const chcckbox_elements = document.getElementsByClassName(`filterbtn`);
+    const chcckbox_elements = document.querySelectorAll(`.filterbtn:not(.autoscrollcheck)`);
     const text_elements = document.querySelectorAll(`input[type="text"]`);
     const multibtn_elements = document.getElementsByClassName(`multiselectbtn`);
     const exportbtn = document.querySelector(`button[class="export"]`);
+    const autoscrollsetting = document.querySelector(`.autoscrollcheck`);
     const scrollleft  = document.querySelector('.scrollleft');
     const scrollright = document.querySelector('.scrollright');
     const scrolltarget = document.querySelector('.flex.left');
@@ -111,6 +113,7 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         //this setting use service worker. but this dont access localstorage. so save to chrome storage API
         chrome.storage.local.set({setting1: text_elements[2].value});
         localStorage.setItem('langage', langage.value);
+        localStorage.setItem('autoscroll' + domainname , (arrowautoscroll==1)? 1 : 0);
         localStorage.setItem('saved' + domainname , '1');
         if(langage.value != "japanese"){
         fetch("/lang/" + localStorage.getItem("langage") + ".json")
@@ -121,16 +124,34 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         }
     }
 
+
     /*load settings*/
-    function LoadSetting(){
+    async function LoadSetting(){
         //when first time, previous setup don't exist, so init setting
         if(!localStorage.getItem('saved' + domainname)) {
             SaveSetting();
+            autoscrollsetting.checked = 1;
             return;
         }
-        let langsetting = localStorage.getItem('langage');
+        let langsetting = await localStorage.getItem('langage');
         if(langsetting != "japanese"){
-            multibtn_texts = JSON.parse(localStorage.getItem("multibtntexts")); 
+
+                /*マルチセレクトボタンは言語ファイルを読みに行かないと行けないので非同期に設定読込みさせる*/
+                fetch("/lang/" + langsetting + ".json")
+                .then(res => res.json())
+                .then((res2) => {
+                    multibtn_texts = res2.MultiselectOptions;
+        
+                    for (let target of multibtn_elements) {
+                        if(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname) != null){
+                            let nextindex = Number(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname));
+                            target.dataset.index = nextindex;
+                            target.querySelector('.multitext').innerText = multibtn_texts[target.dataset.multiindex][nextindex];
+                            target.querySelector('.multiselect-ti').innerHTML = multibtn_icons[target.dataset.multiindex][nextindex];
+                        }
+                    }
+                });
+
         }
         if(langsetting == "japanese"){
             langage.selectedIndex = 0;
@@ -147,16 +168,10 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         for (let target of chcckbox_elements) {
             target.checked = (localStorage.getItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + domainname)== '1')? 1: 0;
         }
-        for (let target of multibtn_elements) {
-            if(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname) != null){
-                let nextindex = Number(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname));
-                target.dataset.index = nextindex;
-                target.querySelector('.multitext').innerText = multibtn_texts[target.dataset.multiindex][nextindex];
-                target.querySelector('.multiselect-ti').innerHTML = multibtn_icons[target.dataset.multiindex][nextindex];
-            }
-        }
         text_elements[0].value = localStorage.getItem('list-' + text_elements[0].dataset.kinds + domainname);
         text_elements[1].value = localStorage.getItem('list-' + text_elements[1].dataset.kinds + domainname);
+        arrowautoscroll = await (localStorage.getItem('autoscroll' + domainname) == '1')? 1:0;
+        autoscrollsetting.checked = await arrowautoscroll;
         chrome.storage.local.get(["setting1"]).then((result) => {
             text_elements[2].value = result.setting1;
         });
@@ -293,7 +308,6 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
                 cssbtn.innerText = langdata.other.exportbtn;
                 lasttxt.innerText = langdata.other.lasttext;
                 warning.innerHTML = langdata.other.warning;
-                multibtn_texts = langdata.MultiselectOptions;
             });
             
         }
@@ -317,7 +331,7 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
 
 
 
-    /*チェックボックスの周辺をクリックされてもチェックボックスをクリックしたことにする*/
+    /*click checkbox when label text*/
     const checkboxs = document.querySelectorAll('.buttonblock:has(input[type="checkbox"])');
     for(let checkbox of checkboxs){
         checkbox.addEventListener("click", function(event){
@@ -341,10 +355,10 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
             domainname = value[0].result; 
             LoadSetting();
         })
-        .catch(err => alert("設定の読み込みでエラーが発生しました、再読み込みしてみてね"));
+        .catch(err => alert(err));
     });
 
-    /*今見ているTLの個別設定に自動でスクロールする*/
+    /*Auto Scroll to Specfy Setting which watchng now on misekey*/
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
         const tabquery = chrome.scripting.executeScript({
             target: { tabId : tabs[0].id },
@@ -357,9 +371,7 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
                     targetel = document.querySelector(".card:has(." + tlindex[value[0].result] + ")");
                     willscroll += targetel.getBoundingClientRect().x - autoscrolloffset;
                     let userAgent = window.navigator.userAgent.toLowerCase();
-                    if(userAgent.indexOf('firefox') != -1){
-                        targetel.scrollIntoView({behavior: 'auto', block: "end", inline:"center"});
-                    } else {
+                    if(arrowautoscroll == 1){
                         targetel.scrollIntoView({behavior: 'auto', block: "end", inline:"center"});
                     }
                     if(value[0].result != "ti-home" && value[0].result != "ti-badge" ) {
@@ -423,6 +435,11 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         location.reload()
     })
     
+    autoscrollsetting.addEventListener(`change`, () => {
+        arrowautoscroll = autoscrollsetting.checked;
+        SaveSetting();
+    })
+
     /*set export button event*/
     exportbtn.addEventListener('click', () => {
         ExportCSS();
