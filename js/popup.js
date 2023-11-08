@@ -126,33 +126,31 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
 
 
     /*load settings*/
-    async function LoadSetting(){
+    function LoadSetting(){
         //when first time, previous setup don't exist, so init setting
         if(!localStorage.getItem('saved' + domainname)) {
             SaveSetting();
             autoscrollsetting.checked = 1;
             return;
         }
-        let langsetting = await localStorage.getItem('langage');
-        if(langsetting != "japanese"){
+        let langsetting = localStorage.getItem('langage') ?? "japanese";
 
-                /*マルチセレクトボタンは言語ファイルを読みに行かないと行けないので非同期に設定読込みさせる*/
-                fetch("/lang/" + langsetting + ".json")
-                .then(res => res.json())
-                .then((res2) => {
-                    multibtn_texts = res2.MultiselectOptions;
-        
-                    for (let target of multibtn_elements) {
-                        if(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname) != null){
-                            let nextindex = Number(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname));
-                            target.dataset.index = nextindex;
-                            target.querySelector('.multitext').innerText = multibtn_texts[target.dataset.multiindex][nextindex];
-                            target.querySelector('.multiselect-ti').innerHTML = multibtn_icons[target.dataset.multiindex][nextindex];
-                        }
-                    }
-                });
+        /*マルチセレクトボタンは言語ファイルを読みに行かないと行けないので非同期に設定読込みさせる*/
+        fetch("/lang/" + langsetting + ".json")
+        .then(res => res.json())
+        .then((res2) => {
+            multibtn_texts = res2.MultiselectOptions;
 
-        }
+            for (let target of multibtn_elements) {
+                if(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname) != null){
+                    let nextindex = Number(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname));
+                    target.dataset.index = nextindex;
+                    target.querySelector('.multitext').innerText = multibtn_texts[target.dataset.multiindex][nextindex];
+                    target.querySelector('.multiselect-ti').innerHTML = multibtn_icons[target.dataset.multiindex][nextindex];
+                }
+            }
+        });
+
         if(langsetting == "japanese"){
             langage.selectedIndex = 0;
         } else if(langsetting == "english"){
@@ -170,8 +168,8 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         }
         text_elements[0].value = localStorage.getItem('list-' + text_elements[0].dataset.kinds + domainname);
         text_elements[1].value = localStorage.getItem('list-' + text_elements[1].dataset.kinds + domainname);
-        arrowautoscroll = await (localStorage.getItem('autoscroll' + domainname) == '1')? 1:0;
-        autoscrollsetting.checked = await arrowautoscroll;
+        arrowautoscroll = (localStorage.getItem('autoscroll' + domainname) == null)? 1 : Number(localStorage.getItem('autoscroll' + domainname));
+        autoscrollsetting.checked = arrowautoscroll;
         chrome.storage.local.get(["setting1"]).then((result) => {
             text_elements[2].value = result.setting1;
         });
@@ -209,7 +207,7 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
             let tltarget = document.querySelector(baseel + " .xlwg4 .ti:not(.ti-star)");
 
             if(tltarget == null){
-                tltarget = document.querySelector(baseel + ":has(.xjond.xxPg1) .xy0IK .x6tH3");
+                tltarget = document.querySelector(baseel + ":has(.x5vNM>._button) .xy0IK .x6tH3");
             }
             if(tltarget == null) {
                 tltarget = document.querySelector(baseel + " .xj7PE .ti");
@@ -370,7 +368,7 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
                 if(value[0].result in tlindex && arrowautoscroll == 1){
                     targetel = document.querySelector(".card:has(." + tlindex[value[0].result] + ")");
                     willscroll += targetel.getBoundingClientRect().x - autoscrolloffset;
-                    targetel.scrollIntoView({behavior: 'auto', block: "end", inline:"center"});
+                    targetel.scrollIntoView({behavior: 'instant', block: "end", inline:"center"});
                     if(value[0].result != "ti-home" && value[0].result != "ti-badge" ) {
                         autoscrolled = true;
                     }
