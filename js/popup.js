@@ -204,15 +204,15 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
     /*Get the TL Name which currently looking*/
     function getTLName(){
         /*return null when deck UI*/
-        baseel = "div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;'] ";
+        baseel = "div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;']";
         if( document.querySelector(".xAOWy header") == null){
-            let tltarget = document.querySelector(baseel + ".xlwg4 .ti:not(.ti-star)");
+            let tltarget = document.querySelector(baseel + " .xlwg4 .ti:not(.ti-star)");
 
-            if(tltarget == null) {
-                tltarget = document.querySelector(baseel + ".xy0IK .x6tH3");
+            if(tltarget == null){
+                tltarget = document.querySelector(baseel + ":has(.xjond.xxPg1) .xy0IK .x6tH3");
             }
             if(tltarget == null) {
-                tltarget = document.querySelector(baseel + ".xj7PE .ti");
+                tltarget = document.querySelector(baseel + " .xj7PE .ti");
             }
 
             if(tltarget != null){
@@ -367,13 +367,10 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         tabquery.then((value) => {
             console.log(value[0].result);
             if( value[0].result != null ){
-                if(value[0].result in tlindex){
+                if(value[0].result in tlindex && arrowautoscroll == 1){
                     targetel = document.querySelector(".card:has(." + tlindex[value[0].result] + ")");
                     willscroll += targetel.getBoundingClientRect().x - autoscrolloffset;
-                    let userAgent = window.navigator.userAgent.toLowerCase();
-                    if(arrowautoscroll == 1){
-                        targetel.scrollIntoView({behavior: 'auto', block: "end", inline:"center"});
-                    }
+                    targetel.scrollIntoView({behavior: 'auto', block: "end", inline:"center"});
                     if(value[0].result != "ti-home" && value[0].result != "ti-badge" ) {
                         autoscrolled = true;
                     }
