@@ -12,13 +12,13 @@ const multibtn_index = [["no","channel_hide"],["no","renote_hide","renote_only"]
 const multibtn_icons = [["&#xee40","&#xf064"],["&#xee40","&#xf18e","&#xeb72"], ["&#xee40","&#xfc69","&#xea06"],["&#xee40","&#xf1ca","&#xeb54"],["&#xee40","&#xecf6","&#xeb0a"]];
 
 /*index for autoscroll */
-let tlindex = {"ti-star": "ti-list", "ti-home": "ti-home", "ti-planet": "ti-planet", "ti-universe": "ti-universe", "ti-rocket": "ti-universe", "ti-whirl": "ti-whirl", "ti-device-tv": "ti-device-tv", "ti-badge": "ti-badge", "ti-list": "ti-list","xtWgn":"ti-user", "ti-device-tv":"ti-device-tv", "ti-antenna":"ti-antenna",}
+let tlindex = {"ti-star": "ti-list", "ti-home": "ti-home", "ti-planet": "ti-planet", "ti-universe": "ti-universe", "ti-universe": "ti-universe", "ti-whirl": "ti-whirl", "ti-device-tv": "ti-device-tv", "ti-badge": "ti-badge", "ti-list": "ti-list","xtWgn":"ti-user", "ti-device-tv":"ti-device-tv", "ti-antenna":"ti-antenna",}
 
 /*CSSs which select specfic timeline*/
 const tlselector = {
     home: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:not(:has(.xlwg4>.ti-device-tv)):has(.xj7PE .xjQuN .ti-home),header:has(.ti-home))~div ',
     local: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-planet),header:has(.ti-planet))~div ',
-    social: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-rocket),header:has(.ti-rocket))~div ',
+    social: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-universe),header:has(.ti-universe))~div ',
     global: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-whirl),header:has(.ti-whirl))~div ',
     list: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xeHR5 .xlwg4 .ti-list),div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xj7PE .xjQuN .ti-star),header:has(.ti-list))~div ',
     role: ':is(.xbt7a:has(.ti-badge), div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.ti-badge),header:has(.ti-badge))~div ',
