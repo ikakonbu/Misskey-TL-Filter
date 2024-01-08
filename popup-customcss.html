@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <style>
+        :root{ 
+            /*light mode*/
+            --background: rgb(248,248,245);
+            --cardcolor: rgba(255,255,255,1);
+            --accent: rgb(131, 196, 105);
+            --textcolor: rgb(61,44,33);
+            --discription: rgba(0,0,0,0.4);
+            --toggle-off:  rgba(190,190,190);
+            --toggle-knob: rgba(250,250,250);
+            --textarea: rgba(240,240,240);
+            --cardshadow: rgba(0,0,0,0.2);
+            --btnshadow: rgba(0,0,0,0.4);
+            --hovershadow:  rgba(0,120,0,0.5);
+            --buttoncolor: rgb(240,238,232);
+            --checkboxhover: rgba(159, 142, 89, 0.1);
+
+            --descriptioncolor: rgba(0,0,0,0.6);
+            --modalbackground: rgba(0,0,0,0.8);
+            --buttonhovershadow: rgba(87, 145, 0, 0.3);
+            --white: white;
+        }
+        
+        @font-face {
+            font-family: "tabler-icons";
+            font-style: normal;
+            font-weight: 400;
+            src: url("../tabler-icons-min.woff")format('woff');
+            font-display: swap;
+        }
+
+        /*General Setting*/
+        html,body{
+            max-height: 430px !important;
+            overflow-y: scroll;
+        }
+        body {
+            max-width: 550px;
+            background-color: var(--background);
+            font-family: Hiragino Maru Gothic Pro,Roboto,HelveticaNeue,Arial,sans-serif;
+            margin: 0px auto;
+            font-size: 13px;
+        }
+        .wrapper{
+            max-height: 430px;
+            text-align: center;
+            padding-bottom: 20px;
+            position: relative;
+        }
+        * {
+            color: var(--textcolor);
+        }
+        h1{
+            font-size: 26px;
+            padding: 6px auto;
+        }
+
+
+        /*warning popup (for firefox)*/
+        .warning{
+            position: fixed;
+            z-index: 200;
+        }
+        .warning-back{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            background-color: var(--modalbackground);
+        }
+        .warning_card{
+            position: fixed;
+            width: 400px;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 300;
+        }
+        .warning b {
+            background-color: var(--textarea);
+        }
+        .warning_list{
+            margin-left: 10px;
+        }
+        .warning:has(.warning_card){
+            display: none;
+        }
+
+
+        /*layout specify CSS*/
+        .flex{
+            display: flex;
+        }
+        .left{
+            justify-content:left;
+            overflow-x:scroll;
+            padding: 10px 36px 20px;
+            scrollbar-width: none;
+        }
+        .left-small{
+            justify-content:left;
+        }
+        .left::-webkit-scrollbar{
+            display:none;
+        }
+        .center{
+            justify-content:center;
+        }
+        .middle {
+            height: 45px;
+            display:table;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        /*langage selecter*/
+        .lang-container{
+            color: var(--textcolor);
+            position: relative;
+        }
+        .lang{
+            position: absolute;
+            top: 16px;
+            right: 14px;
+            z-index: 999;
+        }
+        .lang-select {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+        }
+        .lang-select::after {
+            z-index: 1000;
+            position: absolute;
+            right: 4px;
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            color: var(--textcolor);
+            font-family: "tabler-icons";
+            font-weight: 900;
+            content: '\eb1d';
+            pointer-events: none;
+        }
+
+        #langage{
+            appearance: none;
+            min-width: 80px;
+            height: 2.5em;
+            padding: .4em calc(.8em + 30px) .4em .8em;
+            margin: 6px 0;
+            padding: 0px 5px;
+            background-color: var(--cardcolor);
+            border: 1px solid rgba(160,160,160,0.4);
+            border-radius: 5px;
+            color: var(--textcolor);
+        }
+
+
+
+        /*card and card title*/
+        .card{
+            margin: 0px 10px;
+            padding: 2px 18px 14px;
+            text-align: left;
+            background-color: var(--cardcolor);
+            box-shadow: 0px 4px 10px 0px var(--cardshadow);
+            border-radius: 10px;
+        }
+        .flex-title{
+            display: flex;
+            justify-content: start;
+            margin: 4px auto 10px;
+            border-bottom: solid 2px var(--textcolor);   
+        }
+        h2 {
+            font-size: 18px;
+            display:table-cell;
+            vertical-align: middle;
+            padding-left: 6px;
+        }
+
+        .scrollbutton {
+            z-index: 100;
+            font-size: 26px;
+            position: absolute;
+            overflow: hidden;
+            top: 35%;
+            background-color: var(--cardcolor);
+            color: var(--textcolor);
+            padding: 40px 8px;
+            box-shadow: 0px 0px 20px 0px var(--btnshadow);
+            transition: .5s;
+        }
+        .scrollbutton i{
+            font-style: normal;
+        }
+        .scrollleft {
+            left: 0px;
+            border-radius: 0 10px 10px 0;
+        }
+        .scrollright {
+            right: 0px;
+            border-radius: 10px 0 0 10px;;
+        }
+        .scrollbutton i{
+            pointer-events: none;
+        }
+        /*check button label*/
+        .buttonblock{
+            border-radius: 4px;
+        }
+        .buttonlabel{
+            cursor: pointer;
+        }
+        .buttonlabel {
+            justify-content: flex-start;
+            user-select: none;
+            min-width: 100px;
+            font-weight: 400;
+            height:45px;
+            font-size: 14px;
+            line-height: 45px;
+            padding: 0;
+            margin: 0 0 0 10px;
+        }
+
+
+        /*User Mute setting*/
+        .textinput{
+            border: none;
+            background-color: var(--textarea);
+            line-height: 25px;
+            padding: 2px 5px;
+            margin: 6px 10px 0px;
+            width: 200px;
+            border-radius: 5px;
+        }
+
+
+
+        /*description popup*/
+        .popup{
+            position: relative;
+            cursor: pointer;
+            display: inline-block;
+            margin: auto;
+            transform: translateX(8px);
+            z-index: 100;
+        }
+        .popup .ti{
+            font-size: 22px;
+        }
+        .description-popup {
+            pointer-events: none;
+            overflow: hidden;
+            white-space: nowrap;
+            display: block;
+            opacity: 0;
+            position: absolute;
+            padding: 16px 16px;
+            font-size: 13px;
+            line-height: 1.6em;
+            color: var(--white);
+            border-radius: 13px;
+            background: var(--modalbackground);
+            box-shadow: 0px 4px 10px 0px var(--cardshadow);
+            width: 0px;
+            transition: 0.3s;
+            top: -20px;
+            left: 35px;
+        }
+        .description-popup img{
+            width: 390px;
+        }
+        .popup:hover .description-popup{
+            transition: 0.5s;
+            opacity: 1;
+            width: 400px;
+        }
+        .all_setting{
+            margin: 15px 30px;
+            padding: 15px 25px 4px;
+        }
+        .more_setting{
+            margin: 30px 30px;
+            padding: 15px 25px 4px;
+        }
+        .other_setting .buttonblock{
+            justify-content: space-between;
+        }
+
+
+        /*CSS Export button*/
+        .export{
+            margin: 6px 10px;
+            padding: 6px 30px;
+            border-radius: 10px;
+            border: none;
+            background-color: var(--buttoncolor);
+        }
+
+
+        /* about and my profile link*/
+        .about-wrapper {
+            padding: 0px 30px 15px;
+        }
+        .about {
+            z-index: -1;
+            padding: 6px 30px;
+            text-align: left;
+            background-color: var(--cardcolor);
+            box-shadow: 0px 4px 10px 0px var(--cardshadow);
+            border-radius: 10px;
+        }
+        a {
+            width: fit-content;
+            margin: 10px 15px 0px;
+            border-radius: 10px;
+            background-color: var(--buttoncolor);
+            padding: 6px 12px;
+            text-decoration: none;
+            transition: .3s;
+            align-items: center;
+        }
+        .version{
+        text-align: right;
+        }
+
+
+
+        /* icon CSS */
+        .ti {
+            display:table-cell;
+            vertical-align: middle;
+            font-family: "tabler-icons" !important;
+            font-size: 25px;
+        }
+        .ti-center{
+            display: block;
+            font-family: "tabler-icons" !important;
+            font-size: 25px;
+        }
+        .ti-small {
+            display: inline;
+            font-family: "tabler-icons" !important;
+            font-size: 30px;
+            margin-right: 10px;
+        }
+        .ti-tiny {
+            display: inline;
+            font-weight: 600;
+            font-family: "tabler-icons" !important;
+            font-size: 20px;
+            margin-right: 0.5em;
+        }
+
+        /*CheckBox CSS*/
+        .filterbtn{
+            display: none;
+        }
+        .checkbox {
+            margin: 10px;
+            display: block;
+            width: 45px;
+            height: 25px;
+            cursor: pointer;
+            position: relative;
+        }
+        .toggler-slider {
+            background-color: var(--toggle-off);
+            position: absolute;
+            border-radius: 100px;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            transition: 300ms ease;
+            z-index: 10;
+        }
+        .toggler-knob {
+            position: absolute;
+            transition: 300ms ease;
+        }
+        .toggler-knob {
+            width: calc(25px - 6px);
+            height: calc(25px - 6px);
+            border-radius: 50%;
+            left: 3px;  top: 3px;
+            background-color: var(--toggle-knob);
+        }
+
+        /*multi select button*/
+        .hovertext {
+            text-align: left;
+            font-size: 0em;
+            transition: 0.2s;
+        }
+        .multiblock{
+            justify-content: space-between;
+            height: 3.8em;
+        }
+        .multiselectbtn{
+            background: var(--buttoncolor);
+            justify-content: start;
+            gap: 0.1em;
+            align-items: center;
+            margin: auto;
+            text-align: left;
+            border-radius: 8px;
+            border: none;
+            height: 2.8em;
+            margin-right: 10px;
+            width: 220px;
+            transition: ease-in 0.2s;
+        }
+        .multitext.change{
+            animation: 0.2s ease-out slidein;
+        }
+        .multiselect-ti {
+            font-weight: 400 !important;
+            padding-left: 0.1em;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/style2.css" >
+    <link rel="stylesheet" type="text/css" href="src/prism.css" >
+    <link rel="stylesheet" type="text/css" href="src/prism-live.css" >
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+        .prism-live {
+            height: 400px;
+        }
+        textarea {
+            resize:vertical;
+            width: 100%;
+            height: 400px;
+            font-family: 'Source Code Pro', monospace;
+            tab-size: 2;
+            background: #1f1f1f;
+            color: #D0D0D0;
+        }
+        html, body {
+            width: 550px; 
+            max-height: unset !important; 
+            height: 600px !important;
+            overflow: hidden;
+        }
+        .card{
+            overflow: hidden;
+        }
+    </style>
+    <script src="js/customcss.js" type="text/javascript"></script>
+    <script src="src/prism.js"></script>
+    <script src="src/bliss.js"></script>
+    <script src="src/prism-live.js?load=css"></script>
+</head>
+
+<body>
+    <div class="card" style="margin: 30px 30px;">
+        <div class="flex-title">
+            <div class="middle"><div class="ti ti-allstg"></div><h2>カスタムCSS</h2></div>
+        </div>
+        <p>ここにカスタムCSSを記述すると、今お使いのMisskeyサーバーにアクセスした際に自動で挿入されるようになります。</p>
+
+        <textarea class="prism-live language-css"></textarea>
+    </div>
+</body>
