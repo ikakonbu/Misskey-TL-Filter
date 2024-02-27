@@ -44,13 +44,13 @@
     font-family: "tabler-icons";
     font-style: normal;
     font-weight: 400;
-    src: url("../tabler-icons-min.woff")format('woff');
+    src: url("../font/tabler-icons.woff")format('woff');
     font-display: swap;
 }
 
 /*General Setting*/
 html,body{
-    max-height: 430px !important;
+    max-height: 650px !important;
     overflow-y: scroll;
 }
 body {
@@ -61,7 +61,7 @@ body {
     font-size: 13px;
 }
 .wrapper{
-    max-height: 430px;
+    max-height: 530px;
     text-align: center;
     padding-bottom: 20px;
     position: relative;
@@ -109,6 +109,11 @@ h1{
 /*layout specify CSS*/
 .flex{
     display: flex;
+}
+.title-buttons {
+    margin-left: auto;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 .left{
     justify-content:left;
@@ -204,7 +209,7 @@ h2 {
     font-size: 26px;
     position: absolute;
     overflow: hidden;
-    top: 35%;
+    top: 30%;
     background-color: var(--cardcolor);
     color: var(--textcolor);
     padding: 40px 8px;
@@ -315,15 +320,12 @@ h2 {
     opacity: 1;
     width: 400px;
 }
-.all_setting{
+.all_setting, .more_setting, .css_setting{
     margin: 15px 30px;
     padding: 15px 25px 4px;
 }
-.more_setting{
-    margin: 30px 30px;
-    padding: 15px 25px 4px;
-}
-.other_setting .buttonblock{
+
+:is(.other_setting, .css_settings) .buttonblock{
     justify-content: space-between;
 }
 
@@ -406,10 +408,18 @@ a:hover div {
     font-size: 20px;
     margin-right: 0.5em;
 }
+.ti.ti-info{
+    font-size: 18px;
+    padding-right: 0.4em;
+    opacity: 0.4;
+}
+.ti-icon {
+    z-index: 3;
+}
 .ti-home:before{content: "\eac1";}
 .ti-planet:before{content: "\ec08";}
 .ti-list:before{content: "\eb6b";}
-.ti-allstg:before{content: "\ea03";}
+.ti-allstg:before{content: "\ed52";}
 .ti-more:before{content: '\ea5f';}
 .ti-github:before{content: '\ec1c';}
 .ti-user:before{content: '\eb4d';}
@@ -425,6 +435,11 @@ a:hover div {
 .ti-lang:before{content: '\ef77';}
 .ti-device-tv:before{content: '\ea8d';}
 .ti-antenna:before{content: '\f094';}
+.ti-css:before{content: '\fb08';}
+.ti-emoji:before{content: '\eb95';}
+.ti-repeat:before{content: '\eb72';}
+.ti-mute:before{content: '\f1c3';}
+.ti-bot:before{content: '\fcbe'}
 
 /*CheckBox CSS*/
 .filterbtn{
@@ -540,4 +555,77 @@ a:hover div {
         transform: translateX(0px);
         opacity: 1;
     }
+}
+@keyframes iikanzi{
+    0% {
+        max-height: 0px;
+        overflow-y: hidden;
+        opacity: 0.2;
+    }
+    100% {
+        max-height: 200px;
+        overflow-y: visible;
+        opacity: 1;
+    }
+}
+@keyframes iikanzi2{
+    0% {
+        max-height: 200px;
+        overflow-y: hidden;
+        opacity: 1;
+    }
+    100% {
+        max-height: 0px;
+        overflow-y: visible;
+        opacity: 0.2;
+    }
+}
+
+
+/*emoji auto complite*/
+.emojiresult{
+    transform-origin: 50% 0%;
+    border-radius: 7px;
+    background: rgba(160,160,160,0.1);
+    height: 100px;
+    text-align: center;
+}
+
+.emojiresult.show{
+    padding: 5px 10px;
+    height: fit-content;
+    animation: ease-out iikanzi 0.3s;
+    
+}
+.emojiresult.hide {
+    animation: ease-out iikanzi2 0.3s;
+    animation-fill-mode: forwards;
+}
+
+
+.discription{
+   margin: 4px 0 10px;
+}
+.emojibtn{
+    margin: 2px;
+    transition: 0.2s;
+    background: transparent;/*var(--buttoncolor);*/
+    border-radius: 4px;
+    border: none;
+    padding: 1px 3px;
+}
+.emojibtn img {
+    height: 28px;
+    max-width: 150px;
+}
+.emojibtn:hover{
+    transition: 0.1s;
+    transform: scale(1.3);
+    box-shadow: 0px 0px 10px var(--btnshadow);
+}
+.emojibtn:active{
+    transition: 0.1s;
+    transition-delay: 0s;
+    transform: scale(0.95);
+    background: var(--accent);
 }

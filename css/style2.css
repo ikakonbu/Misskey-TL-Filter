@@ -114,6 +114,7 @@ a:hover div {
 .ti-lang:before{content: '\ef77';}
 .ti-device-tv:before{content: '\ea8d';}
 .ti-antenna:before{content: '\f094';}
+.ti-emoji:before{content: '\eb95';}
 
 .filterbtn:checked+.toggler-slider {
     background-color: var(--accent);

@@ -119,7 +119,7 @@ function setpopupstate(tabid, flag){
         chrome.action.enable(tabid);
         chrome.action.setIcon({path:"../img/icon_48.png"});
     } else {
-        chrome.action.disable(tabid);
+        chrome.action.enable(tabid);
         chrome.action.setIcon({path:"../img/icon_disable.png"});
     }
 }

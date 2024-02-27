@@ -5,6 +5,7 @@ let autoscrolled = false;
 let willscroll = 0;
 let csscode='';
 let domainname = '';
+let emojiDB;
 
 /*multiselect buttons*/
 let multibtn_texts = [["フィルターなし","チャンネル非表示"],["フィルターなし","リノート非表示","リノート「だけ」表示する"], ["フィルターなし","NSFW非表示","NSFW「だけ」表示する"],["フィルターなし","自分のサーバーの投稿だけ","他のサーバーの投稿だけ"],["フィルターなし","メディア非表示","メディア「だけ」表示する"]];
@@ -52,27 +53,34 @@ const hidecss = {
     media_only: '.xcSej.x3762:not(:has(.xbIzI)){ display: none;}',
     media_hide: '.xcSej.x3762:has(.xbIzI){ display: none;}',
     
-    //for all timeline
+    //for Mute Settings
+    emojimute: ':is(.xeJ4G, .xagin)[title^="unko"],._button .xeJ4G[title^="unko"]{display:none;} ._button:has(.xeJ4G[title^="unko"]):before{content: "";display: inline-block;width: 1.25em !important;height: 1.25em !important;background-image: url(/twemoji/2764.svg);background-size: 1.25em 1.25em;} .xAV2R:has(img[title^="unko"]):after{content: "";display: inline-block;width: 20px !important;height: 20px !important;background-image: url(/twemoji/2764.svg);background-size: 20px 20px;}:is(.emojis,.x8LRN) :is(._button,.xm7js):has([title^="unko"]){display: none !important;}',
+    botexcep: '.xcSej.x3762:has(.xEKlD):has(a[href$="unko"]) { display: block !important; }',
     usermute: '.xcSej.x3762:has(a[href="/@unko"]){ display: none; }',
     userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
     userstatus: '{} .status a:nth-child(n+2)  b,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2), .xyEEg .x8w8X:nth-child(n+2) span{font-size: 0;}.status a:nth-child(n+2)  b:after,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2):after, .xyEEg .x8w8X:nth-child(n+2) span:after{ content: "???"; font-size: 14px;}',
+    rollbadges: '.xks9Y { display: none;}',
+    antispam: '.xcSej.x3762:has(.xuevx):has(.xkJBF[src*="identicon/"]),.xcSej:has(.x6gsV):has(.xkJBF[src*="identicon/"]),.xcSej:has(.x6gsV:nth-child(4)){ display: none; }',
+
+    //for Other Settings
     emojibetter: '{} :root { --emoji_default_size: 30px; --emoji_margin_lr: 6px; --emoji_margin_tb: 2px; --emoji_max_size: 80px; --emoji_displey_style: fill; --emoji_window_default_height: 400px; --emoji_window_default_width: 400px; --emoji_autofill_max_width: 300px; --emoji_autofill_displey_style: fill; } .emojis { padding: 10px 5px 5px; text-align:center; } .emojis .body { display: inline !important; padding: 0 !important; line-height: 0; } .emojis section>.body ._button.item{ height: auto !important; } .emojis ._button.item{ aspect-ratio: auto!important; width: fit-content !important; contain: layout !important; margin: 0px !important; padding: var(--emoji_margin_tb) var(--emoji_margin_lr) !important; min-height: var(--emoji_default_size) !important; } .emojis .xeJ4G{ width: auto !important; height: var(--emoji_default_size) !important; object-fit: var(--emoji_displey_style) !important; object-position: 0% 50%; max-width: var(--emoji_max_size); } .xeJ4G.xuoKL, ._emoji_1pjrm_56 { width: auto !important; object-fit: var(--emoji_autofill_displey_style) !important; object-position: 0% 50%; max-width: var(--emoji_autofill_max_width); } .omfetrab:is(.s1,.s2,.s3)[data-v-c34d1549] .emojis{ --eachSize: fit-content !important; } .emojis .group:not(.index) section{ text-align: left; } .emojis .group:not(.index) section .body{ display: block !important; text-align: center; } .emojis .item:focus, .emojis .item:hover { background: rgba(255,0,0,0.4 ); }',
     imagehidebtn: '{} .ti.ti-eye-off:is(.xlnR0, .xdz7H){  opacity: 1;  font-size: 20px;  background-color: rgba(10,10,10,0.2);  color: white;  padding: 14px 18px 14px 18px;  margin: 4px;  top: 3px;  right: 3px;  border-radius: 15px;  backdrop-filter: blur(10px);  -webkit-backdrop-filter: blur(10dpx); } .ti.ti-eye-off:is(.xlnR0, .xdz7H):hover{  transition: 0.1s;  transform: scale(1.1);  color: var(--accent);  background: var(--bg);  border: solid 1px var(--accent); } @media screen and (max-width: 600px){ .ti.ti-eye-off:is(.xlnR0, .xdz7H){  opacity: 1;  font-size: 18px;  padding: 13px 12px 13px 12px;  top: 0;  right: 0; } } .xEvDK._button{  display: none; }',
 }
 const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィルタリングができるカスタムCSSです。\nこのコードをコピーして、フィルタを設定したいパソコン、スマホのmisskeyの設定→全般→カスタムCSS の中に貼り付けてください*/\n/*This is a custom CSS that allows filtering identical to the current Misskey-TL-FIlter settings.\n Copy this code and paste it into misskey settings -> General -> Custom CSS on the computer or smartphone where you want to set the filter*/\n';
 
+/*element of checkbox ,text input, button, scroll button, and scroll target*/
+const chcckbox_elements = document.querySelectorAll(`.filterbtn:not(.autoscrollcheck)`);
+const text_elements = document.querySelectorAll(`input[type="text"]`);
+const multibtn_elements = document.getElementsByClassName(`multiselectbtn`);
+const exportbtn = document.querySelector(`button[class="export"]`);
+const autoscrollsetting = document.querySelector(`.autoscrollcheck`);
+const scrollleft  = document.querySelector('.scrollleft');
+const scrollright = document.querySelector('.scrollright');
+const scrolltarget = document.querySelector('.flex.left');
+const langage = document.getElementById('langage');
+const emoji_text = document.getElementById('emojimute');
 
 
-    /*element of checkbox ,text input, button, scroll button, and scroll target*/
-    const chcckbox_elements = document.querySelectorAll(`.filterbtn:not(.autoscrollcheck)`);
-    const text_elements = document.querySelectorAll(`input[type="text"]`);
-    const multibtn_elements = document.getElementsByClassName(`multiselectbtn`);
-    const exportbtn = document.querySelector(`button[class="export"]`);
-    const autoscrollsetting = document.querySelector(`.autoscrollcheck`);
-    const scrollleft  = document.querySelector('.scrollleft');
-    const scrollright = document.querySelector('.scrollright');
-    const scrolltarget = document.querySelector('.flex.left');
-    const langage = document.getElementById('langage');
 
     /*create css code from current settings*/
     function CreateCSS(){
@@ -84,7 +92,7 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
             }
         }
         //User Mute,renotemute input
-        for(let i=0;i<2;i++){
+        for(let i=0;i<4;i++){
             if(text_elements[i].value.replaceAll(' ','')){
                 let muteuserlist = text_elements[i].value.replaceAll(' ','').split(',');
                 for(let name of muteuserlist){
@@ -123,7 +131,6 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         })
         }
     }
-
 
     /*load settings*/
     function LoadSetting(){
@@ -186,17 +193,27 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         link.remove();
     }
 
-
-
     /*Update CSS from arg (excute script)*/
     function UpdateCSS(styles){
         document.querySelector(`.filtercsswrapper`).innerHTML=styles;
         localStorage.setItem('lastcss',styles);
     }
 
+
+
     /*Get page Domain (excute script)*/
     function GetDomain(){
         return document.domain;
+    }
+
+    /*Determine if the site you are currently viewing is a Misskey instance(excuce script)*/
+    function isMisskey(){
+        let misskey_elm = document.querySelector("#misskey_app");
+        if(misskey_elm != null){
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /*Get the TL Name which currently looking*/
@@ -222,6 +239,15 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
             return null;
         }
     }
+
+
+
+    /* Get emoji DB for the server which viewing now*/
+    async function initEmojiDB(){
+        const emojis = await fetch("https://" + domainname + "/api/emojis");
+	    emojiDB = await emojis.json();
+    }
+
 
     function clamp(a,b,c){
         if(a>b){
@@ -352,6 +378,7 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
         tabquery.then((value) => {
             domainname = value[0].result; 
             LoadSetting();
+            initEmojiDB();
         })
         .catch(err => alert(err));
     });
@@ -439,5 +466,73 @@ const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィル�
     exportbtn.addEventListener('click', () => {
         ExportCSS();
     })
+
+
+    /*emoji auto complite */
+    emoji_text.addEventListener("input",async function(){
+        let texts = emoji_text.value.split(",").pop().replace(" ", "").replace(":", "");
+        var search_result;
+
+        if(texts != "" && texts.split(":").length %2 == 1){
+            search_result = emojiDB.emojis.filter(function(item, index){
+            if (item.name == texts) return true;
+            });
+
+            search_result = search_result.concat(emojiDB.emojis.filter(function(item, index){
+            if (item.name.indexOf(texts) == 0 || item.aliases.indexOf(texts) != -1) return true;
+            }));
+
+            search_result = search_result.concat(emojiDB.emojis.filter(function(item, index){
+            if (item.name.indexOf(texts) != -1) {
+                return true;
+            } else {
+                let flag = false;
+                item.aliases.forEach((ai) => {
+                if (ai.indexOf(texts) != -1) flag=true;
+                });
+                return flag;
+            }
+            }));
+
+            search_result = search_result.filter((element, index) => {
+            return search_result.indexOf(element) == index;
+            });
+        } else {
+        search_result = [];
+        }
+
+        if(search_result.length > 40){
+        search_result = search_result.slice(0, 40);
+        }
+
+        var result = "";
+        for (let node of search_result){
+        var iikanzi_html_node = "<button class='emojibtn' title = '" + node.name + "'><img src='" + node.url + "'></button>"
+        result += iikanzi_html_node;
+        }
+
+        document.querySelector(".emojiresult").innerHTML = result;
+        if(result != ""){
+            document.querySelector(".emojiresult").classList.add("show");
+            document.querySelector(".emojiresult").classList.remove("hide");
+        }else{
+            document.querySelector(".emojiresult").classList.remove("show");
+            document.querySelector(".emojiresult").classList.add("hide");
+        }
+
+        let autocmp_buttons = document.querySelectorAll(".emojibtn");
+        for(let node of autocmp_buttons){
+            node.addEventListener("click",function(){
+                let temp = emoji_text.value.split(":").slice(0,-1).map((node) => node + ":").join("");
+                if(temp.slice(-1) != ":") temp += ":";
+                emoji_text.value = temp + node.title + ":";
+                let result_elm = document.querySelector(".emojiresult");
+                window.setTimeout(function(){result_elm.innerHTML = "";},100);
+                result_elm.classList.remove("show");
+                result_elm.classList.add("hide");
+                emoji_text.focus();
+            });
+        }
+    });
 
     ChangeLang();
