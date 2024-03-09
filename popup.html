@@ -636,19 +636,39 @@
                     <div class="flex left-small">
                         <div class="popup">
                             <p class="ti ti-info"></p>
-                            <div class="description-popup">選んだ絵文字を非表示/隠す事ができます。<br>通知欄やノートのリアクション一覧では❤に置き換わり、<br>それ以外の場所では完全に消えます</div>
+                            <div class="description-popup">特定の絵文字を「❤」に変換して見えなくします。<br>例   :igyo:, :tiken:, :issue:</div>
                         </div>
                         <div class="popup ti-icon">
                             <p class="ti ti-emoji"></p>
                         </div>
-                        <div class="flex buttonlabel"></p>絵文字ミュート</div>
+                        <div class="flex buttonlabel"></p>絵文字ボカシ</div>
                     </div>
                     <label>
-                        <input id="emojimute" type="text" class="textinput" data-kinds="emojimute">
+                        <input data-id="1" type="text" class="textinput emojitext" data-kinds="emojihide">
                     </label>
                 </div>
 
-                <div class="emojiresult hide">
+                <div data-id="1" class="emojiresult hide">
+                </div>
+
+                <div class="flex buttonblock">
+                    <div class="flex left-small">
+                        <div class="popup">
+                            <p class="ti ti-info"></p>
+                            <div class="description-popup">選んだ絵文字を完全非表示にします。<br>通知、リアクションボタン、絵文字ピッカー内、<br>指定の絵文字が添付されたノートが非表示になります。<br>例   :igyo:, :tiken:, :issue:</div>
+                        </div>
+                        <div class="popup ti-icon">
+                            <p class="ti ti-emoji"></p>
+                        </div>
+                        <div class="flex buttonlabel"></p>絵文字ブロック</div>
+                    </div>
+                    <label>
+                        <input data-id="2" type="text" class="textinput emojitext" data-kinds="emojiblock">
+                    </label>
+                </div>
+
+
+                <div data-id="2" class="emojiresult hide">
                 </div>
 
                 <div class="flex buttonblock">

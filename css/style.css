@@ -609,7 +609,7 @@ a:hover div {
 .emojibtn{
     margin: 2px;
     transition: 0.2s;
-    background: transparent;/*var(--buttoncolor);*/
+    background: transparent;
     border-radius: 4px;
     border: none;
     padding: 1px 3px;
