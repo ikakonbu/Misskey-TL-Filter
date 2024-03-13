@@ -119,8 +119,6 @@ const emoji_text = document.querySelectorAll('.emojitext');
         for (let target of multibtn_elements) {
             localStorage.setItem('multiselect-' + target.dataset.multiindex + domainname, target.dataset.index);
         }
-        //this setting use service worker. but this dont access localstorage. so save to chrome storage API
-        chrome.storage.local.set({setting1: text_elements[2].value});
         localStorage.setItem('langage', langage.value);
         localStorage.setItem('autoscroll' + domainname , (arrowautoscroll==1)? 1 : 0);
         localStorage.setItem('saved' + domainname , '1');
@@ -178,9 +176,6 @@ const emoji_text = document.querySelectorAll('.emojitext');
         text_elements[1].value = localStorage.getItem('list-' + text_elements[1].dataset.kinds + domainname);
         arrowautoscroll = (localStorage.getItem('autoscroll' + domainname) == null)? 1 : Number(localStorage.getItem('autoscroll' + domainname));
         autoscrollsetting.checked = arrowautoscroll;
-        chrome.storage.local.get(["setting1"]).then((result) => {
-            text_elements[2].value = result.setting1;
-        });
     }
 
     /*create css code file and download*/
@@ -205,16 +200,6 @@ const emoji_text = document.querySelectorAll('.emojitext');
     /*Get page Domain (excute script)*/
     function GetDomain(){
         return document.domain;
-    }
-
-    /*Determine if the site you are currently viewing is a Misskey instance(excuce script)*/
-    function isMisskey(){
-        let misskey_elm = document.querySelector("#misskey_app");
-        if(misskey_elm != null){
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /*Get the TL Name which currently looking*/

@@ -51,6 +51,15 @@ const serverlist = ['misskey.io',
 'fix.misskey.life',
 'msk.ilnk.info'];
 
+function checkmisskey(test){
+    let misskey_elm = document.querySelector("#misskey_app");
+    if(misskey_elm != null){
+        return document.domain;
+    } else {
+        return false;
+    }
+}
+
 async function getCurrentTab() {
     let queryOptions = { active: true, lastFocusedWindow: true };
     // `tab` will either be a `tabs.Tab` instance or `undefined`.
@@ -67,7 +76,7 @@ currenttab.then((result) => {
     }
 });
 
-chrome.tabs.onUpdated.addListener((tabId, changeinfo, tab) => {
+chrome.tabs.onUpdated.addListener((tab_Id, changeinfo, tab) => {
     if(changeinfo.status == "complete"){
         CheckURL(tab);
     }
@@ -80,7 +89,6 @@ chrome.tabs.onActivated.addListener((result) => {
 });
 
 
-
 /*check url and enable tabid's tab popup 
   when url is misskey.io or user seted url*/
 function CheckURL(tab){
@@ -91,6 +99,10 @@ function CheckURL(tab){
         console.log('url get error: URL check process was aborted');
         return;
     }
+    if(uri.toString().indexOf("chrome://")==0){
+        return;
+    }
+
     /*check default setting*/
     if(serverlist.indexOf(uri.hostname) != -1){
         console.log('hit default serverlist');
@@ -100,17 +112,16 @@ function CheckURL(tab){
         setpopupstate(tab.id, false);
     }
 
-    /*check user setting*/
-    chrome.storage.local.get(["setting1"]).then((result) => {
-    if(result.setting1){
-        let urls = result.setting1.split(',');
-        for(let url of urls){
-            if(uri.hostname.indexOf(url) != -1){
-                setpopupstate(tab.id, true);
-                return;
-            }
+    /*misskeu auto detection*/
+    let elemcheck = chrome.scripting.executeScript({
+        target : {tabId: tab.id},
+        func : checkmisskey,
+    });
+    elemcheck.then((value) => {
+        if(value[0].result != false){
+            chrome.action.enable(tab.id);
+            chrome.action.setIcon({path:"../img/icon_48.png"});
         }
-    }
     });
 }
 
