@@ -54,8 +54,8 @@ const hidecss = {
     media_hide: '.xcSej.x3762:has(.xbIzI){ display: none;}',
     
     //for Mute Settings
-    emojihide: ':is(.xlT1y .xeJ4G,.x3762 .xeJ4G, .x3kEw .xeJ4G, .xagin, .xwUec .xeJ4G)[title^="unko"],:is(.xlT1y) ._button .xeJ4G[title^="unko"]{ display:none;}._button:has(.xeJ4G[title^="unko"]):before{ content: ""; display: inline-block; width: 1.25em !important; height: 1.25em !important; background-image: url(/twemoji/2764.svg); background-size: 1.25em 1.25em;}.xAV2R:has(img[title^="unko"]):after{ content: ""; display: inline-block; width: 20px !important; height: 20px !important; background-image: url(/twemoji/2764.svg); background-size: 20px 20px;}',
-    emojiblock: ':is(.xeJ4G, .xagin)[title^="unko"],._button:has(.xeJ4G[title^="unko"]){ display:none; } .x9Bba:has(img[title="unko"]){ display: none; } :is(.emojis,.x8LRN) :is(._button,.xm7js):has([title^="unko"]){ display: none !important; }',
+    emojihide: ':is(.xlT1y .xeJ4G,.x3762 .xeJ4G, .x3kEw .xeJ4G, .xagin, .xwUec .xeJ4G):is(:is([title^="unko@"],[title^="unko:"])),:is(.xlT1y) ._button .xeJ4G:is(:is([title^="unko@"],[title^="unko:"])){ display:none;}._button:has(.xeJ4G:is(:is([title^="unko@"],[title^="unko:"]))):before{ content: ""; display: inline-block; width: 1.25em !important; height: 1.25em !important; background-image: url(/twemoji/2764.svg); background-size: 1.25em 1.25em;}.xAV2R:has(img:is(:is([title^="unko@"],[title^="unko:"]))):after{ content: ""; display: inline-block; width: 20px !important; height: 20px !important; background-image: url(/twemoji/2764.svg); background-size: 20px 20px;}',
+    emojiblock: ':is(.xeJ4G, .xagin):is(:is([title^="unko@"],[title^="unko:"])),._button:has(.xeJ4G:is(:is([title^="unko@"],[title^="unko:"]))){ display:none; } .x9Bba:has(img[title="unko"]){ display: none; } :is(.emojis,.x8LRN) :is(._button,.xm7js):has(:is(:is([title^="unko@"],[title^="unko:"]))){ display: none !important; }',
     botexcep: '.xcSej.x3762:has(.xEKlD):has(a[href$="unko"]) { display: block !important; }',
     usermute: '.xcSej.x3762:has(a[href="/@unko"]){ display: none; }',
     userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
@@ -97,6 +97,7 @@ const emoji_text = document.querySelectorAll('.emojitext');
             if(text_elements[i].value.replaceAll(' ','')){
                 let muteuserlist = text_elements[i].value.replaceAll(' ','').split(',');
                 for(let name of muteuserlist){
+                    name = name.replace(/(:.+):/, "$1");
                     csscode += hidecss[text_elements[i].dataset.kinds].replaceAll('unko',name) + '\n';
                 }
             }
