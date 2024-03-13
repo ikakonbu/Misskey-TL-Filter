@@ -590,7 +590,6 @@ a:hover div {
     height: 100px;
     text-align: center;
 }
-
 .emojiresult.show{
     padding: 5px 10px;
     height: fit-content;
@@ -624,6 +623,74 @@ a:hover div {
     box-shadow: 0px 0px 10px var(--btnshadow);
 }
 .emojibtn:active{
+    transition: 0.1s;
+    transition-delay: 0s;
+    transform: scale(0.95);
+    background: var(--accent);
+}
+
+
+/*user mute*/
+.userresult{
+    transform-origin: 50% 0%;
+    border-radius: 7px;
+    background: rgba(160,160,160,0.1);
+    height: 100px;
+    text-align: left;
+}
+.userresult.show{
+    height: fit-content;
+    animation: ease-out iikanzi 0.3s;   
+}
+.userresult.hide {
+    animation: ease-out iikanzi2 0.3s;
+    animation-fill-mode: forwards;
+}
+
+.userresult button {
+    display: inline-flex;
+    vertical-align: middle;
+}
+.usericon {
+    height: 40px;
+    width: 40px;
+    border-radius: 999px;
+    margin-right: 10px;
+}
+.userbtn{
+    max-width: 400px;
+    overflow-x: hidden;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    text-align: left;
+    font-size: 15px;
+    margin: 4px 6px;
+    transition: 0.2s;
+    background: var(--buttoncolor);
+    border-radius: 4px;
+    border: none;
+    padding: 3px 8px;
+    .usernametext{
+        overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        img {
+            height: 15px;
+        }
+    }
+}
+.servername {
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+.userbtn:hover{
+    transition: 0.2s;
+    transform: scale(1.15);
+    box-shadow: 0px 0px 10px var(--btnshadow);
+}
+.userbtn:active{
     transition: 0.1s;
     transition-delay: 0s;
     transform: scale(0.95);

@@ -6,6 +6,9 @@ let willscroll = 0;
 let csscode='';
 let domainname = '';
 let emojiDB;
+var searchtask = null;
+let controller = new AbortController();
+let signal = controller.signal;
 
 /*multiselect buttons*/
 let multibtn_texts = [["フィルターなし","チャンネル非表示"],["フィルターなし","リノート非表示","リノート「だけ」表示する"], ["フィルターなし","NSFW非表示","NSFW「だけ」表示する"],["フィルターなし","自分のサーバーの投稿だけ","他のサーバーの投稿だけ"],["フィルターなし","メディア非表示","メディア「だけ」表示する"]];
@@ -80,6 +83,7 @@ const scrollright = document.querySelector('.scrollright');
 const scrolltarget = document.querySelector('.flex.left');
 const langage = document.getElementById('langage');
 const emoji_text = document.querySelectorAll('.emojitext');
+const user_text = document.querySelectorAll('.usertext');
 
 
 
@@ -554,6 +558,89 @@ const emoji_text = document.querySelectorAll('.emojitext');
     
 
     /*user auto complite */
+    for(let usertarget of user_text){
+        usertarget.addEventListener("input",function(e){
+            let text = e.target.value.split(",").pop();
+            let id = e.target.dataset.id;
+            let search_results = [];
+            let result=elm = user_text[id+2];
 
+            if(text != ""){
+                controller.abort();
+                controller = new AbortController();
+                signal = controller.signal;
+
+                if(searchtask != null){
+                    clearTimeout(searchtask);
+                }
+
+                searchtask = setTimeout(async function(){
+                    const responce = await fetch("https://" + domainname + "/api/users/search", {
+                    "headers": {
+                      "content-type": "application/json",
+                    },
+                    "body": "{\"query\":\"" + text + "\",\"offset\":0,\"limit\":5,\"origin\":\"combined\",\"detail\":false}",
+                    "method": "POST",
+                    "signal": signal,
+                    });
+                    search_results = await responce.json();
+            
+                    var result = "";
+                    if(search_results.length == 0){
+                        document.querySelector(".userresult[data-id='" + id + "']").classList.remove("show");
+                        document.querySelector(".userresult[data-id='" + id + "']").classList.add("hide");
+                    } else {
+                        document.querySelector(".userresult[data-id='" + id + "']").classList.remove("show");
+                        document.querySelector(".userresult[data-id='" + id + "']").classList.add("hide");
+                        setTimeout(function(){
+                          document.querySelector(".userresult[data-id='" + id + "']").classList.add("show");
+                          document.querySelector(".userresult[data-id='" + id + "']").classList.remove("hide");
+                        },1);
+                    }
+
+                    for (let node of search_results){
+                      var username = node.name.split(":");
+                      var userserver = node.host;
+                      var usernameHTML = "";
+                      let search_result = [];
+
+                      username.forEach((word, index) => {
+                        if(index%2 == 0) {
+                            usernameHTML += word;
+                        } else {
+                            if(userserver == null || userserver == "null"){
+                                console.log(userserver);
+                                search_result = emojiDB.emojis.filter(function(item, index){
+                                    if (item.name == word) return true;
+                                });
+                                if(search_result.length != 0){
+                                    usernameHTML += "<img data-kind='local' src='" + search_result[0].url+ "'></>";
+                                } else {
+                                    usernameHTML += ":" + word + ":";
+                                }
+                            } else {
+                                usernameHTML += "<img data-kind='other' src='" + node["emojis"][word]+ "'></>";
+                            }
+                        }
+                      });
+
+                      var iikanzi_html_node = "<button class='userbtn' data-name = '" + node.username + "'><img class='usericon' src='" + node.avatarUrl + "'><div class='usernametext'>" + usernameHTML + ((node.host != null)? "  <div class='servername'>@" + node.host + "</div>" : "<div class='servername'>@" + domainname + "</div>") + "</div></button>"
+                      result += iikanzi_html_node;
+                    }
+             
+                    console.log(".userresult[data-id='" + id + "']");
+                    document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = result;
+                  }, 200);
+                  document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = "<div style='width:100%; text-align: center;'><img src='img/loading.apng'></div>";
+                  document.querySelector(".userresult[data-id='" + id + "']").classList.add("show");
+                  document.querySelector(".userresult[data-id='" + id + "']").classList.remove("hide");
+
+            } else {
+                document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = "";
+                document.querySelector(".userresult[data-id='" + id + "']").classList.remove("show");
+                document.querySelector(".userresult[data-id='" + id + "']").classList.add("hide");
+            }
+        });
+    }
 
     ChangeLang();

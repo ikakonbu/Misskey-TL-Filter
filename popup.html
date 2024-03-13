@@ -655,7 +655,7 @@
                     <div class="flex left-small">
                         <div class="popup">
                             <p class="ti ti-info"></p>
-                            <div class="description-popup">選んだ絵文字を完全非表示にします。<br>通知、リアクションボタン、絵文字ピッカー内、<br>指定の絵文字が添付されたノートが非表示になります。<br>例   :igyo:, :tiken:, :issue:</div>
+                            <div class="description-popup">選んだ絵文字を完全非表示にします。<br>ノートやリアクションの中はもちろん、通知や絵文字ピッカーからも消えます。<br>例   :igyo:, :tiken:, :issue:</div>
                         </div>
                         <div class="popup ti-icon">
                             <p class="ti ti-emoji"></p>
@@ -683,8 +683,11 @@
                         <div class="flex buttonlabel"></p>botの例外設定</div>
                     </div>
                     <label>
-                        <input type="text" class="textinput" data-kinds="botexcep">
+                        <input data-id="1" type="text" class="textinput usertext" data-kinds="botexcep">
                     </label>
+                </div>
+
+                <div data-id="1" class="userresult hide">
                 </div>
 
                 <div class="flex buttonblock">
@@ -699,9 +702,14 @@
                         <div class="flex buttonlabel">ユーザーミュート</div>
                     </div>
                     <label>
-                        <input type="text" class="textinput" data-kinds="usermute">
+                        <input data-id="2" type="text" class="textinput usertext" data-kinds="usermute">
                     </label>
                 </div>
+
+                <div data-id="2" class="userresult hide">
+                </div>
+
+
                 <div class="flex buttonblock">
                     <div class="flex left-small">
                         <div class="popup">
@@ -714,12 +722,16 @@
                         <div class="flex buttonlabel">RNミュート</div>
                     </div>
                     <label>
-                        <input type="text" class="textinput" data-kinds="userrenotemute">
+                        <input data-id="3" type="text" class="textinput usertext" data-kinds="userrenotemute">
                     </label>
                 </div>
-                <div class="popup"></div>
 
+                <div data-id="3" class="userresult hide">
+                </div>
+
+                <div class="popup"></div>
             </div>
+
 
             <div class="card more_setting">
                 <div class="flex-title">
