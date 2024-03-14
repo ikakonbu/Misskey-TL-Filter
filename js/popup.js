@@ -97,7 +97,7 @@ const user_text = document.querySelectorAll('.usertext');
             }
         }
         //User Mute,renotemute input
-        for(let i=0;i<4;i++){
+        for(let i=0;i<5;i++){
             if(text_elements[i].value.replaceAll(' ','')){
                 let muteuserlist = text_elements[i].value.replaceAll(' ','').split(',');
                 for(let name of muteuserlist){
@@ -247,6 +247,21 @@ const user_text = document.querySelectorAll('.usertext');
             return c;
         } else {
             return b;
+        }
+    }
+
+    function autocmp_display(kind, id, flag){
+        const kind_dic = {"emoji": ".emojiresult", "user": ".userresult"}
+        const target = document.querySelector(kind_dic[kind] + "[data-id='" + id + "']");
+        console.log(kind_dic[kind] + "[data-id='" + id + "']");
+        console.log(target);
+
+        if(flag == true){
+            target.classList.add("show");
+            target.classList.remove("hide");
+        } else {
+            target.classList.add("hide");
+            target.classList.remove("show");
         }
     }
 
@@ -514,11 +529,9 @@ const user_text = document.querySelectorAll('.usertext');
 
             document.querySelector(".emojiresult[data-id='" + id + "']").innerHTML = result;
             if(result != ""){
-                document.querySelector(".emojiresult[data-id='" + id + "']").classList.add("show");
-                document.querySelector(".emojiresult[data-id='" + id + "']").classList.remove("hide");
+                autocmp_display("emoji", id, true);
             }else{
-                document.querySelector(".emojiresult[data-id='" + id + "']").classList.remove("show");
-                document.querySelector(".emojiresult[data-id='" + id + "']").classList.add("hide");
+                autocmp_display("emoji", id, false);
             }
 
             let autocmp_buttons = document.querySelectorAll(".emojibtn");
@@ -548,8 +561,7 @@ const user_text = document.querySelectorAll('.usertext');
                             });
                         });
                     },200);
-                    result_elm.classList.remove("show");
-                    result_elm.classList.add("hide");
+                    autocmp_display("emoji", id, false);
                     self.focus();
                 });
             }
@@ -560,7 +572,7 @@ const user_text = document.querySelectorAll('.usertext');
     /*user auto complite */
     for(let usertarget of user_text){
         usertarget.addEventListener("input",function(e){
-            let text = e.target.value.split(",").pop();
+            let text = e.target.value.split(",").pop().replaceAll(" ", "");
             let id = e.target.dataset.id;
             let search_results = [];
             let result=elm = user_text[id+2];
@@ -587,19 +599,16 @@ const user_text = document.querySelectorAll('.usertext');
             
                     var result = "";
                     if(search_results.length == 0){
-                        document.querySelector(".userresult[data-id='" + id + "']").classList.remove("show");
-                        document.querySelector(".userresult[data-id='" + id + "']").classList.add("hide");
+                        autocmp_display("user", id, false);
                     } else {
-                        document.querySelector(".userresult[data-id='" + id + "']").classList.remove("show");
-                        document.querySelector(".userresult[data-id='" + id + "']").classList.add("hide");
+                        autocmp_display("user", id, false);
                         setTimeout(function(){
-                          document.querySelector(".userresult[data-id='" + id + "']").classList.add("show");
-                          document.querySelector(".userresult[data-id='" + id + "']").classList.remove("hide");
+                            autocmp_display("user", id, true);
                         },1);
                     }
 
                     for (let node of search_results){
-                      var username = node.name.split(":");
+                      var username = await node.name.split(":");
                       var userserver = node.host;
                       var usernameHTML = "";
                       let search_result = [];
@@ -624,21 +633,45 @@ const user_text = document.querySelectorAll('.usertext');
                         }
                       });
 
-                      var iikanzi_html_node = "<button class='userbtn' data-name = '" + node.username + "'><img class='usericon' src='" + node.avatarUrl + "'><div class='usernametext'>" + usernameHTML + ((node.host != null)? "  <div class='servername'>@" + node.host + "</div>" : "<div class='servername'>@" + domainname + "</div>") + "</div></button>"
+                      var iikanzi_html_node = "<button class='userbtn' title = '" + node.username + ((node.host!=null)? "@" + node.host : "") +  "'><img class='usericon' src='" + node.avatarUrl + "'><div class='usernametext'>" + usernameHTML + ((node.host != null)? "  <div class='servername'>"+node.username+"@" + node.host + "</div>" : "<div class='servername'>" + node.username + "@" + domainname + "</div>") + "</div></button>"
                       result += iikanzi_html_node;
                     }
              
                     console.log(".userresult[data-id='" + id + "']");
                     document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = result;
+                    
+                  let autocmp_buttons = document.querySelectorAll(".userbtn");
+                  let self = e.target;
+                  for(let node of autocmp_buttons){
+                      node.addEventListener("click",function(){
+                          let temp = self.value.split(",").slice(0,-1).concat();
+                          if(temp != "") temp += ",";
+                          temp += node.title;
+                          self.value = temp;
+                          let result_elm = document.querySelector(".userresult[data-id='" + id + "']");
+                          window.setTimeout(function(){
+                              result_elm.innerHTML = "";
+                              SaveSetting();
+                              CreateCSS();
+                              chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+                                  chrome.scripting.executeScript({
+                                      target : {tabId : tabs[0].id},
+                                      func : UpdateCSS,
+                                      args : [csscode]
+                                  });
+                              });
+                          },200);
+                          autocmp_display("user", id, false);
+                          self.focus();
+                      });
+                  }
+
                   }, 200);
                   document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = "<div style='width:100%; text-align: center;'><img src='img/loading.apng'></div>";
-                  document.querySelector(".userresult[data-id='" + id + "']").classList.add("show");
-                  document.querySelector(".userresult[data-id='" + id + "']").classList.remove("hide");
-
+                  autocmp_display("user", id, true);
             } else {
                 document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = "";
-                document.querySelector(".userresult[data-id='" + id + "']").classList.remove("show");
-                document.querySelector(".userresult[data-id='" + id + "']").classList.add("hide");
+                autocmp_display("user", id, true);
             }
         });
     }
