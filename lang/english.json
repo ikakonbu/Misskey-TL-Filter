@@ -32,7 +32,9 @@
         {"text": "<span class='ti-tiny'>&#xea06</span>NSFW Media"},
         {"text": "<span class='ti-tiny'>&#xeb1f</span>Source Server"},
         {"text": "<span class='ti-tiny'></span>Media</div>"},
-        
+        {"text": "<span class='ti-tiny'></span>Bot</div>"},
+        {"text": "<span class='ti-tiny'></span>Play</div>"},
+
         {"text": "Mute specific users"},
         {"text": "Mute user's renote"},
         {"text": "Hide the number: following and follower"},
@@ -43,7 +45,7 @@
         {"text": "Export Filter Settings as CSS"},
         {"cmt": "flex2配下のbuttonlabelに引っかかる"}
     ],
-    "MultiselectOptions": [["Not Setting","Hide Channnel note"],["Not Setting","Hide Renote","Show Renote \"only\""], ["Not Setting","Hide NSFW Media","Show NSFW \"only\""],["Not Setting","Show same server \"only\"","Show different server \"only\""],["Not Setting","Hide Media","Show Media \"only\""]],
+    "MultiselectOptions": [["Not Setting","Hide Channnel note"],["Not Setting","Hide Renote","Show Renote \"only\""], ["Not Setting","Hide NSFW Media","Show NSFW \"only\""],["Not Setting","Show same server \"only\"","Show different server \"only\""],["Not Setting","Hide Media","Show Media \"only\""],["Not Setting","Hide Bot"],["Not Setting", "Hide Play"]],
     "Description":[
         {"text": "Hides all notes by the specified user.<br>Please enter userID.<br>(separated by , if there are multiple users)<br>Example:  ikakonbu, syuilo, abc123"},
         {"text": "Hides renotes by the specified user.<br>Please enter userID.<br>(separated by , if there are multiple users)<br>Example:  ikakonbu, syuilo, abc123"},

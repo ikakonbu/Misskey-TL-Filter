@@ -69,6 +69,9 @@ body {
 * {
     color: var(--textcolor);
 }
+.language-css * {
+    color: unset;
+}
 h1{
     font-size: 26px;
     padding: 6px auto;
@@ -111,9 +114,7 @@ h1{
     display: flex;
 }
 .title-buttons {
-    margin-left: auto;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto 0 auto 1em;
 }
 .left{
     justify-content:left;
@@ -191,12 +192,28 @@ h1{
     box-shadow: 0px 4px 10px 0px var(--cardshadow);
     border-radius: 10px;
 }
+.card:has(.accordion_label:active){
+    border-collapse: collapse;
+    background-color: solid 4px var(--accent);
+    transform: scale(0.96);
+    transition: 0.1s;
+}
 .flex-title{
     display: flex;
     justify-content: start;
     margin: 4px auto 10px;
-    border-bottom: solid 2px var(--textcolor);   
+    border-bottom: solid 2px transparent;   
+    transition: 0.3s;
 }
+.card:has(.accordion):not(:has(.accordion:checked)) .flex-title {
+    margin: 0px auto 6px;
+    transition: 0.3s;
+}
+.card:has(.accordion:checked) .flex-title, .card:not(:has(.accordion)) .flex-title{
+    border-bottom: solid 2px var(--textcolor);
+    transition: 0.3s;
+}
+
 h2 {
     font-size: 18px;
     display:table-cell;
@@ -322,7 +339,7 @@ h2 {
 }
 .all_setting, .more_setting, .css_setting{
     margin: 15px 30px;
-    padding: 15px 25px 4px;
+    padding: 10px 25px 0px;
 }
 
 :is(.other_setting, .css_settings) .buttonblock{
@@ -440,6 +457,7 @@ a:hover div {
 .ti-repeat:before{content: '\eb72';}
 .ti-mute:before{content: '\f1c3';}
 .ti-bot:before{content: '\fcbe'}
+.ti-toggle:before{content: '\eb3e';}
 
 /*CheckBox CSS*/
 .filterbtn{
@@ -535,52 +553,53 @@ a:hover div {
     padding-left: 0.1em;
 }
 
-/*animations*/
-@keyframes fade{
-    0% {
-        height: 0px;
-        opacity: 0.4;
-    }
-    100% {
-        height: 1200px;
-        opacity: 1;
-    }
-}
-@keyframes slidein {
-    0%{
-        transform: translateX(10px);
-        opacity: 0.5;
-    }
-    100% {
-        transform: translateX(0px);
-        opacity: 1;
-    }
-}
-@keyframes iikanzi{
-    0% {
-        max-height: 0px;
-        overflow-y: hidden;
-        opacity: 0.2;
-    }
-    100% {
-        max-height: 200px;
-        overflow-y: visible;
-        opacity: 1;
-    }
-}
-@keyframes iikanzi2{
-    0% {
-        max-height: 200px;
-        overflow-y: hidden;
-        opacity: 1;
-    }
-    100% {
-        max-height: 0px;
-        overflow-y: visible;
-        opacity: 0.2;
-    }
-}
 
+
+/*accordion Menu*/
+.accordion{
+    display: none;
+}
+.accordion_label {		/*タイトル*/
+	display: table;
+    width: max-content;
+    margin-right: 0;
+    padding-right: 0;
+    position: relative;
+    user-select: none;
+    text-align: left;
+    flex-grow: 1;
+}
+.accordion_label .ti {
+    width: 0;
+}
+.accordion_label+.accordion_icon::after{		/*タイトル横の矢印*/
+	content:"\ea5f";
+    font-family: "tabler-icons";
+    font-size: 2em;
+    height: 45px;
+    line-height:40px;
+}
+.accordion_label, .accordion_contents {
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	transform: translateZ(0);
+	transition: all 0.3s;
+}
+.accordion_contents {		/*本文*/
+	max-height: 0;
+	overflow: hidden;
+    opacity: 0;
+}
+.card:has(.accordion:checked) .accordion_contents {	/*開閉時*/
+	height: fit-content;
+    max-height: 700px;
+    overflow: visible;
+    opacity: 1;
+	transition: all ease-out .5s;
+}
+.card:has(.accordion:checked) .accordion_icon::after{
+	content: "\ea62";
+}
 
 /*emoji auto complite*/
 .emojiresult{
@@ -592,7 +611,7 @@ a:hover div {
 }
 .emojiresult.show{
     padding: 5px 10px;
-    height: fit-content;
+    height: max-content;
     animation: ease-out iikanzi 0.3s;
     
 }
@@ -654,6 +673,7 @@ a:hover div {
 .usericon {
     height: 40px;
     width: 40px;
+    object-fit: cover;
     border-radius: 999px;
     margin-right: 10px;
 }
@@ -695,4 +715,50 @@ a:hover div {
     transition-delay: 0s;
     transform: scale(0.95);
     background: var(--accent);
+}
+
+/*animations*/
+@keyframes fade{
+    0% {
+        height: 0px;
+        opacity: 0.4;
+    }
+    100% {
+        height: 1200px;
+        opacity: 1;
+    }
+}
+@keyframes slidein {
+    0%{
+        transform: translateX(10px);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+@keyframes iikanzi{
+    0% {
+        max-height: 0px;
+        overflow-y: hidden;
+        opacity: 0.2;
+    }
+    100% {
+        max-height: 200px;
+        overflow-y: visible;
+        opacity: 1;
+    }
+}
+@keyframes iikanzi2{
+    0% {
+        max-height: 200px;
+        overflow-y: hidden;
+        opacity: 1;
+    }
+    100% {
+        max-height: 0px;
+        overflow-y: visible;
+        opacity: 0.2;
+    }
 }

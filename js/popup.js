@@ -11,9 +11,9 @@ let controller = new AbortController();
 let signal = controller.signal;
 
 /*multiselect buttons*/
-let multibtn_texts = [["フィルターなし","チャンネル非表示"],["フィルターなし","リノート非表示","リノート「だけ」表示する"], ["フィルターなし","NSFW非表示","NSFW「だけ」表示する"],["フィルターなし","自分のサーバーの投稿だけ","他のサーバーの投稿だけ"],["フィルターなし","メディア非表示","メディア「だけ」表示する"]];
-const multibtn_index = [["no","channel_hide"],["no","renote_hide","renote_only"], ["no","nsfw_hide","nsfw_only"],["no","server_myonly","server_otheronly"],["no","media_hide","media_only"]];
-const multibtn_icons = [["&#xee40","&#xf064"],["&#xee40","&#xf18e","&#xeb72"], ["&#xee40","&#xfc69","&#xea06"],["&#xee40","&#xf1ca","&#xeb54"],["&#xee40","&#xecf6","&#xeb0a"]];
+let multibtn_texts = [["フィルターなし","チャンネル非表示"],["フィルターなし","リノート非表示","リノート「だけ」表示する"], ["フィルターなし","NSFW非表示","NSFW「だけ」表示する"],["フィルターなし","自分のサーバーの投稿だけ","他のサーバーの投稿だけ"],["フィルターなし","メディア非表示","メディア「だけ」表示する"],["フィルターなし","bot非表示"],["フィルターなし","play非表示"]];
+const multibtn_index = [["no","channel_hide"],["no","renote_hide","renote_only"], ["no","nsfw_hide","nsfw_only"],["no","server_myonly","server_otheronly"],["no","media_hide","media_only"],["no","bot_hide"],["no","play_hide"]];
+const multibtn_icons = [["&#xee40","&#xf064"],["&#xee40","&#xf18e","&#xeb72"], ["&#xee40","&#xfc69","&#xea06"],["&#xee40","&#xf1ca","&#xeb54"],["&#xee40","&#xecf6","&#xeb0a"],["&#xee40","&#xf192"],["&#xee40","&#xf17e"]];
 
 /*index for autoscroll */
 let tlindex = {"ti-star": "ti-list", "ti-home": "ti-home", "ti-planet": "ti-planet", "ti-universe": "ti-universe", "ti-universe": "ti-universe", "ti-whirl": "ti-whirl", "ti-device-tv": "ti-device-tv", "ti-badge": "ti-badge", "ti-list": "ti-list","xtWgn":"ti-user", "ti-device-tv":"ti-device-tv", "ti-antenna":"ti-antenna",}
@@ -55,6 +55,8 @@ const hidecss = {
     server_otheronly: '.xcSej.x3762:not(:has(.xuevx)){ display: none; }',
     media_only: '.xcSej.x3762:not(:has(.xbIzI)){ display: none;}',
     media_hide: '.xcSej.x3762:has(.xbIzI){ display: none;}',
+    bot_hide: ".xcSej.x3762:has(.xEKlD) { display: none;}",
+    play_hide: ".xcSej.x3762:has(a[href^='/play/'])",
     
     //for Mute Settings
     emojihide: ':is(.xlT1y .xeJ4G,.x3762 .xeJ4G, .x3kEw .xeJ4G, .xagin, .xwUec .xeJ4G):is(:is([title^="unko@"],[title^="unko:"])),:is(.xlT1y) ._button .xeJ4G:is(:is([title^="unko@"],[title^="unko:"])){ display:none;}._button:has(.xeJ4G:is(:is([title^="unko@"],[title^="unko:"]))):before{ content: ""; display: inline-block; width: 1.25em !important; height: 1.25em !important; background-image: url(/twemoji/2764.svg); background-size: 1.25em 1.25em;}.xAV2R:has(img:is(:is([title^="unko@"],[title^="unko:"]))):after{ content: ""; display: inline-block; width: 20px !important; height: 20px !important; background-image: url(/twemoji/2764.svg); background-size: 20px 20px;}',
@@ -84,7 +86,8 @@ const scrolltarget = document.querySelector('.flex.left');
 const langage = document.getElementById('langage');
 const emoji_text = document.querySelectorAll('.emojitext');
 const user_text = document.querySelectorAll('.usertext');
-
+const accordion_boxs = document.querySelectorAll(".accordion");
+const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//timeはミリ秒
 
 
     /*create css code from current settings*/
@@ -97,12 +100,12 @@ const user_text = document.querySelectorAll('.usertext');
             }
         }
         //User Mute,renotemute input
-        for(let i=0;i<5;i++){
-            if(text_elements[i].value.replaceAll(' ','')){
-                let muteuserlist = text_elements[i].value.replaceAll(' ','').split(',');
+        for (let target of text_elements) {
+            if(target.value.replaceAll(' ','')){
+                let muteuserlist = target.value.replaceAll(' ','').split(',');
                 for(let name of muteuserlist){
                     name = name.replace(/(:.+):/, "$1");
-                    csscode += hidecss[text_elements[i].dataset.kinds].replaceAll('unko',name) + '\n';
+                    csscode += hidecss[target.dataset.kinds].replaceAll('unko',name) + '\n';
                 }
             }
         }
@@ -124,6 +127,9 @@ const user_text = document.querySelectorAll('.usertext');
         for (let target of multibtn_elements) {
             localStorage.setItem('multiselect-' + target.dataset.multiindex + domainname, target.dataset.index);
         }
+        accordion_boxs.forEach((el,i) => {
+            localStorage.setItem('accordion-' + i, el.checked? 1 : 0);
+        });
         localStorage.setItem('langage', langage.value);
         localStorage.setItem('autoscroll' + domainname , (arrowautoscroll==1)? 1 : 0);
         localStorage.setItem('saved' + domainname , '1');
@@ -177,8 +183,16 @@ const user_text = document.querySelectorAll('.usertext');
         for (let target of chcckbox_elements) {
             target.checked = (localStorage.getItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + domainname)== '1')? 1: 0;
         }
-        text_elements[0].value = localStorage.getItem('list-' + text_elements[0].dataset.kinds + domainname);
-        text_elements[1].value = localStorage.getItem('list-' + text_elements[1].dataset.kinds + domainname);
+
+        for (let target of text_elements) {
+            target.value = localStorage.getItem('list-' + target.dataset.kinds + domainname);
+        }
+        accordion_boxs.forEach((el,i) => {
+            if(localStorage.getItem('accordion-' + i) == 1 ){
+                el.checked = true;
+            }
+        });
+
         arrowautoscroll = (localStorage.getItem('autoscroll' + domainname) == null)? 1 : Number(localStorage.getItem('autoscroll' + domainname));
         autoscrollsetting.checked = arrowautoscroll;
     }
@@ -425,6 +439,11 @@ const user_text = document.querySelectorAll('.usertext');
         });
     })
     }
+    for (let target of accordion_boxs) {
+        target.addEventListener(`change`, () => {
+            SaveSetting();
+        })
+        }
     for (let target of text_elements) {
         target.addEventListener(`change`, () => {
             CreateCSS();
@@ -574,17 +593,11 @@ const user_text = document.querySelectorAll('.usertext');
         usertarget.addEventListener("input",function(e){
             let text = e.target.value.split(",").pop().replaceAll(" ", "");
             let id = e.target.dataset.id;
-            let search_results = [];
-            let result=elm = user_text[id+2];
 
             if(text != ""){
                 controller.abort();
                 controller = new AbortController();
                 signal = controller.signal;
-
-                if(searchtask != null){
-                    clearTimeout(searchtask);
-                }
 
                 searchtask = setTimeout(async function(){
                     const responce = await fetch("https://" + domainname + "/api/users/search", {
@@ -595,20 +608,22 @@ const user_text = document.querySelectorAll('.usertext');
                     "method": "POST",
                     "signal": signal,
                     });
-                    search_results = await responce.json();
+                    let search_results = await responce.json();
             
                     var result = "";
                     if(search_results.length == 0){
                         autocmp_display("user", id, false);
                     } else {
                         autocmp_display("user", id, false);
-                        setTimeout(function(){
-                            autocmp_display("user", id, true);
-                        },1);
+                        setTimeout(function(){ autocmp_display("user", id, true); },10);
                     }
 
-                    for (let node of search_results){
-                      var username = await node.name.split(":");
+                    for(let node of search_results){
+                      if(node.name != null){
+                        username = node.name.split(":");
+                      } else {
+                        username = node.username.split(":");
+                      }
                       var userserver = node.host;
                       var usernameHTML = "";
                       let search_result = [];
@@ -666,9 +681,10 @@ const user_text = document.querySelectorAll('.usertext');
                       });
                   }
 
-                  }, 200);
-                  document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = "<div style='width:100%; text-align: center;'><img src='img/loading.apng'></div>";
-                  autocmp_display("user", id, true);
+                }, 10);
+
+                document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = "<div style='width:100%; text-align: center;'><img src='img/loading.apng'></div>";
+                autocmp_display("user", id, true);
             } else {
                 document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = "";
                 autocmp_display("user", id, true);

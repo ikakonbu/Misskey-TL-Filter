@@ -8,6 +8,20 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 
+        /*color variable*/
+        :root{ 
+            /*light mode*/
+            --code-background: #D0D0D0;
+            --code-textcolor: #101010;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root{
+                /*dark mode*/
+                --code-background: #1f1f1f;
+                --code-textcolor: #D0D0D0;
+            }
+        }
+
         .prism-live {
             height: 250px;
         }
@@ -17,8 +31,8 @@
             height: 250px;
             font-family: 'Source Code Pro', monospace;
             tab-size: 2;
-            background: #1f1f1f;
-            color: #D0D0D0;
+            background: var(--code-background);
+            color: var(--code-textcolor);
         }
         html, body {
             width: 550px; 
@@ -39,35 +53,46 @@
 <body style="overflow-y: scroll;">
     <div class="card" style="margin: 30px 30px;">
         <div class="flex-title">
-            <div class="middle"><div class="ti ti-allstg"></div><h2>クイックCSSオプション</h2></div>
+            <div class="middle"><div class="ti ti-toggle"></div><h2>クイックCSSオプション</h2></div>
         </div>
         <p>ここにカスタムCSSを記述すると、メイン画面から好きなタイミングでON/OFF出来ます。1つあたり最大6000文字、最大5個まで登録できます。
         </p>
-
-        <div class="ac">
-            <div class="flex ac-parent">
-                <input class="textinput" type="text">
-                <button class="delete">削除</button>
-                <button class="save">変更を保存</button>
-            </div>
-            <div class="ac-child">
-                <textarea class="prism-live language-css" data-kinds="quick", data-id="1"></textarea>
-            </div>
-            <div class="flex ac-parent">
-                <input class="textinput" type="text">
-                <button class="delete">削除</button>
-                <button class="save">変更を保存</button>
-            </div>
-            <div class="ac-child">
-                <textarea class="prism-live language-css" data-kinds="quick", data-id="1"></textarea>
-            </div>
-        </div>
-
     </div>
+
+    <div class="card" style="margin: 10px 30px;">
+        <div class="flex" style="flex-grow: 1;">
+            <input id="setting1" type="checkbox" class="accordion">
+            <label for="setting1" class="accordion_label">
+                <input class="textinput" type="text">
+            </label>
+            <div class="accordion_icon">　</div>
+        </div>
+        <div class="accordion_contents">
+            <textarea class="prism-live language-css" data-kinds="quick", data-id="1"></textarea>
+            <button class="delete">削除</button>
+            <button class="save">保存</button>
+        </div>
+    </div>
+
+    <div class="card" style="margin: 10px 30px;">
+        <div class="flex" style="flex-grow: 1;">
+            <input id="setting2" type="checkbox" class="accordion">
+            <label for="setting2" class="accordion_label">
+                <input class="textinput" type="text">
+            </label>
+            <div class="accordion_icon">　</div>
+        </div>
+        <div class="accordion_contents">
+            <textarea class="prism-live language-css" data-kinds="quick", data-id="2"></textarea>
+            <button class="delete">削除</button>
+            <button class="save">保存</button>
+        </div>
+    </div>
+
 
     <div class="card" style="margin: 30px 30px;">
         <div class="flex-title">
-            <div class="middle"><div class="ti ti-allstg"></div><h2>通常のCSSの登録</h2></div>
+            <div class="middle"><div class="ti ti-css"></div><h2>通常のCSSの登録</h2></div>
         </div>
         <p>ここに記述したCSSは常に有効となります。</p>
         <textarea class="prism-live language-css" data-kinds="static"></textarea>
