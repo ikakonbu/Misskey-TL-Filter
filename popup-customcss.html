@@ -43,6 +43,53 @@
         .card{
             max-height: none;
         }
+
+        /*accordion Menu*/
+        .accordion{
+            display: none;
+        }
+        .accordion_label {		/*タイトル*/
+            display: table;
+            width: max-content;
+            margin-right: 0;
+            padding-right: 0;
+            position: relative;
+            user-select: none;
+            text-align: left;
+            flex-grow: 1;
+        }
+        .accordion_label .ti {
+            width: 0;
+        }
+        .accordion_label+.accordion_icon::after{		/*タイトル横の矢印*/
+            content:"\ea5f";
+            font-family: "tabler-icons";
+            font-size: 2em;
+            height: 45px;
+            line-height:40px;
+        }
+        .accordion_label, .accordion_contents {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            transition: all 0.3s;
+        }
+        .accordion_contents {		/*本文*/
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .card:has(.accordion:checked) .accordion_contents {	/*開閉時*/
+            height: fit-content;
+            max-height: 700px;
+            overflow: visible;
+            opacity: 1;
+            transition: all ease-out .5s;
+        }
+        .card:has(.accordion:checked) .accordion_icon::after{
+            content: "\ea62";
+        }
+
     </style>
     <script src="js/customcss.js" type="text/javascript"></script>
     <script src="src/prism.js"></script>

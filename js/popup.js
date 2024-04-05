@@ -75,18 +75,22 @@ const hidecss = {
 const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィルタリングができるカスタムCSSです。\nこのコードをコピーして、フィルタを設定したいパソコン、スマホのmisskeyの設定→全般→カスタムCSS の中に貼り付けてください*/\n/*This is a custom CSS that allows filtering identical to the current Misskey-TL-FIlter settings.\n Copy this code and paste it into misskey settings -> General -> Custom CSS on the computer or smartphone where you want to set the filter*/\n';
 
 /*element of checkbox ,text input, button, scroll button, and scroll target*/
-const chcckbox_elements = document.querySelectorAll(`.filterbtn:not(.autoscrollcheck)`);
+const chcckbox_elements = document.querySelectorAll(`.filterbtn`);
+const css_chcckbox_elements = document.querySelectorAll(`.filterbtn:not(.notcss)`);
 const text_elements = document.querySelectorAll(`input[type="text"]`);
 const multibtn_elements = document.getElementsByClassName(`multiselectbtn`);
-const exportbtn = document.querySelector(`button[class="export"]`);
+const exportbtn = document.getElementById('export');
 const autoscrollsetting = document.querySelector(`.autoscrollcheck`);
 const scrollleft  = document.querySelector('.scrollleft');
 const scrollright = document.querySelector('.scrollright');
-const scrolltarget = document.querySelector('.flex.left');
+const scrolltarget = document.querySelector('.timeline_setting');
 const langage = document.getElementById('langage');
 const emoji_text = document.querySelectorAll('.emojitext');
 const user_text = document.querySelectorAll('.usertext');
 const accordion_boxs = document.querySelectorAll(".accordion");
+const tabui_tabs = document.querySelectorAll(".TabUI-tabs input[type='radio']");
+const tabui_contents = document.querySelectorAll(".TabUI-content");
+
 const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//timeはミリ秒
 
 
@@ -94,7 +98,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
     function CreateCSS(){
         csscode="";
         //checkbox
-        for (let target of chcckbox_elements) {
+        for (let target of css_chcckbox_elements) {
             if(target.checked){
                 csscode += (tlselector[target.dataset.tl] + hidecss[target.dataset.kinds]) + '\n';
             }
@@ -118,17 +122,44 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
 
     /*save current settings*/
     function SaveSetting(){
+        let settingflag = 0;
+        let badgeflags = {};
+        let badgesettings = {};
+        let badge_setting_el = document.querySelectorAll(".filterbtn.activebadgesetting");
+        badge_setting_el.forEach((target, idx) => {
+            badgeflags[target.dataset.kinds] = 0;
+            badgesettings[target.dataset.kinds] = target.checked? 1 : 0; 
+        });
+
         for (let target of chcckbox_elements) {
             localStorage.setItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + domainname, target.checked? 1 : 0);
+            if(target.checked) {
+                let target_setting = target.closest(".TabUI-content")
+                if(target_setting != null) target_setting = target_setting.dataset.id;
+                if(target_setting){
+                    badgeflags[target_setting] = 1;
+                } else {
+                    badgeflags["spec_setting"] = 1;
+                }
+            }
         }
+
         for (let target of text_elements) {
             localStorage.setItem('list-' + target.dataset.kinds + domainname, target.value);
+            if(target.value.trim() != "") {
+                let target_setting = target.closest(".TabUI-content").dataset.id;
+                badgeflags[target_setting] = 1;
+            }
         }
         for (let target of multibtn_elements) {
             localStorage.setItem('multiselect-' + target.dataset.multiindex + domainname, target.dataset.index);
+            if(target.dataset.index != 0) {
+                let target_setting = target.closest(".TabUI-content").dataset.id;
+                badgeflags[target_setting] = 1;
+            }
         }
-        accordion_boxs.forEach((el,i) => {
-            localStorage.setItem('accordion-' + i, el.checked? 1 : 0);
+        tabui_tabs.forEach((el,i) => {
+            localStorage.setItem('settingtab-' + i, el.checked? 1 : 0);
         });
         localStorage.setItem('langage', langage.value);
         localStorage.setItem('autoscroll' + domainname , (arrowautoscroll==1)? 1 : 0);
@@ -140,6 +171,22 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             localStorage.setItem("multibtntexts", JSON.stringify(data.MultiselectOptions));
         })
         }
+
+        for(let key in badgeflags){
+            if(badgesettings[key] == 1 && badgeflags[key]==1){
+                settingflag = 1;
+            }
+        }
+        let keyname = 'nowactive-' + domainname;
+        chrome.storage.local.set({[keyname] : String(settingflag)}, function () {
+            if(settingflag==1){
+                chrome.action.setIcon({path:"../img/icon_48_active.png"});
+                chrome.action.setTitle({title:"Misskey TL Filter - Filtering ON"});
+            } else {
+                chrome.action.setIcon({path:"../img/icon_48.png"});
+                chrome.action.setTitle({title:"Misskey TL Filter - Filtering OFF"});
+            }
+        });
     }
 
     /*load settings*/
@@ -187,9 +234,12 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
         for (let target of text_elements) {
             target.value = localStorage.getItem('list-' + target.dataset.kinds + domainname);
         }
-        accordion_boxs.forEach((el,i) => {
-            if(localStorage.getItem('accordion-' + i) == 1 ){
+        tabui_tabs.forEach((el,i) => {
+            if(localStorage.getItem('settingtab-' + i) == 1 ){
                 el.checked = true;
+                tabui_contents[i].classList.add('show');
+            } else {
+                tabui_contents[i].classList.remove('show');
             }
         });
 
@@ -265,9 +315,9 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
     }
 
     function autocmp_display(kind, id, flag){
-        const kind_dic = {"emoji": ".emojiresult", "user": ".userresult"}
-        const target = document.querySelector(kind_dic[kind] + "[data-id='" + id + "']");
-        console.log(kind_dic[kind] + "[data-id='" + id + "']");
+        //const kind_dic = {"emoji": ".emojiresult", "user": ".userresult"}
+        const target = document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='" + kind + "']");
+        console.log(".autocmp_result[data-id='" + id + "'][data-type='" + kind + "']");
         console.log(target);
 
         if(flag == true){
@@ -304,7 +354,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             let MoreSettings = document.querySelectorAll(".other_setting .buttonlabel");
             let Descriptions = document.querySelectorAll(".description-popup");
             let links = document.querySelectorAll("a div:nth-child(2)");
-            let cssbtn = document.querySelector(".export");
+            let cssbtn = document.getElementById("export");
             let lasttxt = document.querySelector(".about p");
             let warning = document.querySelector(".warning_card");
             let multiselext_hovertexts = document.querySelectorAll(".hovertext");
@@ -439,7 +489,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
         });
     })
     }
-    for (let target of accordion_boxs) {
+    for (let target of tabui_tabs) {
         target.addEventListener(`change`, () => {
             SaveSetting();
         })
@@ -491,6 +541,25 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
     exportbtn.addEventListener('click', () => {
         ExportCSS();
     })
+
+    /*help screen*/
+    document.querySelector('#help-open').addEventListener("click", () => {
+        document.querySelector('#help').classList.remove('hide');
+    });
+
+    /*TabUI Scripts*/
+    for(let target of tabui_tabs){
+        target.addEventListener("input", function(){
+            for(let node of tabui_contents){
+                node.classList.remove("show");
+            }
+            let target_id = this.id;
+            let el = document.querySelector(".TabUI-content[data-id='" + target_id + "']");
+            if(this.checked){
+                el.classList.add("show");
+            }
+        });
+    }
 
 
     /*emoji auto complite */
@@ -546,7 +615,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             result += iikanzi_html_node;
             }
 
-            document.querySelector(".emojiresult[data-id='" + id + "']").innerHTML = result;
+            document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='emoji']").innerHTML = result;
             if(result != ""){
                 autocmp_display("emoji", id, true);
             }else{
@@ -567,7 +636,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
                     }
                     temp += ":";
                     self.value = temp + node.title + ":";
-                    let result_elm = document.querySelector(".emojiresult[data-id='" + id + "']");
+                    let result_elm = document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='emoji']");
                     window.setTimeout(function(){
                         result_elm.innerHTML = "";
                         SaveSetting();
@@ -652,8 +721,8 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
                       result += iikanzi_html_node;
                     }
              
-                    console.log(".userresult[data-id='" + id + "']");
-                    document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = result;
+                    console.log(".autocmp_result[data-id='" + id + "'][data-type='user']");
+                    document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='user']").innerHTML = result;
                     
                   let autocmp_buttons = document.querySelectorAll(".userbtn");
                   let self = e.target;
@@ -663,7 +732,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
                           if(temp != "") temp += ",";
                           temp += node.title;
                           self.value = temp;
-                          let result_elm = document.querySelector(".userresult[data-id='" + id + "']");
+                          let result_elm = document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='user']");
                           window.setTimeout(function(){
                               result_elm.innerHTML = "";
                               SaveSetting();
@@ -683,10 +752,10 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
 
                 }, 10);
 
-                document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = "<div style='width:100%; text-align: center;'><img src='img/loading.apng'></div>";
+                document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='user']").innerHTML = "<div style='width:100%; text-align: center;'><img src='img/loading.apng'></div>";
                 autocmp_display("user", id, true);
             } else {
-                document.querySelector(".userresult[data-id=\"" + id + "\"]").innerHTML = "";
+                document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='user']").innerHTML = "";
                 autocmp_display("user", id, true);
             }
         });

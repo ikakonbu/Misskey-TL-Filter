@@ -1,5 +1,6 @@
 chrome.action.disable();
 chrome.action.setIcon({path:"../img/icon_disable.png"});
+chrome.action.setTitle({title:"Misskey TL Filter"});
 
 const serverlist = ['misskey.io',
 'misskey.design',
@@ -104,33 +105,49 @@ function CheckURL(tab){
     }
 
     /*check default setting*/
-    if(serverlist.indexOf(uri.hostname) != -1){
+    /*if(serverlist.indexOf(uri.hostname) != -1){
         console.log('hit default serverlist');
         setpopupstate(tab.id, true);
         return;
     } else {
         setpopupstate(tab.id, false);
-    }
+    }*/
 
-    /*misskeu auto detection*/
+    /*misskey auto detection*/
     let elemcheck = chrome.scripting.executeScript({
         target : {tabId: tab.id},
         func : checkmisskey,
     });
     elemcheck.then((value) => {
         if(value[0].result != false){
-            chrome.action.enable(tab.id);
-            chrome.action.setIcon({path:"../img/icon_48.png"});
+            setpopupstate(tab.id, true, value[0].result);
+            //chrome.action.enable(tab.id);
+            //chrome.action.setIcon({path:"../img/icon_48.png"});
+        } else {
+            setpopupstate(tab.id, false, false);
         }
     });
 }
 
-function setpopupstate(tabid, flag){
-    if(flag){
-        chrome.action.enable(tabid);
-        chrome.action.setIcon({path:"../img/icon_48.png"});
-    } else {
-        chrome.action.enable(tabid);
-        chrome.action.setIcon({path:"../img/icon_disable.png"});
-    }
+
+function setpopupstate(tabid, flag, domainname){
+    let keyname = "nowactive-" + domainname;
+    chrome.storage.local.get(keyname, function (value) {
+        active = Number(value['nowactive-' + domainname]);
+        console.log("storage[nowactive-" + domainname + "]= " + active);
+        if(flag){
+            if(active==1){
+                chrome.action.enable(tabid);
+                chrome.action.setIcon({path:"../img/icon_48_active.png"});
+                chrome.action.setTitle({title:"Misskey TL Filter - Filtering ON"});
+            } else {
+                chrome.action.enable(tabid);
+                chrome.action.setIcon({path:"../img/icon_48.png"});
+                chrome.action.setTitle({title:"Misskey TL Filter - Filtering OFF"});
+            }
+        } else {
+            chrome.action.disable(tabid);
+            chrome.action.setIcon({path:"../img/icon_disable.png"});
+        }
+    });
 }
