@@ -2,56 +2,6 @@ chrome.action.disable();
 chrome.action.setIcon({path:"../img/icon_disable.png"});
 chrome.action.setTitle({title:"Misskey TL Filter"});
 
-const serverlist = ['misskey.io',
-'misskey.design',
-'nijimiss.moe',
-'sushi.ski',
-'trpger.us',
-'oekakiskey.com',
-'novelskey.tarbin.net',
-'misskey.yukineko.me',
-'submarin.online',
-'misskey.art',
-'nekomiya.net',
-'ikaskey.bktsk.com',
-'misskey.gamelore.fun',
-'mattyaski.co',
-'misskey.ranranhome.info',
-'eostagram.com',
-'side.misskey.productions',
-'labo.wovs.tk',
-'buicha.social',
-'misskey.niri.la',
-'voskey.icalo.net',
-'misskey.04.si',
-'live-theater.net',
-'otoskey.tarbin.net',
-'rhythmisskey.games',
-'misskey.backspace.fm',
-'mk.shrimpia.network',
-'misskey.systems',
-'seikora.one',
-'mi.cbrx.io',
-'misskey.life',
-'yurisskey.yubarira.net',
-'drdr.club',
-'invillage-outvillage.com',
-'sk.204.jp',
-'45sukey.net',
-'misskey.kindworld.one',
-'misskey.sda1.net',
-'ojousama-tea.party',
-'mof.rorea.moe',
-'mk.yopo.work',
-'maniakey.com',
-'friendsyu.me',
-'warpday.net',
-'mi-wo.site',
-'kawaiivrc.site',
-'n-kaiwai.work',
-'fix.misskey.life',
-'msk.ilnk.info'];
-
 function checkmisskey(test){
     let misskey_elm = document.querySelector("#misskey_app");
     if(misskey_elm != null){
@@ -68,7 +18,7 @@ async function getCurrentTab() {
     return tab;
 }
 
-const currenttab = getCurrentTab();
+var currenttab = getCurrentTab();
 currenttab.then((result) => {
     if(result.id){
         chrome.tabs.get(result.id, (tab) => { 
@@ -89,7 +39,6 @@ chrome.tabs.onActivated.addListener((result) => {
     })
 });
 
-
 /*check url and enable tabid's tab popup 
   when url is misskey.io or user seted url*/
 function CheckURL(tab){
@@ -104,15 +53,6 @@ function CheckURL(tab){
         return;
     }
 
-    /*check default setting*/
-    /*if(serverlist.indexOf(uri.hostname) != -1){
-        console.log('hit default serverlist');
-        setpopupstate(tab.id, true);
-        return;
-    } else {
-        setpopupstate(tab.id, false);
-    }*/
-
     /*misskey auto detection*/
     let elemcheck = chrome.scripting.executeScript({
         target : {tabId: tab.id},
@@ -121,10 +61,16 @@ function CheckURL(tab){
     elemcheck.then((value) => {
         if(value[0].result != false){
             setpopupstate(tab.id, true, value[0].result);
-            //chrome.action.enable(tab.id);
-            //chrome.action.setIcon({path:"../img/icon_48.png"});
+            chrome.sidePanel.setOptions({
+                tabId: tab.id,
+                enabled: true,
+              });
         } else {
             setpopupstate(tab.id, false, false);
+            chrome.sidePanel.setOptions({
+                tabId: tab.id,
+                enabled: false,
+            });
         }
     });
 }

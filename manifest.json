@@ -14,7 +14,7 @@
             ]
         }
     ],
-    "permissions": ["scripting","storage","tabs"],
+    "permissions": ["scripting","storage","tabs","sidePanel"],
     "icons": {
         "16": "./img/icon_16.png",
 	    "48": "./img/icon_48.png",
@@ -26,6 +26,9 @@
     "background": {
         "service_worker": "./js/serviceworker.js"
     },
+    "side_panel": {
+        "default_path": "popup.html"
+    },
     "action": {
         "default_title": "Misskey TL Filter",
         "default_popup": "popup.html",
@@ -33,6 +36,15 @@
 	        "16": "./img/icon_16.png",
 	        "48": "./img/icon_48.png",
             "128": "./img/icon_128.png"
+        }
+    },
+    "commands": {
+        "_execute_action": {
+          "suggested_key": {
+            "default": "Ctrl+Shift+H",
+            "mac": "MacCtrl+Shift+H"
+          },
+          "description": "Run extension."
         }
     }
 }

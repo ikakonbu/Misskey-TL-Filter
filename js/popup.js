@@ -1,4 +1,4 @@
-const scroolloffset = 462; 
+var scroolloffset = 462; 
 const autoscrolloffset = 41;
 let arrowautoscroll = 1;
 let autoscrolled = false;
@@ -331,7 +331,15 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
 
     /*calclate scroll position*/
     function setScrollPosition(flag){
-       var targetwidth = scrolltarget.scrollWidth - document.body.clientWidth;
+       let targetwidth = scrolltarget.scrollWidth - document.body.clientWidth;
+       let windowsize = document.querySelector("body")
+       windowsize = windowsize.getClientRects();
+       windowsize = windowsize[0].width;
+       if(windowsize < 420){
+            scroolloffset = 231;
+       } else {
+            scroolloffset = 462; 
+       }
        if(flag) {
         willscroll = clamp(0, willscroll+scroolloffset , targetwidth);
         if(autoscrolled) willscroll -= (scroolloffset/2);
@@ -611,7 +619,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
 
             var result = "";
             for (let node of search_result){
-            var iikanzi_html_node = "<button class='emojibtn' title = '" + node.name + "'><img src='" + node.url + "'></button>"
+            var iikanzi_html_node = "<button class='emojibtn' title = '" + node.name + "' tabindex='1' ><img src='" + node.url + "'></button>"
             result += iikanzi_html_node;
             }
 
@@ -717,7 +725,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
                         }
                       });
 
-                      var iikanzi_html_node = "<button class='userbtn' title = '" + node.username + ((node.host!=null)? "@" + node.host : "") +  "'><img class='usericon' src='" + node.avatarUrl + "'><div class='usernametext'>" + usernameHTML + ((node.host != null)? "  <div class='servername'>"+node.username+"@" + node.host + "</div>" : "<div class='servername'>" + node.username + "@" + domainname + "</div>") + "</div></button>"
+                      var iikanzi_html_node = "<button class='userbtn' title = '" + node.username + ((node.host!=null)? "@" + node.host : "") +  "' tabindex='1'><img class='usericon' src='" + node.avatarUrl + "'><div class='usernametext'>" + usernameHTML + ((node.host != null)? "  <div class='servername'>"+node.username+"@" + node.host + "</div>" : "<div class='servername'>" + node.username + "@" + domainname + "</div>") + "</div></button>"
                       result += iikanzi_html_node;
                     }
              
@@ -760,5 +768,50 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             }
         });
     }
+
+    //keyboard shortcuts
+    window.addEventListener("keydown", (event) => {
+        //Click event is fired when the enter key is pressed while the element is focused with the tab key.
+        if (event.code == "Enter") {
+            let focusel = document.activeElement;
+            if(focusel.tagName!="BUTTON"){
+                focusel.click();
+            }
+        }
+        //Use arrow keys to scroll through individual settings and Shift+arrow keys to switch tabs
+        if (event.code == "ArrowLeft" || event.code == "ArrowRight") {
+            if(event.shiftKey){
+                let tabidx = Number(document.querySelector(".tab-button:has(input[type='radio']:checked) label").dataset.id) -1;
+                switch(event.code){
+                    case "ArrowLeft":
+                        tabidx = Math.max(tabidx-1,0);
+                        break;
+                    case "ArrowRight":
+                        tabidx = Math.min(tabidx+1,3);
+                        break;
+                }
+                tabui_tabs[tabidx].click();
+                tabui_contents[tabidx].querySelector("*[tabindex='1']").focus();
+                //Scroll to the position of the tab UI
+                    //If sticky scroll is enabled and the tab is stuck at the top, 
+                    //the variable scrolly will not take the correct value, so reset the scroll position first.
+                    document.querySelector("body").scrollTo(0, 0); 
+                let targety = document.querySelector(".TabUI-tabs").getBoundingClientRect();
+                let scrolly = targety.top + document.querySelector("body").scrollTop;
+                document.querySelector("body").scrollTo(0, scrolly);
+
+            } else {
+                switch(event.code){
+                    case "ArrowLeft":
+                        scrollleft.click();
+                        break;
+                    case "ArrowRight":
+                        scrollright.click();
+                        break;
+                }
+                document.querySelector("body").scrollTo(0, 0);
+            }
+        }
+    });
 
     ChangeLang();

@@ -545,25 +545,25 @@
             <div class="TabUI-tabs">
                 <div class="tab-button show" title="カスタムCSS">
                     <input type="radio" name="tab" id="quick_css" checked>
-                    <label class="TabUI-Label" for="quick_css">
+                    <label class="TabUI-Label" for="quick_css" data-id="1" tabindex="1">
                         <div class="ti ti-css"></div>
                     </label>
                 </div>
                 <div class="tab-button show" title="全TLフィルタ設定">
                     <input type="radio" name="tab" id="all_setting" >
-                    <label class="TabUI-Label" for="all_setting">
+                    <label class="TabUI-Label" for="all_setting" data-id="2" tabindex="1">
                         <div class="ti ti-allstg"></div>
                     </label>
                 </div>
                 <div class="tab-button show" title="ミュート設定">
                     <input type="radio" name="tab" id="mute_setting">
-                    <label class="TabUI-Label" for="mute_setting">
+                    <label class="TabUI-Label" for="mute_setting" data-id="3" tabindex="1">
                         <div class="ti ti-mute"></div>
                     </label>
                 </div>
                 <div class="tab-button show" title="その他設定">
                     <input type="radio" name="tab" id="other_setting">
-                    <label class="TabUI-Label" for="other_setting">
+                    <label class="TabUI-Label" for="other_setting" data-id="4" tabindex="1">
                         <div class="ti ti-other"></div>
                     </label>
                 </div>
@@ -581,7 +581,7 @@
                         <div class="title-explanation">
                             右上の「設定」からCSSを追加すると、この画面から<br>リアルタイムに 有効/無効 を切り替えられます。
                         </div>
-                        <div>
+                        <div class="TabUI-content-main">
                             <div class="flex buttonblock" tabindex="1">
                                 <div class="flex buttonlabel">オプション1</div>
                                 <label class="checkbox">
@@ -637,12 +637,12 @@
                         <div class="title-explanation">
                             すべてのタイムラインに反映されるフィルタリング設定です
                         </div>
-                        <div>
+                        <div class="TabUI-content-main">
                             <div style="margin: 10px 0;">
                                 <div class="flex multiblock">
                                     <div class="flex buttonlabel"><span class='ti-tiny'>&#xeb72</span>リノート</div>
                                     <label class="flex multiselect">
-                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=1 >
+                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=1  tabindex="1">
                                             <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                             <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                             
@@ -652,7 +652,7 @@
                                 <div class="flex multiblock">
                                     <div class="flex buttonlabel"><span class='ti-tiny'>&#xea06</span>NSFWメディア</div>
                                     <label class="flex multiselect">
-                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=2 >
+                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=2  tabindex="1">
                                             <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                             <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                             
@@ -662,7 +662,7 @@
                                 <div class="flex multiblock">
                                     <div class="flex buttonlabel"><span class='ti-tiny'>&#xeb1f</span>サーバーフィルタ</div>
                                     <label class="flex multiselect">
-                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=3 >
+                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=3  tabindex="1">
                                             <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                             <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                             
@@ -672,7 +672,7 @@
                                 <div class="flex multiblock">
                                     <div class="flex buttonlabel"><span class='ti-tiny'></span>メディア</div>
                                     <label class="flex multiselect">
-                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=4 >
+                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=4  tabindex="1">
                                             <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                             <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                             
@@ -682,7 +682,7 @@
                                 <div class="flex multiblock">
                                     <div class="flex buttonlabel"><span class='ti-tiny'>&#xea8d</span>チャンネルからの投稿</div>
                                     <label class="flex multiselect">
-                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=0 >
+                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=0  tabindex="1">
                                             <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                             <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                         
@@ -692,7 +692,7 @@
                                 <div class="flex multiblock">
                                     <div class="flex buttonlabel"><span class='ti-tiny'></span>botからの投稿</div>
                                     <label class="flex multiselect">
-                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=5 >
+                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=5  tabindex="1">
                                             <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                             <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                             
@@ -702,7 +702,7 @@
                                 <div class="flex multiblock">
                                     <div class="flex buttonlabel"><span class='ti-tiny'></span>playからの投稿</div>
                                     <label class="flex multiselect">
-                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=6 >
+                                        <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=6  tabindex="1">
                                             <span class="ti-tiny flex multiselect-ti">&#xee40</span>
                                             <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
                                             
@@ -721,7 +721,7 @@
                         <div class="title-explanation">
                             ノートのフィルタリング以外の各種ミュートを行えます
                         </div>
-                        <div>
+                        <div class="TabUI-content-main">
                             <div class="flex buttonblock" tabindex="1">
                                 <div class="flex buttonlabel">フォロー、フォロワー数を隠す</div>
                                 <label class="checkbox">
@@ -755,7 +755,7 @@
                                     </div>
                                 </label>
                             </div>
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock">
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
@@ -767,14 +767,14 @@
                                     <div class="flex buttonlabel"></p>絵文字ボカシ</div>
                                 </div>
                                 <label>
-                                    <input data-id="1" data-type="emoji" type="text" class="textinput emojitext" data-kinds="emojihide">
+                                    <input data-id="1" data-type="emoji" type="text" class="textinput emojitext" data-kinds="emojihide" tabindex="1">
                                 </label>
                             </div>
         
                             <div data-id="1" data-type="emoji" class="autocmp_result hide">
                             </div>
         
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock">
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
@@ -786,7 +786,7 @@
                                     <div class="flex buttonlabel"></p>絵文字ブロック</div>
                                 </div>
                                 <label>
-                                    <input data-id="2" data-type="emoji" type="text" class="textinput emojitext" data-kinds="emojiblock">
+                                    <input data-id="2" data-type="emoji" type="text" class="textinput emojitext" data-kinds="emojiblock" tabindex="1">
                                 </label>
                             </div>
         
@@ -794,7 +794,7 @@
                             <div data-id="2" data-type="emoji" class="autocmp_result hide">
                             </div>
         
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock">
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
@@ -806,14 +806,14 @@
                                     <div class="flex buttonlabel"></p>botの例外設定</div>
                                 </div>
                                 <label>
-                                    <input data-id="1" data-type="user" type="text" class="textinput usertext" data-kinds="botexcep">
+                                    <input data-id="1" data-type="user" type="text" class="textinput usertext" data-kinds="botexcep" tabindex="1">
                                 </label>
                             </div>
         
                             <div data-id="1" data-type="user" class="autocmp_result hide">
                             </div>
         
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock">
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
@@ -825,7 +825,7 @@
                                     <div class="flex buttonlabel">ユーザーミュート</div>
                                 </div>
                                 <label>
-                                    <input data-id="2" data-type="user" type="text" class="textinput usertext" data-kinds="usermute">
+                                    <input data-id="2" data-type="user" type="text" class="textinput usertext" data-kinds="usermute" tabindex="1">
                                 </label>
                             </div>
         
@@ -833,7 +833,7 @@
                             </div>
         
         
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock">
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
@@ -845,7 +845,7 @@
                                     <div class="flex buttonlabel">RNミュート</div>
                                 </div>
                                 <label>
-                                    <input data-id="3" data-type="user" type="text" class="textinput usertext" data-kinds="userrenotemute">
+                                    <input data-id="3" data-type="user" type="text" class="textinput usertext" data-kinds="userrenotemute" tabindex="1">
                                 </label>
                             </div>
         
@@ -863,7 +863,7 @@
                         <div class="title-explanation">
                             Misskeyを使いやすくする細かなカスタムや、拡張機能の設定が行えます
                         </div>
-                        <div>
+                        <div class="TabUI-content-main">
                             <div class="flex buttonblock" tabindex="1">
                                 <div class="flex left-small">
                                     <div class="popup">
@@ -900,19 +900,19 @@
                             </div>
                             <div class="popup"></div>
 
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock">
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
                                         <div class="description-popup">ブラウザ上で「フィルタ設定有効」を示す赤丸を表示する際、<br>どの設定を有効の対象に含めるか設定できます
-                                        <br><img src="img/imagehidebutton.png" width="390" height="163" loading="lazy" ecoding="async">
+                                        <br><img src="img/filterbudge.png" width="390" height="263" loading="lazy" ecoding="async">
                                         </div>
                                     </div>
                                     <div class="flex buttonlabel">フィルタ有効バッジの判定範囲</div>
                                 </div>
                             </div>
                             <div class="flex multichecksetting" style="justify-content: center;">
-                                <div class="flex buttonblock" style="justify-content: space-between">
+                                <div class="flex buttonblock" style="justify-content: space-between"  tabindex="1">
                                     <div class="flex buttonlabel">個別TL設定</div>
                                     <label class="checkbox">
                                         <input type="checkbox" class="filterbtn activebadgesetting notcss" data-tl="notcss" data-kinds="spec_setting">
@@ -921,7 +921,7 @@
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex buttonblock" style="justify-content: space-between">
+                                <div class="flex buttonblock" style="justify-content: space-between"  tabindex="1">
                                     <div class="flex buttonlabel">全TL設定</div>
                                     <label class="checkbox">
                                         <input type="checkbox" class="filterbtn activebadgesetting notcss" data-tl="notcss" data-kinds="all_setting">
@@ -930,10 +930,19 @@
                                         </div>
                                     </label>
                                 </div>
-                                <div class="flex buttonblock" style="justify-content: space-between">
+                                <div class="flex buttonblock" style="justify-content: space-between"  tabindex="1">
                                     <div class="flex buttonlabel">クイックCSS</div>
                                     <label class="checkbox">
                                         <input type="checkbox" class="filterbtn activebadgesetting notcss" data-tl="notcss" data-kinds="quick_css">
+                                        <div class="toggler-slider">
+                                            <div class="toggler-knob"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="flex buttonblock" style="justify-content: space-between"  tabindex="1">
+                                    <div class="flex buttonlabel">ミュート設定</div>
+                                    <label class="checkbox">
+                                        <input type="checkbox" class="filterbtn activebadgesetting notcss" data-tl="notcss" data-kinds="mute_setting">
                                         <div class="toggler-slider">
                                             <div class="toggler-knob"></div>
                                         </div>
@@ -1008,11 +1017,11 @@
                                     <div class="flex buttonlabel">他のサーバでも動かす</div>
                                 </div>
                                 <label>
-                                    <input type="text" class="textinput specsetting" data-name="otherserver">
+                                    <input type="text" class="textinput specsetting" data-name="otherserver" tabindex="1">
                                 </label>
                             </div> -->
         
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock">
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
@@ -1021,7 +1030,7 @@
                                     <div class="flex buttonlabel">今の設定をCSSに</div>
                                 </div>
                                 <label>
-                                    <button class="link_button" id="export">出力する</button>
+                                    <button class="link_button" id="export" tabindex="1">出力する</button>
                                 </label>
                             </div>
                         <div class="popup"></div>
@@ -1029,364 +1038,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- <div class="css_settings">
-            <div class="card css_setting">
-                <div class="flex flex-title">
-                    <input id="usercss_setting_title" type="checkbox" class="accordion">
-                    <label for="usercss_setting_title" class="accordion_label middle"><div class="ti ti-css"></div><h2>クイックCSS</h2></label>
-                    <div class="accordion_icon"></div>
-                    <a href='popup-customcss.html' class="flex title-buttons">
-                        <div>設定</div>
-                    </a>
-                </div>
-                <div class="accordion_contents">
-
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex buttonlabel">オプション1</div>
-                        <label class="checkbox">
-                            <input type="checkbox" class="filterbtn" data-kinds="usercss" data-id="1">
-                            <div class="toggler-slider">
-                                <div class="toggler-knob"></div>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-
-            </div>
-        </div> -->
-
-
-        <div class="other_setting">
-            <!-- <div class="card all_setting">
-                <div class="flex flex-title">
-                    <input id="all_setting_title" type="checkbox" class="accordion">
-                    <label for="all_setting_title" class="accordion_label middle"><div class="ti ti-allstg"></div><h2>全体フィルタリング</h2></label>
-                    <div class="accordion_icon" >　</div>
-                </div>
-                <div class="accordion_contents">
-                    <div style="margin: 10px 0;">
-                        <div class="flex multiblock">
-                            <div class="flex buttonlabel"><span class='ti-tiny'>&#xea8d</span>チャンネルからの投稿</div>
-                            <label class="flex multiselect">
-                                <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=0 >
-                                    <span class="ti-tiny flex multiselect-ti">&#xee40</span>
-                                    <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
-                                
-                                </button>
-                            </label>
-                        </div>
-                        <div class="flex multiblock">
-                            <div class="flex buttonlabel"><span class='ti-tiny'>&#xeb72</span>リノート</div>
-                            <label class="flex multiselect">
-                                <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=1 >
-                                    <span class="ti-tiny flex multiselect-ti">&#xee40</span>
-                                    <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
-                                    
-                                </button>
-                            </label>
-                        </div>
-                        <div class="flex multiblock">
-                            <div class="flex buttonlabel"><span class='ti-tiny'>&#xea06</span>NSFW</div>
-                            <label class="flex multiselect">
-                                <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=2 >
-                                    <span class="ti-tiny flex multiselect-ti">&#xee40</span>
-                                    <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
-                                    
-                                </button>
-                            </label>
-                        </div>
-                        <div class="flex multiblock">
-                            <div class="flex buttonlabel"><span class='ti-tiny'>&#xeb1f</span>サーバーフィルタ</div>
-                            <label class="flex multiselect">
-                                <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=3 >
-                                    <span class="ti-tiny flex multiselect-ti">&#xee40</span>
-                                    <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
-                                    
-                                </button>
-                            </label>
-                        </div>
-                        <div class="flex multiblock">
-                            <div class="flex buttonlabel"><span class='ti-tiny'></span>メディア</div>
-                            <label class="flex multiselect">
-                                <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=4 >
-                                    <span class="ti-tiny flex multiselect-ti">&#xee40</span>
-                                    <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
-                                    
-                                </button>
-                            </label>
-                        </div>
-                        <div class="flex multiblock">
-                            <div class="flex buttonlabel"><span class='ti-tiny'></span>bot</div>
-                            <label class="flex multiselect">
-                                <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=5 >
-                                    <span class="ti-tiny flex multiselect-ti">&#xee40</span>
-                                    <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
-                                    
-                                </button>
-                            </label>
-                        </div>
-                        <div class="flex multiblock">
-                            <div class="flex buttonlabel"><span class='ti-tiny'></span>play</div>
-                            <label class="flex multiselect">
-                                <button class="flex flex multiselectbtn"  data-index=0 data-multiindex=6 >
-                                    <span class="ti-tiny flex multiselect-ti">&#xee40</span>
-                                    <div><div class="multitext">フィルターなし</div><div class="hovertext">クリックで切り替え</div></div>
-                                    
-                                </button>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="popup"></div>
-                </div>
-            </div> -->
-
-            <!-- <div class="card more_setting">
-                <div class="flex flex-title">
-                    <input id="mute_setting_title" type="checkbox" class="accordion">
-                    <label for="mute_setting_title" class="accordion_label middle"><div class="ti ti-mute"></div><h2>ミュート設定</h2></label>
-                    <div class="accordion_icon" >　</div>
-                </div>
-                <div class="accordion_contents">
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex buttonlabel">フォロー、フォロワー数を隠す</div>
-                        <label class="checkbox">
-                            <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="userstatus">
-                            <div class="toggler-slider">
-                                <div class="toggler-knob"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex buttonlabel">ロールバッジを非表示</div>
-                        <label class="checkbox">
-                            <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="rollbadges">
-                            <div class="toggler-slider">
-                                <div class="toggler-knob"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">以下の条件に当てはまるノート/通知を非表示にします<br><br>・4つ以上メンションが含まれる<br>・初期アイコンのメンション<br>・外部サーバーの初期アイコンユーザの投稿<br></div>
-                            </div>
-                            <div class="flex buttonlabel">スパム低減モード</div>
-                        </div>
-                        <label class="checkbox">
-                            <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="antispam">
-                            <div class="toggler-slider">
-                                <div class="toggler-knob"></div>
-                            </div>
-                        </label>
-                    </div>
-
-
-                    
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">特定の絵文字を「❤」に変換して見えなくします。<br>例   :igyo:, :tiken:, :issue:</div>
-                            </div>
-                            <div class="popup ti-icon">
-                                <p class="ti ti-emoji"></p>
-                            </div>
-                            <div class="flex buttonlabel"></p>絵文字ボカシ</div>
-                        </div>
-                        <label>
-                            <input data-id="1" type="text" class="textinput emojitext" data-kinds="emojihide">
-                        </label>
-                    </div>
-
-                    <div data-id="1" class="autocmp_result hide">
-                    </div>
-
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">選んだ絵文字を完全非表示にします。<br>ノートやリアクションの中はもちろん、通知や絵文字ピッカーからも消えます。<br>例   :igyo:, :tiken:, :issue:</div>
-                            </div>
-                            <div class="popup ti-icon">
-                                <p class="ti ti-emoji"></p>
-                            </div>
-                            <div class="flex buttonlabel"></p>絵文字ブロック</div>
-                        </div>
-                        <label>
-                            <input data-id="2" type="text" class="textinput emojitext" data-kinds="emojiblock">
-                        </label>
-                    </div>
-
-
-                    <div data-id="2" class="autocmp_result hide">
-                    </div>
-
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">ここにbotのユーザーIDを入力すると、<br>「botを非表示」オプションを有効にしている時も表示されます<br><br>お気に入りのbotや災害情報発信のアカウントなど<br>重要な情報をを見逃さなくなります</div>
-                            </div>
-                            <div class="popup ti-icon">
-                                <p class="ti ti-bot"></p>
-                            </div>
-                            <div class="flex buttonlabel"></p>botの例外設定</div>
-                        </div>
-                        <label>
-                            <input data-id="1" type="text" class="textinput usertext" data-kinds="botexcep">
-                        </label>
-                    </div>
-
-                    <div data-id="1" class="autocmp_result hide">
-                    </div>
-
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">入力されたユーザーIDのノートを問答無用ですべて非表示にします。<br>複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123 </div>
-                            </div>
-                            <div class="popup ti-icon">
-                                <p class="ti ti-user"></p>
-                            </div>
-                            <div class="flex buttonlabel">ユーザーミュート</div>
-                        </div>
-                        <label>
-                            <input data-id="2" type="text" class="textinput usertext" data-kinds="usermute">
-                        </label>
-                    </div>
-
-                    <div data-id="2" class="autocmp_result hide">
-                    </div>
-
-
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">入力されたユーザーのRenoteだけを非表示にします。<br>複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123 </div>
-                            </div>
-                            <div class="popup ti-icon">
-                                <p class="ti ti-repeat"></p>
-                            </div>
-                            <div class="flex buttonlabel">RNミュート</div>
-                        </div>
-                        <label>
-                            <input data-id="3" type="text" class="textinput usertext" data-kinds="userrenotemute">
-                        </label>
-                    </div>
-
-                    <div data-id="3" class="autocmp_result hide">
-                    </div>
-
-                    <div class="popup"></div>
-                </div>
-            </div> -->
-
-            <!-- <div class="card more_setting">
-                <div class="flex flex-title">
-                    <input id="other_setting_title" type="checkbox" class="accordion">
-                    <label for="other_setting_title" class="accordion_label middle"><div class="ti ti-other"></div><h2>その他の設定</h2></label>
-                    <div class="accordion_icon" >　</div>
-                </div>
-                <div class="accordion_contents">
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">投稿時、リアクション時の絵文字画面を変えます。<br>下の写真のように見やすくなります
-                                    <br><img src="img/emojibetter.png" width="390" height="193" loading="lazy" decoding="async">
-                                </div>
-                            </div>
-                            <div class="flex buttonlabel">絵文字ピッカーを見やすくする</div>
-                        </div>
-                        <label class="checkbox">
-                            <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="emojibetter">
-                            <div class="toggler-slider">
-                                <div class="toggler-knob"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">画像の右上にある、画像を隠すボタンを大きくして<br>押しやすくします<br>
-                                <br><img src="img/imagehidebutton.png" width="390" height="163" loading="lazy" ecoding="async">
-                                </div>
-                            </div>
-                            <div class="flex buttonlabel">画像を隠すボタンを大きくする</div>
-                        </div>
-                        <label class="checkbox">
-                            <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="imagehidebtn">
-                            <div class="toggler-slider">
-                                <div class="toggler-knob"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="popup"></div>
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">この画面を開いた際に、今開いているTLの種類を自動で識別して、<br>そのTLの個別設定にスクロールします<br><br>端末や環境によって動作がもたつくことがあります。</div>
-                            </div>
-                            <div class="flex buttonlabel">今見ているTLに自動でスクロール</div>
-                        </div>
-                        <label class="checkbox">
-                            <input type="checkbox" class="filterbtn autoscrollcheck">
-                            <div class="toggler-slider">
-                                <div class="toggler-knob"></div>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">同じブラウザを使うすべての端末で設定を同期できます。<br></div>
-                            </div>
-                            <div class="flex buttonlabel">設定の同期</div>
-                        </div>
-                        <label class="checkbox">
-                            <input type="checkbox" class="filterbtn sync-setting">
-                            <div class="toggler-slider">
-                                <div class="toggler-knob"></div>
-                            </div>
-                        </label>
-                    </div>
-
-                     <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">他のサーバーでも動かせるようになります。<br><br>下にある「標準設定で動くサーバー一覧」<br>にあるサーバーでは、そのまま動きます。<br><br>複数サーバある場合は、「,」で区切って入力してください<br>例: misskey.art,misskey.cf<br><br>Misskey.io以外での動作は保証していません。<br>動いたらラッキー程度に考えてください </div>
-                            </div>
-                            <div class="flex buttonlabel">他のサーバでも動かす</div>
-                        </div>
-                        <label>
-                            <input type="text" class="textinput specsetting" data-name="otherserver">
-                        </label>
-                    </div> 
-
-                    <div class="flex buttonblock" tabindex="1">
-                        <div class="flex left-small">
-                            <div class="popup">
-                                <p class="ti ti-info"></p>
-                                <div class="description-popup">今の設定をCSSとして出力します。<br>出できたコードをコピーして、設定したいPCやスマホの<br>Misskey 設定→全般→カスタムCSSに貼り付けることで、<br>スマホでも同じフィルタリングをかけられます。<br><br>(CSSの動作保証はブラウザ版のみです。<br>クライアントのカスタムCSS機能では動作しない可能性があります)</div>
-                            </div>
-                            <div class="flex buttonlabel">今の設定をCSSに</div>
-                        </div>
-                        <label>
-                            <button class="export">出力する</button>
-                        </label>
-                    </div>
-                <div class="popup"></div>
-                </div>
-            </div> -->
         </div>
 
         <div class="about-wrapper">

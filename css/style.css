@@ -110,18 +110,21 @@
 
 /*General Setting*/
 html,body{
-    max-height: 650px !important;
+    /*max-height: 650px !important;*/
     overflow-y: scroll;
 }
 body {
-    max-width: 550px;
+    max-width: 536px;
+    min-width: 360px;
     background-color: var(--background);
     font-family: Hiragino Maru Gothic Pro,Roboto,HelveticaNeue,Arial,sans-serif;
     margin: 0px auto;
     font-size: 13px;
+    overflow: visible;
 }
 .wrapper{
-    max-height: 530px;
+    /*max-height: 530px;*/
+    overflow: visible;
     text-align: center;
     padding-bottom: 20px;
     position: relative;
@@ -134,9 +137,10 @@ body {
 }
 h1{
     font-size: 26px;
-    padding: 6px auto;
+    padding: 0 auto 6px;
 }
 
+/*tab*/
 
 /*General layout CSS*/
 .flex{
@@ -248,7 +252,7 @@ h2 {
 }
 .helpbtn{
     position: absolute;
-    top:9px;
+    top: -9px;
     left: 6px;
     z-index: 999;
 }
@@ -260,7 +264,7 @@ h2 {
 }
 .lang{
     position: absolute;
-    top: 16px;
+    top: 0px;
     right: 14px;
     z-index: 999;
 }
@@ -301,7 +305,7 @@ h2 {
     font-size: 26px;
     position: absolute;
     overflow: hidden;
-    top: 30%;
+    top: 160px;
     background-color: var(--cardcolor);
     color: var(--textcolor);
     padding: 40px 8px;
@@ -360,12 +364,15 @@ h2 {
 }
 
 .multichecksetting {
+    padding: 2px 0;
+    background-color: rgba(130,130,130,0.1);
+    border-radius: 10px;
     margin-top: -10px;
 }
 .multichecksetting .buttonlabel {
     justify-content: center;
     margin: 0;
-    min-width: 120px;
+    min-width: 100px;
     transform: translateY(-5px);
 }
 .multichecksetting .buttonblock {
@@ -387,7 +394,7 @@ h2 {
     position: relative;
     cursor: pointer;
     display: inline-block;
-    margin: auto;
+    margin: auto 0;
     transform: translateX(8px);
     z-index: 100;
 }
@@ -746,6 +753,36 @@ h2 {
 }
 .TabUI-content-wrapper {
     padding: 0 20px 15px;
+}
+
+
+/* For SidePanel*/
+@media screen and (max-width: 530px){
+    h1 {
+        opacity: 0;
+        transition: 0.2s;
+    }
+    .TabUI-tabs label{
+        padding: 0 calc(10vw - 18px);
+    }
+    .TabUI-content .multiblock {
+        height: auto;
+        flex-direction: column;
+    }
+    .TabUI-content .buttonblock{
+        display: block;
+        padding-bottom: 0.2em;
+        .checkbox {
+            margin-top: -0.4em;
+        }
+    }
+    .TabUI-content-main .buttonblock{
+        display: block;
+        flex-wrap: wrap;
+    }
+    .multichecksetting{
+        flex-wrap: wrap;
+    }
 }
 
 /*animations*/
