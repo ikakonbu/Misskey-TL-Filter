@@ -335,11 +335,14 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
        let windowsize = document.querySelector("body")
        windowsize = windowsize.getClientRects();
        windowsize = windowsize[0].width;
+
        if(windowsize < 420){
+            targetwidth += 85;
             scroolloffset = 231;
        } else {
             scroolloffset = 462; 
        }
+
        if(flag) {
         willscroll = clamp(0, willscroll+scroolloffset , targetwidth);
         if(autoscrolled) willscroll -= (scroolloffset/2);

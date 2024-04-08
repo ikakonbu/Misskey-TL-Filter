@@ -139,6 +139,18 @@ h1{
     font-size: 26px;
     padding: 0 auto 6px;
 }
+::-webkit-scrollbar-thumb {
+    /* color: var(--buttoncolor); */
+    background-color: var(--buttoncolor);
+    /* width: 8px; */
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    color: white;
+    background: var(--background);
+}
+
 
 /*tab*/
 
@@ -782,6 +794,12 @@ h2 {
     }
     .multichecksetting{
         flex-wrap: wrap;
+    }
+}
+
+@media screen and (max-width: 420px){
+    .timeline_setting {
+        margin: 10px calc(50% - 155px) 20px;
     }
 }
 

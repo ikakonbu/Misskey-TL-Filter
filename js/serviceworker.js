@@ -62,14 +62,16 @@ function CheckURL(tab){
         if(value[0].result != false){
             setpopupstate(tab.id, true, value[0].result);
             chrome.sidePanel.setOptions({
+                path: "popup.html",
                 tabId: tab.id,
                 enabled: true,
               });
         } else {
             setpopupstate(tab.id, false, false);
             chrome.sidePanel.setOptions({
+                path: "disable.html",
                 tabId: tab.id,
-                enabled: false,
+                enabled: true,
             });
         }
     });
