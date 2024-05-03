@@ -11,7 +11,5 @@ Prism.Live.registerLanguage("clike", {
 });
 
 Prism.Live.registerLanguage("javascript", {
-	snippets: {
-		log: "console.log($1)",
-	}
+	snippets: {}
 }, Prism.Live.languages.clike);

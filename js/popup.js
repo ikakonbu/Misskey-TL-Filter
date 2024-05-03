@@ -1,10 +1,55 @@
-var scroolloffset = 462; 
+//操作音
+window.AudioContext = window.AudioContext;
+context = new AudioContext();
+gain = context.createGain();
+gain.connect(context.destination);
+gain.gain.value = 0.7;
+
+var theBuffer;
+loadBuffer("../src/cursor.mp3", finishedLoading);
+
+function finishedLoading(buffer) {
+    theBuffer = buffer;
+}
+function PlaySound(){
+    //play sound
+    soundSource = context.createBufferSource();
+    soundSource.buffer = theBuffer;
+    soundSource.connect(gain);
+    //pitch
+    soundSource.playbackRate.value = 1;
+
+    soundSource.start(0);
+}
+function loadBuffer(url, finished) {
+	//Create the Request
+	var req = new XMLHttpRequest();
+	req.open('GET', url, true);
+	req.responseType = "arraybuffer";
+	
+	//When it arrives, process the audio - this could be done synchronously instead...
+	req.onload = function() {
+		context.decodeAudioData(
+			req.response,
+			finished,
+			function(error) {console.error('Problem Decoding', error);}
+		);
+	};	
+	//if request error
+	req.onerror = function() {console.log('Problem With Request')}
+	//send the request
+	req.send();
+}
+
+
+const isChrome = judgeChrome();
 const autoscrolloffset = 41;
+var scroolloffset = 462; 
 let arrowautoscroll = 1;
 let autoscrolled = false;
 let willscroll = 0;
 let csscode='';
-let domainname = '';
+let Domain_Name = '';
 let emojiDB;
 var searchtask = null;
 let controller = new AbortController();
@@ -75,24 +120,54 @@ const hidecss = {
 const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィルタリングができるカスタムCSSです。\nこのコードをコピーして、フィルタを設定したいパソコン、スマホのmisskeyの設定→全般→カスタムCSS の中に貼り付けてください*/\n/*This is a custom CSS that allows filtering identical to the current Misskey-TL-FIlter settings.\n Copy this code and paste it into misskey settings -> General -> Custom CSS on the computer or smartphone where you want to set the filter*/\n';
 
 /*element of checkbox ,text input, button, scroll button, and scroll target*/
-const chcckbox_elements = document.querySelectorAll(`.filterbtn`);
-const css_chcckbox_elements = document.querySelectorAll(`.filterbtn:not(.notcss)`);
-const text_elements = document.querySelectorAll(`input[type="text"]`);
-const multibtn_elements = document.getElementsByClassName(`multiselectbtn`);
-const exportbtn = document.getElementById('export');
-const autoscrollsetting = document.querySelector(`.autoscrollcheck`);
-const scrollleft  = document.querySelector('.scrollleft');
-const scrollright = document.querySelector('.scrollright');
-const scrolltarget = document.querySelector('.timeline_setting');
-const langage = document.getElementById('langage');
-const emoji_text = document.querySelectorAll('.emojitext');
-const user_text = document.querySelectorAll('.usertext');
-const accordion_boxs = document.querySelectorAll(".accordion");
-const tabui_tabs = document.querySelectorAll(".TabUI-tabs input[type='radio']");
-const tabui_contents = document.querySelectorAll(".TabUI-content");
+const checkbox_setting_labels   = document.querySelectorAll('.buttonblock:has(input[type="checkbox"])');
+const chcckbox_elements         = document.getElementsByClassName(`filterbtn`);
+const css_chcckbox_elements     = document.querySelectorAll(`.filterbtn:not(.notcss)`);
+const text_elements             = document.querySelectorAll(`input[type="text"]`);
+const multibtn_elements         = document.getElementsByClassName('multiselectbtn');
+const exportbtn                 = document.getElementById('export');
+const autoscrollsetting         = document.querySelector('.autoscrollcheck');
+const openinsidebar             = document.querySelector('.opensidebar');
+const scrollleft                = document.querySelector('.scrollleft');
+const scrollright               = document.querySelector('.scrollright');
+const scrolltarget              = document.getElementById('timeline_setting');
+const langage                   = document.getElementById('langage');
+const helpbtn                   = document.getElementById('help-open');
+const emoji_text                = document.getElementsByClassName('emojitext');
+const user_text                 = document.getElementsByClassName('usertext');
+const tabui_tabs                = document.querySelectorAll(".tab-radio");
+const tabui_contents            = document.getElementsByClassName("TabUI-content");
 
-const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//timeはミリ秒
+const worker = new Worker("js/worker.js");
+worker.addEventListener('message', (e) => {
+    //console.log('success');
+    emojiDB = e.data;
+  }, false);
 
+  function judgeChrome(){
+    let agent = window.navigator;
+    if(agent.vendor != "Google Inc."){
+        return "firefox";
+    } else {
+        if(agent.userAgentData.brands.length > 0) {
+            let brandname = agent.userAgentData.brands[0].brand;
+            switch(brandname){
+                case "Opera":
+                    return "opera";
+            }
+            brandname = agent.userAgentData.brands[1].brand;
+            switch(brandname){
+                case "Google Chrome":
+                    return "chrome";
+                case "Microsoft Edge":
+                    return "edge";
+                //case "Chromium":
+                //    return "chromium";
+            }
+        }
+        return "chromium";
+    }
+}
 
     /*create css code from current settings*/
     function CreateCSS(){
@@ -132,7 +207,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
         });
 
         for (let target of chcckbox_elements) {
-            localStorage.setItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + domainname, target.checked? 1 : 0);
+            localStorage.setItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + Domain_Name, target.checked? 1 : 0);
             if(target.checked) {
                 let target_setting = target.closest(".TabUI-content")
                 if(target_setting != null) target_setting = target_setting.dataset.id;
@@ -143,41 +218,42 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
                 }
             }
         }
-
         for (let target of text_elements) {
-            localStorage.setItem('list-' + target.dataset.kinds + domainname, target.value);
+            localStorage.setItem('list-' + target.dataset.kinds + Domain_Name, target.value);
             if(target.value.trim() != "") {
                 let target_setting = target.closest(".TabUI-content").dataset.id;
                 badgeflags[target_setting] = 1;
             }
         }
+
         for (let target of multibtn_elements) {
-            localStorage.setItem('multiselect-' + target.dataset.multiindex + domainname, target.dataset.index);
+            localStorage.setItem('multiselect-' + target.dataset.multiindex + Domain_Name, target.dataset.index);
             if(target.dataset.index != 0) {
                 let target_setting = target.closest(".TabUI-content").dataset.id;
                 badgeflags[target_setting] = 1;
             }
         }
+
         tabui_tabs.forEach((el,i) => {
             localStorage.setItem('settingtab-' + i, el.checked? 1 : 0);
         });
+
         localStorage.setItem('langage', langage.value);
-        localStorage.setItem('autoscroll' + domainname , (arrowautoscroll==1)? 1 : 0);
-        localStorage.setItem('saved' + domainname , '1');
+        localStorage.setItem('autoscroll' + Domain_Name , (arrowautoscroll==1)? 1 : 0);
+        localStorage.setItem('saved' + Domain_Name , '1');
         if(langage.value != "japanese"){
-        fetch("/lang/" + localStorage.getItem("langage") + ".json")
+        fetch("/lang/" + localStorage.getItem("langage") + ".json", {priority: 'high'})
         .then( response => response.json())
         .then( (data) => {
             localStorage.setItem("multibtntexts", JSON.stringify(data.MultiselectOptions));
         })
         }
-
         for(let key in badgeflags){
             if(badgesettings[key] == 1 && badgeflags[key]==1){
                 settingflag = 1;
             }
         }
-        let keyname = 'nowactive-' + domainname;
+        let keyname = 'nowactive-' + Domain_Name;
         chrome.storage.local.set({[keyname] : String(settingflag)}, function () {
             if(settingflag==1){
                 chrome.action.setIcon({path:"../img/icon_48_active.png"});
@@ -187,12 +263,24 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
                 chrome.action.setTitle({title:"Misskey TL Filter - Filtering OFF"});
             }
         });
+        
+            keyname = 'openinsidebar';
+            chrome.storage.local.set({[keyname] : openinsidebar.checked }, function () {
+                if(isChrome == 'chrome'){
+                    console.log("Sidepanel on")
+                    chrome.sidePanel.setPanelBehavior({ openPanelOnActionClick: openinsidebar.checked });
+                }
+            });
+
+        if(localStorage.getItem("button-notcss-playsound"+Domain_Name)=="1"){
+            PlaySound();
+        }
     }
 
     /*load settings*/
     function LoadSetting(){
         //when first time, previous setup don't exist, so init setting
-        if(!localStorage.getItem('saved' + domainname)) {
+        if(!localStorage.getItem('saved' + Domain_Name)) {
             SaveSetting();
             autoscrollsetting.checked = 1;
             return;
@@ -200,17 +288,17 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
         let langsetting = localStorage.getItem('langage') ?? "japanese";
 
         /*マルチセレクトボタンは言語ファイルを読みに行かないと行けないので非同期に設定読込みさせる*/
-        fetch("/lang/" + langsetting + ".json")
+        fetch("/lang/" + langsetting + ".json", {priority: 'high'})
         .then(res => res.json())
         .then((res2) => {
             multibtn_texts = res2.MultiselectOptions;
 
             for (let target of multibtn_elements) {
-                if(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname) != null){
-                    let nextindex = Number(localStorage.getItem('multiselect-' + target.dataset.multiindex + domainname));
+                if(localStorage.getItem('multiselect-' + target.dataset.multiindex + Domain_Name) != null){
+                    let nextindex = Number(localStorage.getItem('multiselect-' + target.dataset.multiindex + Domain_Name));
                     target.dataset.index = nextindex;
                     target.querySelector('.multitext').innerText = multibtn_texts[target.dataset.multiindex][nextindex];
-                    target.querySelector('.multiselect-ti').innerHTML = multibtn_icons[target.dataset.multiindex][nextindex];
+                    target.querySelector('.ti-multiselect').innerHTML = multibtn_icons[target.dataset.multiindex][nextindex];
                 }
             }
         });
@@ -228,11 +316,11 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
         }
 
         for (let target of chcckbox_elements) {
-            target.checked = (localStorage.getItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + domainname)== '1')? 1: 0;
+            target.checked = (localStorage.getItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + Domain_Name)== '1')? 1: 0;
         }
 
         for (let target of text_elements) {
-            target.value = localStorage.getItem('list-' + target.dataset.kinds + domainname);
+            target.value = localStorage.getItem('list-' + target.dataset.kinds + Domain_Name);
         }
         tabui_tabs.forEach((el,i) => {
             if(localStorage.getItem('settingtab-' + i) == 1 ){
@@ -243,7 +331,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             }
         });
 
-        arrowautoscroll = (localStorage.getItem('autoscroll' + domainname) == null)? 1 : Number(localStorage.getItem('autoscroll' + domainname));
+        arrowautoscroll = (localStorage.getItem('autoscroll' + Domain_Name) == null)? 1 : Number(localStorage.getItem('autoscroll' + Domain_Name));
         autoscrollsetting.checked = arrowautoscroll;
     }
 
@@ -264,14 +352,12 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
         localStorage.setItem('lastcss',styles);
     }
 
-
-
     /*Get page Domain (excute script)*/
     function GetDomain(){
         return document.domain;
     }
 
-    /*Get the TL Name which currently looking*/
+    /*Get the TL Name which currently looking (excute script)**/
     function getTLName(){
         /*return null when deck UI*/
         baseel = "div[style='position: sticky; top: var(--stickyTop, 0); z-index: 1000;']";
@@ -295,15 +381,6 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
         }
     }
 
-
-
-    /* Get emoji DB for the server which viewing now*/
-    async function initEmojiDB(){
-        const emojis = await fetch("https://" + domainname + "/api/emojis");
-	    emojiDB = await emojis.json();
-    }
-
-
     function clamp(a,b,c){
         if(a>b){
             return a;
@@ -317,8 +394,8 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
     function autocmp_display(kind, id, flag){
         //const kind_dic = {"emoji": ".emojiresult", "user": ".userresult"}
         const target = document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='" + kind + "']");
-        console.log(".autocmp_result[data-id='" + id + "'][data-type='" + kind + "']");
-        console.log(target);
+        //console.log(".autocmp_result[data-id='" + id + "'][data-type='" + kind + "']");
+        //console.log(target);
 
         if(flag == true){
             target.classList.add("show");
@@ -336,7 +413,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
        windowsize = windowsize.getClientRects();
        windowsize = windowsize[0].width;
 
-       if(windowsize < 420){
+       if(windowsize < 470){
             targetwidth += 85;
             scroolloffset = 231;
        } else {
@@ -372,7 +449,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             let counter = 0;
             let langdata = "";
 
-            fetch("/lang/" + lang + ".json")
+            fetch("/lang/" + lang + ".json", {priority: 'high'})
             .then( response => response.json())
 		    .then( (data) => {
                 langdata = data;
@@ -418,6 +495,9 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
         }
     }
 
+
+
+
     /*scroll button event*/
     scrollleft.addEventListener(`click`, () => {
         setScrollPosition(false);
@@ -433,58 +513,6 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             behavior: 'smooth'
           });
     })
-
-
-
-    /*click checkbox when label text*/
-    const checkboxs = document.querySelectorAll('.buttonblock:has(input[type="checkbox"])');
-    for(let checkbox of checkboxs){
-        checkbox.addEventListener("click", function(event){
-            var x = event.clientX;
-            var y = event.clientY;
-            var element = document.elementFromPoint(x, y);
-            if(element.className != "toggler-slider" && element.className != "toggler-knob"){
-                this.querySelector('input[type="checkbox"]').click();
-            }
-        })
-    }
-
-    /*Get the domain of tab which currently open 
-    & load setting for current domain*/
-    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        const tabquery = chrome.scripting.executeScript({
-            target: { tabId : tabs[0].id },
-            func: GetDomain,
-        });
-        tabquery.then((value) => {
-            domainname = value[0].result; 
-            LoadSetting();
-            initEmojiDB();
-        })
-        .catch(err => alert(err));
-    });
-
-    /*Auto Scroll to Specfy Setting which watchng now on misekey*/
-    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-        const tabquery = chrome.scripting.executeScript({
-            target: { tabId : tabs[0].id },
-            func: getTLName,
-        });
-        tabquery.then((value) => {
-            console.log(value[0].result);
-            if( value[0].result != null ){
-                if(value[0].result in tlindex && arrowautoscroll == 1){
-                    targetel = document.querySelector(".card:has(." + tlindex[value[0].result] + ")");
-                    willscroll += targetel.getBoundingClientRect().x - autoscrolloffset;
-                    targetel.scrollIntoView({behavior: 'instant', block: "end", inline:"center"});
-                    if(value[0].result != "ti-home" && value[0].result != "ti-badge" ) {
-                        autoscrolled = true;
-                    }
-                }
-            }
-        })
-        .catch(err => console.log("TL取得に失敗"));
-    });
 
     /*Set　event listeners*/
     for (let target of chcckbox_elements) {
@@ -504,7 +532,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
         target.addEventListener(`change`, () => {
             SaveSetting();
         })
-        }
+    }
     for (let target of text_elements) {
         target.addEventListener(`change`, () => {
             CreateCSS();
@@ -524,7 +552,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             let nextindex = (Number(target.dataset.index) + 1 ) % multibtn_texts[target.dataset.multiindex].length;
             target.querySelector('.multitext').innerText = multibtn_texts[target.dataset.multiindex][nextindex];
             target.dataset.index = nextindex;
-            target.querySelector('.multiselect-ti').innerHTML = multibtn_icons[target.dataset.multiindex][nextindex];
+            target.querySelector('.ti-multiselect').innerHTML = multibtn_icons[target.dataset.multiindex][nextindex];
             window.setTimeout(function(){target.querySelector('.multitext').classList.remove("change")},200);
             CreateCSS();
             SaveSetting();
@@ -537,25 +565,78 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             });
         });
     }
+    for(let checkbox of checkbox_setting_labels){
+        checkbox.addEventListener("click", function(event){
+            var x = event.clientX;
+            var y = event.clientY;
+            var element = document.elementFromPoint(x, y);
+            if(element.className != "toggler-slider" && element.className != "toggler-knob"){
+                this.querySelector('input[type="checkbox"]').click();
+            }
+        })
+    }
 
     langage.addEventListener(`change`, () => {
         SaveSetting();
         location.reload()
     })
-    
     autoscrollsetting.addEventListener(`change`, () => {
         arrowautoscroll = autoscrollsetting.checked;
         SaveSetting();
     })
-
-    /*set export button event*/
+    openinsidebar.addEventListener(`change`, () => {
+        SaveSetting();
+    })
     exportbtn.addEventListener('click', () => {
         ExportCSS();
     })
-
-    /*help screen*/
-    document.querySelector('#help-open').addEventListener("click", () => {
+    helpbtn.addEventListener("click", () => {
         document.querySelector('#help').classList.remove('hide');
+    });
+
+    /*Main Function*/
+    chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        const nowwatch_domain = chrome.scripting.executeScript({
+            target: { tabId : tabs[0].id },
+            func: GetDomain,
+        });
+        const nowwatch_timeline = chrome.scripting.executeScript({
+            target: { tabId : tabs[0].id },
+            func: getTLName,
+        });
+
+        Promise.all([nowwatch_domain, nowwatch_timeline])
+        .then((values) => {
+            Domain_Name = values[0][0].result; 
+            TimeLine_Name = values[1][0].result;
+            worker.postMessage(Domain_Name);
+            if(isChrome != 'chrome'){
+                document.querySelector(".buttonblock:has(.opensidebar)").style.display = "none";
+            }
+
+            ChangeLang();
+            LoadSetting();
+
+            if(TimeLine_Name){
+                if(TimeLine_Name in tlindex && arrowautoscroll == 1){
+                    Match_Element = document.querySelector(".card:has(." + tlindex[TimeLine_Name] + ")");
+                    willscroll    += Match_Element.getBoundingClientRect().x - autoscrolloffset;
+                    Match_Element.scrollIntoView({behavior: 'instant', block: "end", inline:"center"});
+                    if(TimeLine_Name != "ti-home" && TimeLine_Name != "ti-badge" ) {
+                        autoscrolled = true;
+                    }
+                }
+            }
+
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = 'css/style_2.css';
+            document.head.appendChild(link);
+        })
+        .catch((e) => {
+            console.log("error: " + e);
+            //window.location.href('disable.html');
+        });
     });
 
     /*TabUI Scripts*/
@@ -571,8 +652,6 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             }
         });
     }
-
-
     /*emoji auto complite */
     for(let texttarget of emoji_text){
         texttarget.addEventListener("input",function(e){
@@ -580,14 +659,16 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             var search_result;
             let id = e.target.dataset.id;
             let query_temp = e.target.value.split(":");
+
+            /*Format the input from a textbox*/
             let query_temp_eval = (query_temp.length %2 == 1 && query_temp[query_temp.length-1].replace(" ","") != "");
             if(query_temp_eval){
-                console.log(query_temp);
                 texts = query_temp.pop().replace(" ","").replace(",","");
-                console.log(texts);
             } else {
                 texts = e.target.value.split(",").pop().replace(" ", "").replace(":", "");
             }
+
+            /* serach */
             if(texts != "" ||  query_temp_eval){
                 search_result = emojiDB.emojis.filter(function(item, index){
                     if (item.name == texts) return true;
@@ -666,8 +747,6 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             }
         });
     }
-    
-
     /*user auto complite */
     for(let usertarget of user_text){
         usertarget.addEventListener("input",function(e){
@@ -680,14 +759,14 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
                 signal = controller.signal;
 
                 searchtask = setTimeout(async function(){
-                    const responce = await fetch("https://" + domainname + "/api/users/search", {
+                    const responce = await fetch("https://" + Domain_Name + "/api/users/search", {
                     "headers": {
                       "content-type": "application/json",
                     },
                     "body": "{\"query\":\"" + text + "\",\"offset\":0,\"limit\":5,\"origin\":\"combined\",\"detail\":false}",
                     "method": "POST",
                     "signal": signal,
-                    });
+                    }, {priority: 'low'});
                     let search_results = await responce.json();
             
                     var result = "";
@@ -713,7 +792,7 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
                             usernameHTML += word;
                         } else {
                             if(userserver == null || userserver == "null"){
-                                console.log(userserver);
+                               //console.log(userserver);
                                 search_result = emojiDB.emojis.filter(function(item, index){
                                     if (item.name == word) return true;
                                 });
@@ -728,11 +807,11 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
                         }
                       });
 
-                      var iikanzi_html_node = "<button class='userbtn' title = '" + node.username + ((node.host!=null)? "@" + node.host : "") +  "' tabindex='1'><img class='usericon' src='" + node.avatarUrl + "'><div class='usernametext'>" + usernameHTML + ((node.host != null)? "  <div class='servername'>"+node.username+"@" + node.host + "</div>" : "<div class='servername'>" + node.username + "@" + domainname + "</div>") + "</div></button>"
+                      var iikanzi_html_node = "<button class='userbtn' title = '" + node.username + ((node.host!=null)? "@" + node.host : "") +  "' tabindex='1'><img class='usericon' src='" + node.avatarUrl + "'><div class='usernametext'>" + usernameHTML + ((node.host != null)? "  <div class='servername'>"+node.username+"@" + node.host + "</div>" : "<div class='servername'>" + node.username + "@" + Domain_Name + "</div>") + "</div></button>"
                       result += iikanzi_html_node;
                     }
              
-                    console.log(".autocmp_result[data-id='" + id + "'][data-type='user']");
+                   //console.log(".autocmp_result[data-id='" + id + "'][data-type='user']");
                     document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='user']").innerHTML = result;
                     
                   let autocmp_buttons = document.querySelectorAll(".userbtn");
@@ -796,9 +875,9 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
                 tabui_tabs[tabidx].click();
                 tabui_contents[tabidx].querySelector("*[tabindex='1']").focus();
                 //Scroll to the position of the tab UI
-                    //If sticky scroll is enabled and the tab is stuck at the top, 
-                    //the variable scrolly will not take the correct value, so reset the scroll position first.
-                    document.querySelector("body").scrollTo(0, 0); 
+                //If sticky scroll is enabled and the tab is stuck at the top, 
+                //the variable scrolly will not take the correct value, so reset the scroll position first.
+                document.querySelector("body").scrollTo(0, 0); 
                 let targety = document.querySelector(".TabUI-tabs").getBoundingClientRect();
                 let scrolly = targety.top + document.querySelector("body").scrollTop;
                 document.querySelector("body").scrollTo(0, scrolly);
@@ -816,5 +895,3 @@ const sleep = (time) => new Promise((resolve) => setTimeout(resolve, time));//ti
             }
         }
     });
-
-    ChangeLang();

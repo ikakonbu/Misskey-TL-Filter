@@ -1,4 +1,4 @@
-/*color variable*/
+/*MARK: color variable*/
 :root{ 
     /*light mode*/
     --background: rgb(248,248,245);
@@ -14,7 +14,8 @@
     --hovershadow:  rgba(0,120,0,0.5);
     --buttoncolor: rgb(240,238,232);
     --checkboxhover: rgba(159, 142, 89, 0.1);
-
+    --scrollbarcolor: rgb(219, 211, 188);
+    --multicheckbackground: rgba(130,130,130,0.1);
     --descriptioncolor: rgba(0,0,0,0.6);
     --modalbackground: rgba(0,0,0,0.8);
     --buttonhovershadow: rgba(87, 145, 0, 0.3);
@@ -36,25 +37,22 @@
         --hovershadow:  rgba(100,255,100,0.5);
         --buttoncolor: rgb(96 96 96);
         --checkboxhover: rgba(210, 193, 145, 0.1);
+        --scrollbarcolor: rgb(96 96 96);
     }
 }
 
 
+/*MARK: tabler-icon*/
 @font-face {
     font-family: "tabler-icons";
     font-style: normal;
     font-weight: 400;
-    src: url("../font/tabler-icons.woff")format('woff');
+    src: url("../font/tabler-icons-min.woff2")format('woff');
     font-display: swap;
 }
 .ti {
     display:table-cell;
     vertical-align: middle;
-    font-family: "tabler-icons" !important;
-    font-size: 25px;
-}
-.ti-center{
-    display: block;
     font-family: "tabler-icons" !important;
     font-size: 25px;
 }
@@ -73,11 +71,12 @@
 }
 .ti.ti-info{
     font-size: 18px;
-    padding-right: 0.4em;
+    padding-left: 0.4em;
     opacity: 0.4;
 }
-.ti-icon {
-    z-index: 3;
+.ti-multiselect {
+    font-weight: 400 !important;
+    padding-left: 0.1em;
 }
 .ti-home:before{content: "\eac1";}
 .ti-planet:before{content: "\ec08";}
@@ -108,9 +107,8 @@
 
 
 
-/*General Setting*/
+/*MARK: General Setting*/
 html,body{
-    /*max-height: 650px !important;*/
     overflow-y: scroll;
 }
 body {
@@ -132,50 +130,34 @@ body {
 * {
     color: var(--textcolor);
 }
-.language-css * {
-    color: unset;
-}
 h1{
     font-size: 26px;
     padding: 0 auto 6px;
 }
-::-webkit-scrollbar-thumb {
-    /* color: var(--buttoncolor); */
-    background-color: var(--buttoncolor);
-    /* width: 8px; */
-}
-
 ::-webkit-scrollbar {
     width: 8px;
+    height: 8px;
     color: white;
     background: var(--background);
 }
+::-webkit-scrollbar-thumb {
+    /* color: var(--buttoncolor); */
+    background-color: var(--scrollbarcolor);
+    /* width: 8px; */
+}
 
-
-/*tab*/
-
-/*General layout CSS*/
 .flex{
     display: flex;
 }
-.title-buttons {
-    margin: auto 1em auto 0 !important;
-}
-.timeline_setting{
+#timeline_setting{
     justify-content:left;
-    overflow-x:scroll;
+    overflow-x: scroll;
     padding: 10px 36px 20px;
     margin-bottom: -20px;
     scrollbar-width: none;
 }
 .left-small{
     justify-content:left;
-}
-.left::-webkit-scrollbar{
-    display:none;
-}
-.center{
-    justify-content:center;
 }
 .middle {
     height: 45px;
@@ -202,11 +184,8 @@ h1{
 }
 .flex-title{
     justify-content: start;
-    vertical-align: middle;
     margin: 4px auto 5px;
     padding-bottom: 5px;
-    border-bottom: solid 2px transparent;   
-    transition: 0.3s;
     border-bottom: solid 2px var(--textcolor);
 }
 .title-explanation {
@@ -223,7 +202,7 @@ h2 {
 
 
 
-/*warning popup (for firefox) & help popup*/
+/*MARK: warning popup (for firefox) & help popup*/
 .fix_modal{
     position: fixed;
     z-index: 200;
@@ -243,21 +222,18 @@ h2 {
 	transform: translate(-50%,-50%);
     z-index: 300;
 }
-.modal_card b {
+.card_bold {
     background-color: var(--textarea);
 }
 .modal_list{
     margin-left: 10px;
 }
-
 #warning:has(.modal_card){
     display: none;
 }
 .fix_modal.hide{
     display: none;
 }
-
-
 /*help button*/
 .help-container {
     position: relative;
@@ -269,7 +245,8 @@ h2 {
     z-index: 999;
 }
 
-/*langage selecter*/
+
+/*MARK: langage selecter*/
 .lang-container{
     color: var(--textcolor);
     position: relative;
@@ -298,7 +275,6 @@ h2 {
     content: '\eb1d';
     pointer-events: none;
 }
-
 #langage{
     appearance: none;
     min-width: 80px;
@@ -312,6 +288,8 @@ h2 {
     color: var(--textcolor);
 }
 
+
+/*MARK: Scroll Button*/
 .scrollbutton {
     z-index: 100;
     font-size: 26px;
@@ -324,18 +302,9 @@ h2 {
     box-shadow: 0px 0px 20px 0px var(--btnshadow);
     transition: .5s;
 }
-.scrollbutton i{
+.ti-left, .ti-right{
     font-style: normal;
-}
-.scrollbutton:hover{
-    transition: .5s;
-    transform: scaleY(1.1);
-    box-shadow: 0px 0px 20px 0px var(--hovershadow);
-}
-.scrollbutton:active{
-    transition: 0s;
-    transform: scaleY(1);
-    background-color: var(--accent);
+    pointer-events: none;
 }
 .scrollleft {
     left: 0px;
@@ -345,25 +314,13 @@ h2 {
     right: 0px;
     border-radius: 10px 0 0 10px;;
 }
-.scrollbutton i{
-    pointer-events: none;
-}
 /*check button label*/
 .buttonblock{
     border-radius: 4px;
-}
-.buttonblock:has(.filterbtn):hover{
-    transition: 0.1s;
-    background: var(--checkboxhover);
-}
-.buttonblock:has(.filterbtn):active{
-    transition: 0.1s;
-    transform: scale(0.95);
+    justify-content: space-between;
 }
 .buttonlabel{
     cursor: pointer;
-}
-.buttonlabel {
     justify-content: flex-start;
     user-select: none;
     min-width: 100px;
@@ -374,24 +331,23 @@ h2 {
     padding: 0;
     margin: 0 0 0 10px;
 }
-
 .multichecksetting {
     padding: 2px 0;
-    background-color: rgba(130,130,130,0.1);
+    background-color: var(--multicheckbackground);
     border-radius: 10px;
     margin-top: -10px;
+    justify-content: center;
 }
 .multichecksetting .buttonlabel {
     justify-content: center;
-    margin: 0;
+    margin: -5px;
+    padding: 0px 0 10px;
     min-width: 100px;
-    transform: translateY(-5px);
 }
 .multichecksetting .buttonblock {
-    display:flex;
     flex-direction: column;
-    justify-content: center;
-    & label {
+    justify-content: space-between;
+    & .checkbox {
         margin: 0;
         left: 50%;
     }
@@ -407,54 +363,24 @@ h2 {
     cursor: pointer;
     display: inline-block;
     margin: auto 0;
-    transform: translateX(8px);
     z-index: 100;
 }
-.popup .ti{
-    font-size: 22px;
+.popup.ti-icon {
+    z-index: 3;
+    margin: auto -0.5em auto 0.5em;
 }
 .description-popup {
-    pointer-events: none;
-    overflow: hidden;
-    white-space: nowrap;
-    display: block;
     opacity: 0;
+    width: 0;
+    overflow: hidden;
     position: absolute;
-    padding: 16px 16px;
-    font-size: 13px;
-    line-height: 1.6em;
-    color: var(--white);
-    border-radius: 13px;
-    background: var(--modalbackground);
-    box-shadow: 0px 4px 10px 0px var(--cardshadow);
-    width: 0px;
-    transition: 0.3s;
-    top: -20px;
-    left: 35px;
 }
-.description-popup img{
-    width: 390px;
-}
-.popup:hover .description-popup{
-    transition: 0.5s;
-    opacity: 1;
-    width: 400px;
-}
-.all_setting, .more_setting, .css_setting{
-    margin: 15px 30px;
-    padding: 10px 25px 0px;
-}
-
-:is(.other_setting, .css_settings) .buttonblock{
-    justify-content: space-between;
-}
-
 
 /* about and my profile link*/
-.about-wrapper{
+#about-wrapper{
     padding: 0px 30px 15px;
 }
-.about {
+#about {
     z-index: -1;
     padding: 6px 30px;
     text-align: left;
@@ -472,19 +398,6 @@ h2 {
     border-radius: 10px;
     margin: 10px 15px 0px;
     padding: 6px 12px;
-}
-.link_button:hover{
-    color: var(--white);
-    background-color: var(--accent);
-    transition: .3s;
-    box-shadow: 0px 0px 20px 0px var(--buttonhovershadow);
-    div {
-        transition: .5s;
-        color: var(--white);
-    }
-}
-.version{
-   text-align: right;
 }
 
 /*CheckBox CSS*/
@@ -509,12 +422,10 @@ h2 {
     border-radius: 100px;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    transition: 300ms ease;
     z-index: 10;
 }
 .toggler-knob {
     position: absolute;
-    transition: 300ms ease;
 }
 .filterbtn:checked+.toggler-slider>.toggler-knob {
     left: calc(100% - 19px - 3px);
@@ -549,144 +460,15 @@ h2 {
     height: 2.8em;
     margin-right: 10px;
     width: 220px;
-    transition: ease-in 0.2s;
 }
 .multiselectbtn:not([data-index="0"]){
     border: solid 3px var(--accent);
 }
-.multiselectbtn:hover{
-    transform: scale(1.12);
-    transition:  0.15s;
-    box-shadow: 0 0 10px 0 var(--btnshadow);
-    height: 3.2em;
-}
-.multiselectbtn:hover .multitext{
-    font-size: 0.9em;
-    transition: ease-out 0.15s;
-}
-.multiselectbtn:hover .hovertext{
-    transition: font-size 0.3s;
-    font-size: 0.7em;
-    opacity: 0.6;
-}
-.multiselectbtn:active{
-    transition: ease-out 0.1s;
-    transform: scale(0.96);
-    background: var(--accent);
-}
-.multitext.change{
-    animation: 0.2s ease-out slidein;
-}
-.multiselect-ti {
-    font-weight: 400 !important;
-    padding-left: 0.1em;
-}
-
 #export{
     margin: 6px 10px;
     padding: 6px 30px;
 }
 
-
-/*auto complite (emoji & user search)*/
-.autocmp_result {
-    transform-origin: 50% 0%;
-    border-radius: 7px;
-    background: rgba(160,160,160,0.1);
-    &[data-type="emoji"] {
-        text-align: center;
-    }
-}
-.autocmp_result.show{
-    &[data-type="emoji"] {
-        padding: 5px 10px;
-        height: max-content;
-        animation: ease-out iikanzi 0.3s;
-    }
-    &[data-type="user"] {
-        height: fit-content;
-        animation: ease-out iikanzi 0.3s;
-        & button {
-            display: inline-flex;
-            vertical-align: middle;
-        }
-    }
-}
-.autocmp_result.hide {
-    animation: ease-out iikanzi2 0.3s;
-    animation-fill-mode: forwards;
-}
-
-.emojibtn{
-    margin: 2px;
-    transition: 0.2s;
-    background: transparent;
-    border-radius: 4px;
-    border: none;
-    padding: 1px 3px;
-    & img {
-        height: 28px;
-        max-width: 150px;
-    }
-    &:hover {
-        transition: 0.1s;
-        transform: scale(1.3);
-        box-shadow: 0px 0px 10px var(--btnshadow);
-    }
-    &:active {
-        transition: 0.1s;
-        transition-delay: 0s;
-        transform: scale(0.95);
-        background: var(--accent);
-    }
-}
-
-/*user mute*/
-.userbtn{
-    max-width: 400px;
-    overflow-x: hidden;
-    display: flex;
-    vertical-align: middle;
-    align-items: center;
-    text-align: left;
-    font-size: 15px;
-    margin: 4px 6px;
-    transition: 0.2s;
-    background: var(--buttoncolor);
-    border-radius: 4px;
-    border: none;
-    padding: 3px 8px;
-    .usericon {
-        height: 40px;
-        width: 40px;
-        object-fit: cover;
-        border-radius: 999px;
-        margin-right: 10px;
-    }
-    .usernametext{
-        overflow-x: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        img {
-            height: 15px;
-        }
-    }
-    .servername {
-        font-size: 11px;
-        opacity: 0.8;
-    }
-    &:hover {
-        transition: 0.2s;
-        transform: scale(1.15);
-        box-shadow: 0px 0px 10px var(--btnshadow);
-    }
-    &:active {
-        transition: 0.1s;
-        transition-delay: 0s;
-        transform: scale(0.95);
-        background: var(--accent);
-    }
-}
 
 /*TabUI style*/
 .TabUI-tabs {
@@ -702,15 +484,14 @@ h2 {
     top: -2.5px;
     background: var(--background);
 }
-.TabUI-tabs input[type="radio"]{
+.tab-radio{
     display: none;
 }
 
-.TabUI-tabs label{
+.TabUI-Label{
     opacity: 0.2;
     transform-origin: 50% 100%;
     height: 55px;
-    transition: 0.1s;
     padding: 0 40px 0px;
     border-radius: 10px 10px 0 0 ;
     background-color: var(--cardcolor);
@@ -722,33 +503,15 @@ h2 {
         margin-top: auto;
         margin-bottom: auto;
     }
-    &:hover {
-        transform: scale(0.95);
-        opacity: 0.9;
-        box-shadow: 0px 0px 10px 0px var(--hovershadow);
-        transition: 0.2s;
-    }
-    &:active {
-        transform: scale(0.8);
-        opacity: 1;
-        background-color: var(--accent);
-        box-shadow: 0px 0px 10px 0px var(--hovershadow);
-        transition: 0.1s;
-    }
 }
 
-.TabUI-tabs input[type="radio"]:checked + label {
+.tab-radio:checked+.TabUI-Label{
     opacity: 1;
     transform: scale(1);
     transform: translateY(0);
-    transition: 0.3s;
     box-shadow: 0px 0px 10px 2px var(--hovershadow);
 }
 
-.TabUI-Label {
-    display: flex;
-    vertical-align: middle;
-}
 .TabUI-contents{
     z-index: 10;
     padding-top: 10px;
@@ -757,15 +520,12 @@ h2 {
     padding: 10px 0 0;
     display: none;
     opacity: 0;
-    transition: 0.1s;
 }
 .TabUI-content.show {
     display: block;
-    animation: forwards .3s tab-open;
+    /*opacity: 1;*/
 }
-.TabUI-content-wrapper {
-    padding: 0 20px 15px;
-}
+
 
 
 /* For SidePanel*/
@@ -774,7 +534,7 @@ h2 {
         opacity: 0;
         transition: 0.2s;
     }
-    .TabUI-tabs label{
+    .TabUI-Label{
         padding: 0 calc(10vw - 18px);
     }
     .TabUI-content .multiblock {
@@ -797,63 +557,9 @@ h2 {
     }
 }
 
-@media screen and (max-width: 420px){
-    .timeline_setting {
+@media screen and (max-width: 470px){
+    #timeline_setting {
         margin: 10px calc(50% - 155px) 20px;
     }
 }
 
-/*animations*/
-@keyframes fade{
-    0% {
-        height: 0px;
-        opacity: 0.4;
-    }
-    100% {
-        height: 1200px;
-        opacity: 1;
-    }
-}
-@keyframes slidein {
-    0%{
-        transform: translateX(10px);
-        opacity: 0.5;
-    }
-    100% {
-        transform: translateX(0px);
-        opacity: 1;
-    }
-}
-@keyframes iikanzi{
-    0% {
-        max-height: 0px;
-        overflow-y: hidden;
-        opacity: 0.2;
-    }
-    100% {
-        max-height: 200px;
-        overflow-y: visible;
-        opacity: 1;
-    }
-}
-@keyframes iikanzi2{
-    0% {
-        max-height: 200px;
-        overflow-y: hidden;
-        opacity: 1;
-    }
-    100% {
-        max-height: 0px;
-        overflow-y: visible;
-        opacity: 0.2;
-    }
-}
-
-@keyframes tab-open {
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
-}

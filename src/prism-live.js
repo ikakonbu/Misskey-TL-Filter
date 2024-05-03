@@ -5,11 +5,10 @@
 */
 (async function() {
 
-const CURRENT_URL = document.currentScript? new URL(document.currentScript.src) : null;
 
 if (!window.Bliss) {
 	// Load Bliss if not loaded
-	console.log("Bliss not loaded. Loading remotely from blissfuljs.com");
+//console.log("Bliss not loaded. Loading remotely from blissfuljs.com");
 
 	let bliss = document.createElement("script");
 	bliss.src = "https://blissfuljs.com/bliss.shy.min.js";
@@ -20,21 +19,9 @@ if (!window.Bliss) {
 
 var $ = Bliss, $$ = Bliss.$;
 var ready = Promise.resolve();
+var files = ["prism-live-css.js", "prism-live-javascript.js", "prism-live-markup.js", "prism-live.css"];
 
-if (CURRENT_URL) {
-	// Tiny dynamic loader. Use e.g. ?load=css,markup,javascript to load components
-	var load = CURRENT_URL.searchParams.get("load");
-
-	if (load !== null) {
-		var files = ["../prism-live.css"];
-
-		if (load) {
-			files.push(...load.split(/,/).map(c => /\./.test(c)? c : `prism-live-${c}.js`));
-		}
-
-		ready = Promise.all(files.map(url => $.load(url, CURRENT_URL)));
-	}
-}
+ready = Promise.all(files.map(url => $.load("../src/"+	url)));
 
 var superKey = navigator.platform.indexOf("Mac") === 0? "metaKey" : "ctrlKey";
 
