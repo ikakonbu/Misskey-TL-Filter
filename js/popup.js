@@ -49,6 +49,7 @@ let arrowautoscroll = 1;
 let autoscrolled = false;
 let willscroll = 0;
 let csscode='';
+let usercsscode = '';
 let Domain_Name = '';
 let emojiDB;
 var searchtask = null;
@@ -106,7 +107,10 @@ const hidecss = {
     //for Mute Settings
     emojihide: ':is(.xlT1y .xeJ4G,.x3762 .xeJ4G, .x3kEw .xeJ4G, .xagin, .xwUec .xeJ4G):is(:is([title^="unko@"],[title^="unko:"])),:is(.xlT1y,.emojis) ._button .xeJ4G:is(:is([title^="unko@"],[title^="unko:"])){ display:none;}._button:has(.xeJ4G:is(:is([title^="unko@"],[title^="unko:"]))):before{ content: ""; display: inline-block; width: 1.25em !important; height: 1.25em !important; background-image: url(/twemoji/2764.svg); background-size: 1.25em 1.25em;}.xAV2R:has(img:is(:is([title^="unko@"],[title^="unko:"]))):after{ content: ""; display: inline-block; width: 20px !important; height: 20px !important; background-image: url(/twemoji/2764.svg); background-size: 20px 20px;}',
     emojiblock: ':is(.xeJ4G, .xagin):is(:is([title^="unko@"],[title^="unko:"])),._button:has(.xeJ4G:is(:is([title^="unko@"],[title^="unko:"]))){ display:none; } .x9Bba:has(img[title="unko"]){ display: none; } :is(.emojis,.x8LRN) :is(._button,.xm7js):has(:is(:is([title^="unko@"],[title^="unko:"]))){ display: none !important; }',
-    botexcep: '.xcSej.x3762:has(.xEKlD):has(a[href$="unko"]) { display: block !important; }',
+    pinnedflex: '.contents._gaps > ._gaps { display: flex; flex-direction: row; overflow: scroll; width: calc(100% - 20px); max-height: min(90vw, 90vh); border-radius: 10px; border: solid 1px rgba(180,180,180,0.5); padding: 10px; & .xcSej{ min-width: 93% !important; height: max-content; overflow: unset; & .xrEoV{ left: unset; top: unset; } }}@media (max-width: 599px) { .contents._gaps > ._gaps { width: calc(125% - 20px); transform:translate(-10%) scale(0.8); margin: -5% auto; }} .contents._gaps > ._gaps { overscroll-behavior: none; }',
+    chan: ':is(.x8KMZ, .x4ZLV, .xngrp)::after { content: "ちゃん"; }',
+    formsize: '.xoGjR { max-height: none;} .xxski{ max-height: none;} .xpDI4.xxtDg{max-width: min(800px, 90vw);} ',
+    botexcep: '.xcSej.x3762:not(:has(.xBwhh)):has(.xEKlD):has(a[href$="unko"]) { display: block !important; }',
     usermute: '.xcSej.x3762:has(a[href="/@unko"]){ display: none; }',
     userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
     userstatus: '{} .status a:nth-child(n+2)  b,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2), .xyEEg .x8w8X:nth-child(n+2) span{font-size: 0;}.status a:nth-child(n+2)  b:after,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2):after, .xyEEg .x8w8X:nth-child(n+2) span:after{ content: "???"; font-size: 14px;}',
@@ -117,6 +121,7 @@ const hidecss = {
     emojibetter: '{} :root { --emoji_default_size: 30px; --emoji_margin_lr: 6px; --emoji_margin_tb: 2px; --emoji_max_size: 80px; --emoji_displey_style: fill; --emoji_window_default_height: 400px; --emoji_window_default_width: 400px; --emoji_autofill_max_width: 300px; --emoji_autofill_displey_style: fill; } .emojis { padding: 10px 5px 5px; text-align:center; } .emojis .body { display: inline !important; padding: 0 !important; line-height: 0; } .emojis section>.body ._button.item{ height: auto !important; } .emojis ._button.item{ aspect-ratio: auto!important; width: fit-content !important; contain: layout !important; margin: 0px !important; padding: var(--emoji_margin_tb) var(--emoji_margin_lr) !important; min-height: var(--emoji_default_size) !important; } .emojis .xeJ4G{ width: auto !important; height: var(--emoji_default_size) !important; object-fit: var(--emoji_displey_style) !important; object-position: 0% 50%; max-width: var(--emoji_max_size); } .xeJ4G.xuoKL, ._emoji_1pjrm_56 { width: auto !important; object-fit: var(--emoji_autofill_displey_style) !important; object-position: 0% 50%; max-width: var(--emoji_autofill_max_width); } .omfetrab:is(.s1,.s2,.s3)[data-v-c34d1549] .emojis{ --eachSize: fit-content !important; } .emojis .group:not(.index) section{ text-align: left; } .emojis .group:not(.index) section .body{ display: block !important; text-align: center; } .emojis .item:focus, .emojis .item:hover { background: rgba(255,0,0,0.4 ); }',
     imagehidebtn: '{} .ti.ti-eye-off:is(.xlnR0, .xdz7H){  opacity: 1;  font-size: 20px;  background-color: rgba(10,10,10,0.2);  color: white;  padding: 14px 18px 14px 18px;  margin: 4px;  top: 3px;  right: 3px;  border-radius: 15px;  backdrop-filter: blur(10px);  -webkit-backdrop-filter: blur(10dpx); } .ti.ti-eye-off:is(.xlnR0, .xdz7H):hover{  transition: 0.1s;  transform: scale(1.1);  color: var(--accent);  background: var(--bg);  border: solid 1px var(--accent); } @media screen and (max-width: 600px){ .ti.ti-eye-off:is(.xlnR0, .xdz7H){  opacity: 1;  font-size: 18px;  padding: 13px 12px 13px 12px;  top: 0;  right: 0; } } .xEvDK._button{  display: none; }',
 }
+const usercssoptions = new Array(5).fill('');
 const exportcomment = '/*今のMisskey-TL-FIlterの設定と同一のフィルタリングができるカスタムCSSです。\nこのコードをコピーして、フィルタを設定したいパソコン、スマホのmisskeyの設定→全般→カスタムCSS の中に貼り付けてください*/\n/*This is a custom CSS that allows filtering identical to the current Misskey-TL-FIlter settings.\n Copy this code and paste it into misskey settings -> General -> Custom CSS on the computer or smartphone where you want to set the filter*/\n';
 
 /*element of checkbox ,text input, button, scroll button, and scroll target*/
@@ -137,6 +142,7 @@ const emoji_text                = document.getElementsByClassName('emojitext');
 const user_text                 = document.getElementsByClassName('usertext');
 const tabui_tabs                = document.querySelectorAll(".tab-radio");
 const tabui_contents            = document.getElementsByClassName("TabUI-content");
+const usercss_options           = document.querySelectorAll(".TabUI-content[data-id='quick_css'] .buttonblock");
 
 const worker = new Worker("js/worker.js");
 worker.addEventListener('message', (e) => {
@@ -154,9 +160,11 @@ worker.addEventListener('message', (e) => {
             switch(brandname){
                 case "Opera":
                     return "opera";
+                case "Google Chrome":
+                    return "chrome";
             }
             brandname = agent.userAgentData.brands[1].brand;
-            switch(brandname){
+            switch(brandname)   {
                 case "Google Chrome":
                     return "chrome";
                 case "Microsoft Edge":
@@ -171,11 +179,20 @@ worker.addEventListener('message', (e) => {
 
     /*create css code from current settings*/
     function CreateCSS(){
-        csscode="";
+        csscode     = "";
+        usercsscode = "";
+
+        usercsscode += localStorage.getItem("UserStaticCSS-" + Domain_Name) + "\n";
         //checkbox
         for (let target of css_chcckbox_elements) {
-            if(target.checked){
-                csscode += (tlselector[target.dataset.tl] + hidecss[target.dataset.kinds]) + '\n';
+            if(target.dataset.kinds != "usercss"){
+                if(target.checked){
+                    csscode += (tlselector[target.dataset.tl] + hidecss[target.dataset.kinds]) + '\n';
+                }
+            } else {
+                if(target.checked){
+                    usercsscode += usercssoptions[target.dataset.id]+ '\n';
+                }
             }
         }
         //User Mute,renotemute input
@@ -207,7 +224,12 @@ worker.addEventListener('message', (e) => {
         });
 
         for (let target of chcckbox_elements) {
-            localStorage.setItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + Domain_Name, target.checked? 1 : 0);
+            if(target.dataset.kinds != "usercss"){
+                localStorage.setItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + Domain_Name, target.checked? 1 : 0);
+            } else {
+                localStorage.setItem('button-usercss-' + target.dataset.id + Domain_Name, target.checked? 1 : 0);
+            }
+            //フィルタしていることを示すバッジ用にフラグを設定
             if(target.checked) {
                 let target_setting = target.closest(".TabUI-content")
                 if(target_setting != null) target_setting = target_setting.dataset.id;
@@ -245,7 +267,7 @@ worker.addEventListener('message', (e) => {
         fetch("/lang/" + localStorage.getItem("langage") + ".json", {priority: 'high'})
         .then( response => response.json())
         .then( (data) => {
-            localStorage.setItem("multibtntexts", JSON.stringify(data.MultiselectOptions));
+            localStorage.setItem("multibtntexts", JSON.stringify(data.main.MultiselectOptions));
         })
         }
         for(let key in badgeflags){
@@ -286,12 +308,13 @@ worker.addEventListener('message', (e) => {
             return;
         }
         let langsetting = localStorage.getItem('langage') ?? "japanese";
+        let reloadflg = false;
 
         /*マルチセレクトボタンは言語ファイルを読みに行かないと行けないので非同期に設定読込みさせる*/
         fetch("/lang/" + langsetting + ".json", {priority: 'high'})
         .then(res => res.json())
         .then((res2) => {
-            multibtn_texts = res2.MultiselectOptions;
+            multibtn_texts = res2.main.MultiselectOptions;
 
             for (let target of multibtn_elements) {
                 if(localStorage.getItem('multiselect-' + target.dataset.multiindex + Domain_Name) != null){
@@ -316,12 +339,33 @@ worker.addEventListener('message', (e) => {
         }
 
         for (let target of chcckbox_elements) {
-            target.checked = (localStorage.getItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + Domain_Name)== '1')? 1: 0;
+            if(target.dataset.kinds != "usercss"){
+                target.checked = (localStorage.getItem('button-' + target.dataset.tl + '-' + target.dataset.kinds + Domain_Name)== '1')? 1: 0;
+            } else {
+                target.checked = (localStorage.getItem('button-usercss-' + target.dataset.id + Domain_Name)== '1')? 1: 0;
+            }
         }
 
         for (let target of text_elements) {
             target.value = localStorage.getItem('list-' + target.dataset.kinds + Domain_Name);
         }
+
+        for(i=0;i<usercss_options.length;i++){
+            let CssTitle = localStorage.getItem("UserQuickCSS-Title-" + (i+1));
+		    let CSSCode  = localStorage.getItem("UserQuickCSS-Code-"  + (i+1));
+            if(CSSCode != null && CSSCode != ""){
+                usercss_options[i].querySelector(".buttonlabel").innerText = CssTitle;
+                usercssoptions[i+1] = CSSCode;
+                usercss_options[i].classList.add("show");
+            } else {
+                usercss_options[i].style.display = "none";
+                if(usercss_options[i].querySelector(".filterbtn").checked){
+                    usercss_options[i].querySelector(".filterbtn").checked = false;
+                    reloadflg = true;
+                }
+            }
+        }
+
         tabui_tabs.forEach((el,i) => {
             if(localStorage.getItem('settingtab-' + i) == 1 ){
                 el.checked = true;
@@ -333,6 +377,18 @@ worker.addEventListener('message', (e) => {
 
         arrowautoscroll = (localStorage.getItem('autoscroll' + Domain_Name) == null)? 1 : Number(localStorage.getItem('autoscroll' + Domain_Name));
         autoscrollsetting.checked = arrowautoscroll;
+
+        if(reloadflg){
+            CreateCSS();
+            SaveSetting();
+            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+                chrome.scripting.executeScript({
+                    target : {tabId : tabs[0].id},
+                    func : UpdateCSS,
+                    args : [csscode, usercsscode]
+                });
+            });
+        }
     }
 
     /*create css code file and download*/
@@ -347,9 +403,11 @@ worker.addEventListener('message', (e) => {
     }
 
     /*Update CSS from arg (excute script)*/
-    function UpdateCSS(styles){
-        document.querySelector(`.filtercsswrapper`).innerHTML=styles;
-        localStorage.setItem('lastcss',styles);
+    function UpdateCSS(defaultCode, UserCode){
+        document.querySelector(`.filtercsswrapper`).innerHTML=defaultCode;
+        document.querySelector(`.usercsswrapper`).innerHTML=UserCode;
+        localStorage.setItem('lastcss',defaultCode);
+        localStorage.setItem('lastusercss',UserCode);
     }
 
     /*Get page Domain (excute script)*/
@@ -438,14 +496,17 @@ worker.addEventListener('message', (e) => {
             return;
         } else if(lang != null){
             let titles = document.querySelectorAll("h2");
-            let MainSettings = document.querySelectorAll(".flex.left .buttonblock");
-            let MoreSettings = document.querySelectorAll(".other_setting .buttonlabel");
+            let subtitles = document.querySelectorAll(".title-explanation");
+            let MainSettings = document.querySelectorAll("#timeline_setting .buttonblock");
+            let MoreSettings = document.querySelectorAll(".TabUI-content .buttonlabel");
             let Descriptions = document.querySelectorAll(".description-popup");
-            let links = document.querySelectorAll("a div:nth-child(2)");
-            let cssbtn = document.getElementById("export");
-            let lasttxt = document.querySelector(".about p");
-            let warning = document.querySelector(".warning_card");
+            let HowtoUses = document.querySelectorAll(".modal_text");
+            let shortcuts = document.querySelectorAll(".shortcut-text");
+            let lasttxt = document.querySelector("#about p");
+            let warning = document.querySelector("#warning .modal_card");
             let multiselext_hovertexts = document.querySelectorAll(".hovertext");
+            let btns = document.querySelectorAll(".link_button>div:last-child");
+            let nooption = document.querySelector(".usercss-nooption");
             let counter = 0;
             let langdata = "";
 
@@ -456,40 +517,60 @@ worker.addEventListener('message', (e) => {
 
                 counter=0;
                 for(let key of titles){
-                    key.innerText = langdata.title[counter].text;
+                    key.innerText = langdata.main.title[counter].text;
+                    counter += 1;
+                }
+
+                counter=0;
+                for(let key of subtitles){
+                    key.innerText = langdata.main.subtitle[counter].text;
                     counter += 1;
                 }
 
                 for(let key of MainSettings){
-                    key.querySelector(".buttonlabel").innerText = langdata['MainSetting'][key.querySelector("input").dataset.kinds];
-                    counter += 1;
+                        key.querySelector(".buttonlabel").innerText = langdata.main['MainSetting'][key.querySelector("input").dataset.kinds];
                 }
 
                 counter=0;
                 for(let key of MoreSettings){
-                    key.innerHTML = langdata.MoreSetting[counter].text;
-                    counter += 1;
+                    if(key.closest(".TabUI-content").dataset.id != "quick_css"){
+                        key.innerHTML = langdata.main.MoreSetting[counter].text;
+                        counter += 1;
+                    }
                 }
 
                 counter=0;
                 for(let key of Descriptions){
-                    key.innerHTML = langdata.Description[counter].text;
+                    key.innerHTML = langdata.main.Description[counter].text;
                     counter += 1;
                 }
 
                 counter=0;
-                for(let key of links){
-                    key.innerText = langdata.Link[counter].text;
+                for(let key of HowtoUses){
+                    key.innerHTML = langdata.main.howto[counter].text;
+                    counter += 1;
+                }
+
+                counter=0;
+                for(let key of shortcuts){
+                    key.innerHTML = langdata.main.shortcut[counter].text;
+                    counter += 1;
+                }
+
+                counter=0;
+                for(let key of btns){
+                    key.innerHTML = langdata.main.button[counter].text;
                     counter += 1;
                 }
 
                 for(let key of multiselext_hovertexts){
-                    key.innerText = langdata.other.multiselecthover;
+                    key.innerText = langdata.main.other.multiselecthover;
                 }
 
-                cssbtn.innerText = langdata.other.exportbtn;
-                lasttxt.innerText = langdata.other.lasttext;
-                warning.innerHTML = langdata.other.warning;
+                //cssbtn.innerText = langdata.other.exportbtn;
+                lasttxt.innerText = langdata.main.other.lasttext;
+                warning.innerHTML = langdata.main.other.warning;
+                nooption.innerText = langdata.main.other.nooptions;
             });
             
         }
@@ -505,6 +586,7 @@ worker.addEventListener('message', (e) => {
             left: willscroll,
             behavior: 'smooth'
           });
+        PlaySound();
     })
     scrollright.addEventListener(`click`, () => {
         setScrollPosition(true);
@@ -512,6 +594,7 @@ worker.addEventListener('message', (e) => {
             left: willscroll,
             behavior: 'smooth'
           });
+        PlaySound();
     })
 
     /*Set　event listeners*/
@@ -523,7 +606,7 @@ worker.addEventListener('message', (e) => {
             chrome.scripting.executeScript({
                 target : {tabId : tabs[0].id},
                 func : UpdateCSS,
-                args : [csscode]
+                args : [csscode, usercsscode]
             });
         });
     })
@@ -541,7 +624,7 @@ worker.addEventListener('message', (e) => {
                 chrome.scripting.executeScript({
                     target : {tabId : tabs[0].id},
                     func : UpdateCSS,
-                    args : [csscode]
+                    args : [csscode, usercsscode]
                 });
             });
         })
@@ -560,7 +643,7 @@ worker.addEventListener('message', (e) => {
                 chrome.scripting.executeScript({
                     target : {tabId : tabs[0].id},
                     func : UpdateCSS,
-                    args : [csscode]
+                    args : [csscode, usercsscode]
                 });
             });
         });
@@ -591,11 +674,19 @@ worker.addEventListener('message', (e) => {
         ExportCSS();
     })
     helpbtn.addEventListener("click", () => {
-        document.querySelector('#help').classList.remove('hide');
+        let button = document.querySelector("#help-open .ti");
+        if(document.querySelector('#help').classList.contains('hide')){
+            button.className = "ti ti-close"
+        } else {
+            button.className = "ti ti-help"
+        }
+        document.querySelector('#help').classList.toggle('hide');
     });
 
     /*Main Function*/
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        ChangeLang();
+
         const nowwatch_domain = chrome.scripting.executeScript({
             target: { tabId : tabs[0].id },
             func: GetDomain,
@@ -614,7 +705,6 @@ worker.addEventListener('message', (e) => {
                 document.querySelector(".buttonblock:has(.opensidebar)").style.display = "none";
             }
 
-            ChangeLang();
             LoadSetting();
 
             if(TimeLine_Name){
@@ -737,7 +827,7 @@ worker.addEventListener('message', (e) => {
                             chrome.scripting.executeScript({
                                 target : {tabId : tabs[0].id},
                                 func : UpdateCSS,
-                                args : [csscode]
+                                args : [csscode, usercsscode]
                             });
                         });
                     },200);
@@ -831,7 +921,7 @@ worker.addEventListener('message', (e) => {
                                   chrome.scripting.executeScript({
                                       target : {tabId : tabs[0].id},
                                       func : UpdateCSS,
-                                      args : [csscode]
+                                      args : [csscode, usercsscode]
                                   });
                               });
                           },200);

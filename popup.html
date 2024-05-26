@@ -10,9 +10,8 @@
     <div class="help-container">
         <a id="help-open" class="flex helpbtn link_button">
             <div class="middle" style="height: 1em;">
-                <div class="ti ti-help"></div>
+                <div class="ti ti-help" style="position: relative;left: 0.1em;"></div>
             </div>
-            <div>使い方</div>
         </a>
     </div>
 
@@ -58,16 +57,30 @@
                     <div class="ti ti-info"></div>
                     <h2>使い方</h2>
                 </div>
-                この拡張機能では、次のような機能がついています<br>
+                <div class="modal_text">この拡張機能は、Misskeyで見たくない投稿や表示を消して、快適なミス廃生活をサポートする拡張機能です。 できることは...<br></div>
                 <br>
-                <li class="modal_list"><b class="card_bold">TL別設定</b><br>タイムラインごとに非表示にしたいノートを設定できます。</li>
-                <li class="modal_list"><b class="card_bold">全TLフィルタリング</b><br>すべてのタイムラインで非表示にしたいノートを設定できます。</li> 
-                <li class="modal_list"><b class="card_bold">クイックCSS</b><br>ユーザーが書き込んだカスタムCSSを好きにON/OFFできます。</li>
-                <li class="modal_list"><b class="card_bold">ミュート設定</b><br>ノート以外の非表示にしたいものを設定できます。</li>
-                <li class="modal_list"><b class="card_bold">その他の設定</b><br>Misskeyを使いやすくする細かなカスタムや、拡張機能の設定ができます。</li>
+                <div class="modal_text"><li class="modal_list"><b>TL別設定</b><br>TLごとに、非表示にしたいノートを設定できます。</li></div>
+                <div class="modal_text"><li class="modal_list"><b>全TLフィルタリング</b><br>全画面で、非表示にしたいノートを設定できます。</li> </div>
+                <div class="modal_text"><li class="modal_list"><b>クイックCSS</b><br>カスタムCSSをリアルタイムで編集、ON/OFFできます。</li></div>
+                <div class="modal_text"><li class="modal_list"><b>ミュート設定</b><br>ノート以外をいろいろ非表示にできます。</li></div>
+                <div class="modal_text"><li class="modal_list"><b>その他の設定</b><br>細かなカスタムや、拡張機能の設定ができます。</li></div>
                 <br>
-                設定をON/OFFすると、その瞬間に設定が反映されます。<br>
-                ショートカットキーはこちら
+                <div class="modal_text"><b>ショートカットキーはこちら</b></div>
+                <div class="shortcut-key">
+                    <div class="shortcut-title"><b class="card_bold"> Ctrl + Shiht + H </b></div><div class="shortcut-text">この拡張機能を開く|閉じる</div>
+                </div>
+                <div class="shortcut-key">
+                    <div class="shortcut-title"><b class="card_bold"> ← → </b></div><div class="shortcut-text">TL別設定をスクロール</div>
+                </div>
+                <div class="shortcut-key">
+                    <div class="shortcut-title"><b class="card_bold"> Shiht + ← → </b></div><div class="shortcut-text">タブメニューの切り替え</div>
+                </div>
+                <div class="shortcut-key">
+                    <div class="shortcut-title"><b class="card_bold"> Tab / Shift + Tab </b></div><div class="shortcut-text">設定を進む/戻る</div>
+                </div>
+                <div class="shortcut-key">
+                    <div class="shortcut-title"><b class="card_bold"> Enter </b></div><div class="shortcut-text">(Tabで設定を選んでいる場合)設定のクリック</div>
+                </div>
             </div>
         </div>
 
@@ -574,8 +587,8 @@
                     <div data-id="quick_css" class="TabUI-content show">
                         <div class="flex flex-title" style="justify-content: space-between;">
                             <div><div class="ti ti-css"></div><h2>クイックCSS</h2></div>
-                            <a href='popup-customcss.html' class="flex link_button">                   <!--</a> style="justify-content: center; margin: auto 1em auto 0 !important; width: 60px; text-align: center;">-->
-                                <div>Sub Setting</div>
+                            <a href='popup-customcss.html' class="flex link_button title-button">                   <!--</a> style="justify-content: center; margin: auto 1em auto 0 !important; width: 60px; text-align: center;">-->
+                                <div>設定</div>
                             </a>
                         </div>
                         <div class="title-explanation">
@@ -627,6 +640,9 @@
                                     </div>
                                 </label>
                             </div>
+                            <span class="usercss-nooption">
+                                設定からCSSを追加すると、ここに表示されます。
+                            </span>
                         </div>
                     </div>
 
@@ -778,7 +794,7 @@
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
-                                        <div class="description-popup">選んだ絵文字を完全非表示にします。<br>ノートやリアクションの中はもちろん、通知や絵文字ピッカーからも消えます。<br>例   :igyo:, :tiken:, :issue:</div>
+                                        <div class="description-popup">選んだ絵文字を完全非表示にします。<br>通知や絵文字ピッカーからも消えます。<br>例   :igyo:, :tiken:, :issue:</div>
                                     </div>
                                     <div class="popup ti-icon">
                                         <p class="ti ti-emoji"></p>
@@ -798,7 +814,7 @@
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
-                                        <div class="description-popup">ここにbotのユーザーIDを入力すると、<br>「botを非表示」オプションを有効にしている時も表示されます<br><br>お気に入りのbotや災害情報発信のアカウントなど<br>重要な情報をを見逃さなくなります</div>
+                                        <div class="description-popup">「botを非表示」している時も表示されるbotを指定できます。<br><br>お気に入りのbotや災害情報発信のアカウントなど<br>重要な情報をを見逃さなくなります<br><br><br>複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123</div>
                                     </div>
                                     <div class="popup ti-icon">
                                         <p class="ti ti-bot"></p>
@@ -893,6 +909,49 @@
                                 </div>
                                 <label class="checkbox">
                                     <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="imagehidebtn">
+                                    <div class="toggler-slider">
+                                        <div class="toggler-knob"></div>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="flex buttonblock" tabindex="1">
+                                <div class="flex left-small">
+                                    <div class="popup">
+                                        <p class="ti ti-info"></p>
+                                        <div class="description-popup">ピン留め投稿を横に並べることで、<br>たくさんスクロールをしなくても普通の投稿を見れます<br>ピン留めの動きにクセがあります。
+                                        </div>
+                                    </div>
+                                    <div class="flex buttonlabel">ピン留め投稿の多い人を見やすくする</div>
+                                </div>
+                                <label class="checkbox">
+                                    <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="pinnedflex">
+                                    <div class="toggler-slider">
+                                        <div class="toggler-knob"></div>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="flex buttonblock" tabindex="1">
+                                <div class="flex left-small">
+                                    <div class="popup">
+                                        <p class="ti ti-info"></p>
+                                        <div class="description-popup">ノートの投稿画面を大きく表示できるようにします<br>MFM投稿や、長文の投稿時に、プレビューが見やすくなります
+                                        </div>
+                                    </div>
+                                    <div class="flex buttonlabel">投稿プレビューの最大値をなくす</div>
+                                </div>
+                                <label class="checkbox">
+                                    <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="formsize">
+                                    <div class="toggler-slider">
+                                        <div class="toggler-knob"></div>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="flex buttonblock" tabindex="1">
+                                <div class="flex left-small">
+                                    <div class="flex buttonlabel">ユーザー名に「ちゃん」をつける</div>
+                                </div>
+                                <label class="checkbox">
+                                    <input type="checkbox" class="filterbtn" data-tl="all" data-kinds="chan">
                                     <div class="toggler-slider">
                                         <div class="toggler-knob"></div>
                                     </div>
@@ -1042,7 +1101,7 @@
                                     <div class="flex buttonlabel">今の設定をCSSに</div>
                                 </div>
                                 <label>
-                                    <button class="link_button" id="export" tabindex="1">出力する</button>
+                                    <button class="link_button" id="export" tabindex="1"><div>出力する</div></button>
                                 </label>
                             </div>
                         <div class="popup"></div>

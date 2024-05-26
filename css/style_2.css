@@ -65,7 +65,7 @@
         background: var(--accent);
     }
 }
-.userbttn{
+.userbtn{
     &:hover {
         transition: 0.2s;
         transform: scale(1.15);
@@ -213,6 +213,20 @@
 }
 .TabUI-content.show{
     animation: forwards .3s tab-open;
+}
+
+.shortcut-key{
+    display: flex;
+    .shortcut-title {
+        width: 120px;
+    }
+}
+.modal_list {
+    padding-block: 0.05em;
+    line-height: 1.5em;
+}
+.fix_modal:not(.hide) {
+    animation: 0.4s tab-open;
 }
 
 /*animations*/

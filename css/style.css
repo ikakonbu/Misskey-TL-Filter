@@ -17,7 +17,7 @@
     --scrollbarcolor: rgb(219, 211, 188);
     --multicheckbackground: rgba(130,130,130,0.1);
     --descriptioncolor: rgba(0,0,0,0.6);
-    --modalbackground: rgba(0,0,0,0.8);
+    --modalbackground: rgba(7, 7, 7, 0.8);
     --buttonhovershadow: rgba(87, 145, 0, 0.3);
     --white: white;
 }
@@ -104,7 +104,7 @@
 .ti-bot:before{content: '\fcbe'}
 .ti-toggle:before{content: '\eb3e';}
 .ti-help:before {content: '\eabf'}
-
+.ti-close:before {content: '\eb55'}
 
 
 /*MARK: General Setting*/
@@ -325,9 +325,9 @@ h2 {
     user-select: none;
     min-width: 100px;
     font-weight: 400;
-    height:45px;
+    align-items: center;
+    min-height: 45px;
     font-size: 14px;
-    line-height: 45px;
     padding: 0;
     margin: 0 0 0 10px;
 }
@@ -438,6 +438,7 @@ h2 {
     background-color: var(--toggle-knob);
 }
 
+
 /*multi select button*/
 .hovertext {
     text-align: left;
@@ -525,7 +526,12 @@ h2 {
     display: block;
     /*opacity: 1;*/
 }
-
+.title-button {
+    margin-top:  0;
+}
+.TabUI-content-main:has(.buttonblock.show) .usercss-nooption{
+    display: none;
+}
 
 
 /* For SidePanel*/

@@ -36,12 +36,7 @@
             background: var(--code-background);
             color: var(--code-textcolor);;
         }
-        html, body {
-            width: 550px; 
-            max-height: unset !important; 
-            
-            overflow: scroll;
-        }
+        
         .card{
             max-height: none;
         }
@@ -139,6 +134,32 @@
             }
         }
 
+        .supplement{
+            padding: 1em;
+            background: var(--cardshadow);
+            opacity: 0.8;
+            border-radius: 6px;
+            .supplement-title {
+                display: flex;
+                align-items: center;
+                i {
+                    padding-left: 0;
+                    padding-right: 0.4em;
+                    font-style:normal;
+                }
+            }
+            .supplement-text {
+                margin-left: 1em;
+            }
+        }
+
+        #size_retention {
+            width: 530px;
+            overflow:hidden;    
+        }
+        body {
+            overflow: hidden;
+        }
     </style>
     <script src="src/prism.js" defer></script>
     <script src="src/bliss.js" defer></script>
@@ -151,94 +172,106 @@
         変更を保存しました。
         </div>
     </div>
+    <div id="size_retention"></div>
+    <div class="wrapper">
+        <div style="margin-top: 1em; text-align: left;">
+            <a class="link_button" style="padding: 0.5em 1.4em; margin: 0px 30px 0px; display: inline-flex;" id="export" href="popup.html">
+                <i class="ti ti-left"></i>戻る</a>
+        </div>
+        <div class="card" style="margin: 20px 30px 30px;">
+            <div class="flex-title">
+                <div class="middle"><div class="ti ti-toggle"></div><h2>クイックCSSオプション</h2></div>
+            </div>
+            <p>ここにカスタムCSSを記述すると、メイン画面から好きなタイミングでON/OFF出来ます。5個まで登録できます。
+            </p>
+            <div class="supplement">
+                <div class="supplement-title">
+                    <i class="ti ti-info"></i>
+                    <b>カスタムCSSは上級者向け機能です</b>
+                </div>
+                <div class="supplement-text">
+                <a href="https://misskey.io/notes/9n5wp7832olv0cz3" target="_blank">開発者</a>が自ら明言しています。
+                知識を要する設定です。<br>
+                また、Misskeyのアプデ時にも表示が狂うことがあります。<br>
+                表示がおかしい場合は、この設定をオフにしてみてください<br>
+                </div>
+            </div>
+        </div>
 
-    <button id="reload">再読み込み</button>
-    <div class="card" style="margin: 30px 30px;">
-        <div class="flex-title">
-            <div class="middle"><div class="ti ti-toggle"></div><h2>クイックCSSオプション</h2></div>
+        <div class="card csscard">
+            <div class="flex accordion_wrapper" style="flex-grow: 1;">
+                <input id="setting1" type="checkbox" class="accordion">
+                <label for="setting1" class="accordion_label">
+                    <input class="textinput" type="text" placeholder="設定名を入力してね">
+                </label>
+                <div class="accordion_icon">　</div>
+            </div>
+            <div class="accordion_contents">
+                <textarea class="prism-live language-css" data-kinds="quick", data-id="1"></textarea>
+                <button class="link_button save">保存</button>
+            </div>
         </div>
-        <p>ここにカスタムCSSを記述すると、メイン画面から好きなタイミングでON/OFF出来ます。1つあたり最大6000文字まで入力できます。
-        </p>
-    </div>
-
-    <div class="card csscard">
-        <div class="flex" style="flex-grow: 1;">
-            <input id="setting1" type="checkbox" class="accordion">
-            <label for="setting1" class="accordion_label">
-                <input class="textinput" type="text" placeholder="設定名を入力してね">
-            </label>
-            <div class="accordion_icon">　</div>
+        <div class="card csscard">
+            <div class="flex accordion_wrapper" style="flex-grow: 1;">
+                <input id="setting2" type="checkbox" class="accordion">
+                <label for="setting2" class="accordion_label">
+                    <input class="textinput" type="text">
+                </label>
+                <div class="accordion_icon">　</div>
+            </div>
+            <div class="accordion_contents">
+                <textarea class="prism-live language-css" data-kinds="quick", data-id="2"></textarea>
+                <button class="link_button save">保存</button>
+            </div>
         </div>
-        <div class="accordion_contents">
-            <textarea class="prism-live language-css" data-kinds="quick", data-id="1"></textarea>
-            <button class="link_button save">保存</button>
+        <div class="card csscard">
+            <div class="flex accordion_wrapper" style="flex-grow: 1;">
+                <input id="setting3" type="checkbox" class="accordion">
+                <label for="setting3" class="accordion_label">
+                    <input class="textinput" type="text">
+                </label>
+                <div class="accordion_icon">　</div>
+            </div>
+            <div class="accordion_contents">
+                <textarea class="prism-live language-css" data-kinds="quick", data-id="3"></textarea>
+                <button class="link_button save">保存</button>
+            </div>
         </div>
-    </div>
-    <div class="card csscard">
-        <div class="flex" style="flex-grow: 1;">
-            <input id="setting2" type="checkbox" class="accordion">
-            <label for="setting2" class="accordion_label">
-                <input class="textinput" type="text">
-            </label>
-            <div class="accordion_icon">　</div>
+        <div class="card csscard">
+            <div class="flex accordion_wrapper" style="flex-grow: 1;">
+                <input id="setting4" type="checkbox" class="accordion">
+                <label for="setting4" class="accordion_label">
+                    <input class="textinput" type="text">
+                </label>
+                <div class="accordion_icon">　</div>
+            </div>
+            <div class="accordion_contents">
+                <textarea class="prism-live language-css" data-kinds="quick", data-id="4"></textarea>
+                <button class="link_button save">保存</button>
+            </div>
         </div>
-        <div class="accordion_contents">
-            <textarea class="prism-live language-css" data-kinds="quick", data-id="2"></textarea>
-            <button class="link_button delete">削除</button>
-            <button class="link_button save">保存</button>
+        <div class="card csscard">
+            <div class="flex accordion_wrapper" style="flex-grow: 1;">
+                <input id="setting5" type="checkbox" class="accordion">
+                <label for="setting5" class="accordion_label">
+                    <input class="textinput" type="text">
+                </label>
+                <div class="accordion_icon">　</div>
+            </div>
+            <div class="accordion_contents">
+                <textarea class="prism-live language-css" data-kinds="quick", data-id="5"></textarea> b
+                <button class="link_button save">保存</button>
+            </div>
         </div>
-    </div>
-    <div class="card csscard">
-        <div class="flex" style="flex-grow: 1;">
-            <input id="setting3" type="checkbox" class="accordion">
-            <label for="setting3" class="accordion_label">
-                <input class="textinput" type="text">
-            </label>
-            <div class="accordion_icon">　</div>
-        </div>
-        <div class="accordion_contents">
-            <textarea class="prism-live language-css" data-kinds="quick", data-id="3"></textarea>
-            <button class="link_button delete">削除</button>
-            <button class="link_button save">保存</button>
-        </div>
-    </div>
-    <div class="card csscard">
-        <div class="flex" style="flex-grow: 1;">
-            <input id="setting4" type="checkbox" class="accordion">
-            <label for="setting4" class="accordion_label">
-                <input class="textinput" type="text">
-            </label>
-            <div class="accordion_icon">　</div>
-        </div>
-        <div class="accordion_contents">
-            <textarea class="prism-live language-css" data-kinds="quick", data-id="4"></textarea>
-            <button class="link_button delete">削除</button>
-            <button class="link_button save">保存</button>
-        </div>
-    </div>
-    <div class="card csscard">
-        <div class="flex" style="flex-grow: 1;">
-            <input id="setting5" type="checkbox" class="accordion">
-            <label for="setting5" class="accordion_label">
-                <input class="textinput" type="text">
-            </label>
-            <div class="accordion_icon">　</div>
-        </div>
-        <div class="accordion_contents">
-            <textarea class="prism-live language-css" data-kinds="quick", data-id="5"></textarea>
-            <button class="link_button delete">削除</button>
-            <button class="link_button save">保存</button>
-        </div>
-    </div>
 
 
-    <div class="card" style="margin: 30px 30px;">
-        <div class="flex-title">
-            <div class="middle"><div class="ti ti-css"></div><h2>通常のCSSの登録</h2></div>
+        <div class="card" style="margin: 30px 30px;">
+            <div class="flex-title">
+                <div class="middle"><div class="ti ti-css"></div><h2>通常のCSSの登録</h2></div>
+            </div>
+            <p>ここに記述したCSSは常に有効となります。また、入力した瞬間にMisskeyに反映されます。</p>
+            <textarea class="prism-live language-css" data-kinds="static"></textarea>
         </div>
-        <p>ここに記述したCSSは常に有効となります。</p>
-        <textarea class="prism-live language-css" data-kinds="static"></textarea>
     </div>
-    
 </body>
 <script src="js/customcss.js" type="text/javascript" defer></script>

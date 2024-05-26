@@ -1,3 +1,4 @@
+//init
 var BrowserType = "other";
 chrome.action.disable();
 chrome.action.setIcon({path:"../img/icon_disable.png"});
@@ -21,6 +22,7 @@ function checkmisskey(test){
     }
 }
 
+//Determine which browser is being used
 function judgeChrome(){
     let agent = window.navigator;
     if(agent.vendor != "Google Inc."){
@@ -31,6 +33,8 @@ function judgeChrome(){
             switch(brandname){
                 case "Opera":
                     return "opera";
+                case "Google Chrome":
+                    return "chrome";
             }
             brandname = agent.userAgentData.brands[1].brand;
             switch(brandname){
@@ -50,15 +54,26 @@ function judgeChrome(){
 /*check url and enable tabid's tab popup 
   when url is misskey.io or user seted url*/
 function Main_Work(tab){
-    if(tab.url.indexOf("http://") == -1 && tab.url.indexOf("https://") == -1){
+
+    let tabstate = false;
+    let uri = null;
+    try{
+        tabstate = tab.hasOwnProperty('url');
+    } catch(e) {
+        console.log(e);
         SetAction(tab.id, false, false);
         return;
     }
 
-    let uri = null;
+    if(!tabstate || (tab.url.indexOf("http://") == -1 && tab.url.indexOf("https://") == -1 && tab.url.indexOf("chrome-extension://") == -1)){
+        SetAction(tab.id, false, false);
+        return;
+    }
+
     try {
         uri = new URL(tab.url);
     } catch (e) {
+        SetAction(tab.id, false, false);
         return;
     }
 
@@ -72,18 +87,17 @@ function Main_Work(tab){
         func : judgeChrome,
     });
     Promise.all([ismisskey, Chromeflg])
-    .then((value) => {
-        let Domain_Name = value[0][0].result;
-        let BrowserType = value[1][0].result;
+    .then((values) => {
+        let Domain_Name = values[0][0].result;
+        let BrowserType = values[1][0].result;
 
         if(BrowserType == "chrome" || BrowserType == "edge") {
             chrome.sidePanel.setOptions({ path: "disable.html",  enabled: true });
         } else if(BrowserType == "chromium"){
             chrome.sidePanel.setOptions({ path: "disable.html",  enabled: true });
         } else if(BrowserType == "opera"){
-            //opr.sidebarAction.setPanel({panel: "popup.html"});
-            //chrome.sidebarAction.setPanel({panel: "disable.html"});
-        } else {
+            opr.sidebarAction.setPanel({panel: "popup.html"});  
+        } else if(BrowserType == "firefox"){
             browser.sidebarAction.setPanel({panel: "disable.html"});
         }
         SetAction(tab.id, (Domain_Name!=false)? true : false , Domain_Name, BrowserType);
@@ -115,9 +129,11 @@ function SetAction(tabid, active, domainname, browsertype){
             } else if(browsertype == "chromium"){
                 chrome.sidePanel.setOptions({ path: "popup.html",  enabled: true });
             } else if(browsertype == "opera"){
-                //chrome.sidebarAction.setPanel({panel: "popup.html", tabId: tabid});
-            } else {
+                opr.sidebarAction.setPanel({panel: "disable.html"});
+            } else if(browsertype == "firefox"){
                 browser.sidebarAction.setPanel({panel: "popup.html", tabId: tabid});
+            } else {
+                chrome.sidePanel.setOptions({ path: "disable.html", tabId: tabid, enabled: true });
             }
         } else {
             chrome.action.disable(tabid);
@@ -127,9 +143,11 @@ function SetAction(tabid, active, domainname, browsertype){
             } else if(browsertype == "chromium"){
                 chrome.sidePanel.setOptions({ path: "disable.html",  enabled: true });
             } else if(browsertype == "opera"){
-                //chrome.sidebarAction.setPanel({panel: "disable.html", tabId: tabid});
-            } else {
+                opr.sidebarAction.setPanel({panel: "disable.html"});
+            } else if(browsertype == "firefox"){
                 browser.sidebarAction.setPanel({panel: "disable.html", tabId: tabid});
+            } else {
+                chrome.sidePanel.setOptions({ path: "disable.html", tabId: tabid, enabled: true });
             }
         }
     });
@@ -148,10 +166,17 @@ chrome.tabs.onActivated.addListener((result) => {
     })
 });
 
-// getCurrentTab().then((result) => {
-//     if(result.id){
-//         chrome.tabs.get(result.id, (tab) => { 
-//             Main_Work(tab);
-//         }); 
-//     }
-// });
+chrome.tabs.onAttached.addListener((result) => {
+    chrome.tabs.get(result.tabId, (tab) => {
+        Main_Work(tab);
+    })
+});
+
+
+ getCurrentTab().then((result) => {
+     if(result.id){
+         chrome.tabs.get(result.id, (tab) => { 
+             Main_Work(tab);
+         }); 
+     }
+ });

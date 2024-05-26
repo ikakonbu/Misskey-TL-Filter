@@ -1,73 +1,147 @@
 {
-    "title": [
-        {"text": "Please Read"},
-        {"text": "Home"},
-        {"text": "Local"},
-        {"text": "Lists"},
-        {"text": "Channel"},
-        {"text": "Antenna"},
-        {"text": "Profile"},
-        {"text": "Social"},
-        {"text": "Global"},
-        {"text": "Roles"},
-        {"text": "Settings for All Timelines"},
-        {"text": "Other settings"},
-        {"cmt": "h2で引っかかる、基本innertextで書き換える"}
-    ],
-    "MainSetting": {
-        "rn": "Hide renote",
-        "quote": "Hide quote",
-        "nsfw": "Hide NSFW",
-        "cw": "Hide CW",
-        "media": "Hide media",
-        "bot": "Hide bot",
-        "sameserver": "Hide Local",
-        "server_myonly": "Local Only",
-        "server_otheronly": "Remote Only",
-        "cmt": ".flex.leftのbuttonlabelで引っかかる"
-    },
-    "MoreSetting": [
-        {"text": "<span class='ti-tiny'>&#xeb72</span>Renote"},
-        {"text": "<span class='ti-tiny'>&#xea8d</span>Channel Notes"},
-        {"text": "<span class='ti-tiny'>&#xea06</span>NSFW Media"},
-        {"text": "<span class='ti-tiny'>&#xeb1f</span>Source Server"},
-        {"text": "<span class='ti-tiny'></span>Media</div>"},
-        {"text": "<span class='ti-tiny'></span>Bot</div>"},
-        {"text": "<span class='ti-tiny'></span>Play</div>"},
+    "main": {
+        "title": [
+            {"text": "Please Read"},
+            {"text": "How to Use"},
+            {"text": "Home"},
+            {"text": "Local"},
+            {"text": "Lists"},
+            {"text": "Channel"},
+            {"text": "Antenna"},
+            {"text": "Profile"},
+            {"text": "Social"},
+            {"text": "Global"},
+            {"text": "Roles"},
+            {"text": "Custom CSS option"},
+            {"text": "All Timeline settings"},
+            {"text": "Mute setting"},
+            {"text": "Other settings"},
+            {"cmt": "h2で引っかかる、基本innertextで書き換える"}
+        ],
+        "subtitle": [
+            {"text": "If you add CSS from \"Settings\" in the upper right corner, you will be able to You can toggle enable/disable in real time."},
+            {"text": "This is the filtering that will be set for all timelines"},
+            {"text": "Can control various items other than notes"},
+            {"text": "Configure extensions and other filtering"}
+        ],
+        "MainSetting": {
+            "rn": "Hide renote",
+            "quote": "Hide quote",
+            "nsfw": "Hide NSFW",
+            "cw": "Hide CW",
+            "media": "Hide media",
+            "bot": "Hide bot",
+            "sameserver": "Hide Local",
+            "server_myonly": "Local Only",
+            "server_otheronly": "Remote Only",
+            "cmt": ".flex.leftのbuttonlabelで引っかかる"
+        },
+        "MoreSetting": [
+            {"text": "<span class='ti-tiny'>&#xeb72</span>Renote"},
+            {"text": "<span class='ti-tiny'></span>Media</div>"},
+            {"text": "<span class='ti-tiny'>&#xea06</span>NSFW Media"},
+            {"text": "<span class='ti-tiny'>&#xeb1f</span>Source Server"},
+            {"text": "<span class='ti-tiny'>&#xea8d</span>Channel Notes"},
+            {"text": "<span class='ti-tiny'></span>Bot</div>"},
+            {"text": "<span class='ti-tiny'></span>Play</div>"},
 
-        {"text": "Mute specific users"},
-        {"text": "Mute user's renote"},
-        {"text": "Hide the number: following and follower"},
-        {"text": "Better design for emoji picker"},
-        {"text": "Big madia hide button"},
-        {"text": "Auto-scrolling of individual settings"},
-        {"text": "Use Other Server"},
-        {"text": "Export Filter Settings as CSS"},
-        {"cmt": "flex2配下のbuttonlabelに引っかかる"}
-    ],
-    "MultiselectOptions": [["Not Setting","Hide Channnel note"],["Not Setting","Hide Renote","Show Renote \"only\""], ["Not Setting","Hide NSFW Media","Show NSFW \"only\""],["Not Setting","Show same server \"only\"","Show different server \"only\""],["Not Setting","Hide Media","Show Media \"only\""],["Not Setting","Hide Bot"],["Not Setting", "Hide Play"]],
-    "Description":[
-        {"text": "Hides all notes by the specified user.<br>Please enter userID.<br>(separated by , if there are multiple users)<br>Example:  ikakonbu, syuilo, abc123"},
-        {"text": "Hides renotes by the specified user.<br>Please enter userID.<br>(separated by , if there are multiple users)<br>Example:  ikakonbu, syuilo, abc123"},
-        {"text": "Change the display format of the emoji picker.<br>Makes it easier to select horizontal emojis.<br><img src=\"img/emojibetter.png\">"},
-        {"text": "Make the button to hide the image larger. <br>This makes it easier to press. <br><img src=\"img/imagehidebutton.png\">"},
-        {"text": "When you open this settings window, <br> it identifies the timeline which currently viewing on misskey, <br> and scroll to that setting. <br><br>(This feature may be unstable depending on the device.)"},
-        {"text": "It will work on servers that do not exist in the [server list]<br>at the bottom of this page.<br><br>Please enter the domain name of your server<br>(If multiple servers, please separate them with `,` )<br>However, it may not work on other servers than Misskey.io"},
-        {"text": "Output the current settings as CSS code.<br>If you are using misskey from a browser on another device,<br>you can paste the output code into<br>'Settings → General → Custom CSS'<br>to use the same filtering settings.<br><br>(This will not work with third-party client apps.)"},
-        {"cmt": "description-popupに引っかかる"}
-    ],
-    "Link": [
-        {"text": "Developper Profile"},
-        {"text": "User Manual"},
-        {"text": "Server list (work default setting)"},
-        {"text": "Satisfaction Survey(Japanese)"},
-        {"cmt": "a直下のdivの２番目"}
-    ],
-    "other": {
-        "exportbtn": "Export",
-        "lasttext": "I am the sole developer of this extension. Sorry if it doesn't work.😇",
-        "warning": "\n<div class=\"flex left-small middle\">\n<div class=\"ti ti-info\"></div>\n<h2>Please read</h2>\n</div>\nThis extension not work.<br>If you are using firefox, you can change your settings to use it.<br>\n<br>\n<li>Type <b> about:config </b> in address bar</li>\n<li>A warning message appears, ignore and continue.</li>\n<li>Find setting: <b> layout.css.has-selector.enabled </b></li>\n(Type in the textbox on the screen, it will come right up)\n<li>Double-click on the that and set the value to <b>true</b></li>\n<li>Restart Firefox</li>\n",
-        "multiselecthover": "Change to click",
-        "cmt": "warningだけinnerHTMLで置き換えること"
+            {"text": "Hide the number: following and follower"},
+            {"text": "Hide the user role badge"},
+            {"text": "Anti-spam mode"},
+            {"text": "emoji soft mute"},
+            {"text": "emoji hard mute"},
+            {"text": "Bot mute exception"},
+            {"text": "User mute"},
+            {"text": "User Renote mute"},
+
+            {"text": "Better design for emoji picker"},
+            {"text": "Big madia hide button"},
+            {"text": "Make space for pinned posts smaller"},
+            {"text": "Larger posting form."},
+            {"text": "Calling everyone by \"chan\"."},
+            {"text": "Filtering badge range settings"},
+            {"text": "Spec TL"},
+            {"text": "All TL"},
+            {"text": "Custom CSS"},
+            {"text": "Mute"},
+            {"text": "Auto-scrolling of individual settings"},
+            {"text": "Sounds the operation tone"},
+            {"text": "Open settings in the side panel"},
+            {"text": "Export Filter Settings as CSS"},
+            {"cmt": "flex2配下のbuttonlabelに引っかかる"}
+        ],
+        "MultiselectOptions": [["Not Setting","Hide Channnel note"],["Not Setting","Hide Renote","Show Renote \"only\""], ["Not Setting","Hide NSFW Media","Show NSFW \"only\""],["Not Setting","Show same server \"only\"","Show different server \"only\""],["Not Setting","Hide Media","Show Media \"only\""],["Not Setting","Hide Bot"],["Not Setting", "Hide Play"]],
+        "Description":[
+            {"text": "Hides notes/notifications that match any of the following criteria<br><br>・More than four mentions are included<br>・Mentions of the initial icon<br>・The postings of the initial icon user on an external server<br>"},
+            {"text": "Converts the input name pictogram to \"♥\"<br>Example: :send_money:, :igyo:, :todays_break:"},
+            {"text": "Completely obscures the emoji of the name entered.<br> (Even from emoji pickers!)<br>Example: :send_money:, :igyo:, :todays_break:"},
+            {"text": "You can also set the accounts you want to display <br>when you set \"Hide Bot.\"<br> News, government, and disaster management accounts<br> can be displayed,<br>allowing you to keep the information you need visible"},
+            {"text": "Hides all notes by the specified user.<br>Please enter userID.<br>(separated by , if there are multiple users)<br>Example:  ikakonbu, syuilo, abc123"},
+            {"text": "Hides renotes by the specified user.<br>Please enter userID.<br>(separated by , if there are multiple users)<br>Example:  ikakonbu, syuilo, abc123"},
+            {"text": "Change the display format of the emoji picker.<br>Makes it easier to select horizontal emojis.<br><img src=\"img/emojibetter.png\">"},
+            {"text": "Make the button to hide the image larger. <br>This makes it easier to press. <br><img src=\"img/imagehidebutton.png\">"},
+            {"text": "I'm going to make it so that users' pinned notes <br>are side by side so that they don't overwhelm the pinned notes. <br>It's going to be a little inconvenient when viewing pinned notes,<br> but forgive me."},
+            {"text": "I'll make the post screen bigger since it's so small.<br>It's convenient to be able to see all the long notes."},
+            {"text": "This extension allows you to display a badge indicating<br>that \"filtering is now active\". <br>This setting allows you to specify which categories <br>should be included in the badge<br><img src='img/filterbudge.png' width='390' height='263' fetchpriority='low' loading='lazy' ecoding='async'>"},
+            {"text": "When you open this settings window, <br> it identifies the timeline which currently viewing on misskey, <br> and scroll to that setting. <br><br>(This feature may be unstable depending on the device.)"},
+            {"text": "Make sure to open this screen in the side panel of your browser.<br>Opening it in the side panel allows you to change settings<br>without interrupting Misskey's operation"},
+            {"text": "Output the current settings as CSS code.<br>If you are using misskey from a browser on another device,<br>you can paste the output code into<br>'Settings → General → Custom CSS'<br>to use the same filtering settings.<br><br>(This will not work with third-party client apps.)"},
+            {"cmt": "description-popupに引っかかる"}
+        ],
+        "howto":[
+            {"text": "This extension allows you to turn off posts and displays you don't want to see in Misskey and view them comfortably. It can do..."},
+            {"text": "<li class='modal_list'><b>Specific timeline settings</b><br>You can set notes you want to hide for each TL.</li>"},
+            {"text": "<li class='modal_list'><b>All TL filtering</b><br>You can set notes you want to hide for all pages.</li>"},
+            {"text": "<li class='modal_list'><b>Quick CSS</b><br>Edit and turn on/off custom CSS in real time.</li>"},
+            {"text": "<li class='modal_list'><b>Mute Seting</b><br>You can hide various items except for notes.</li>"},
+            {"text": "<li class='modal_list'><b>Other Setting</b><br>You can configure detailed customization and extension settings.</li>"},
+            {"text": "Shortcut keys available here"},
+            {"cmt": "description-popupに引っかかる"}
+        ],
+        "shortcut":[
+            {"text": "Open|Close this popup"},
+            {"text": "Scroll through settings by TL"},
+            {"text": "Switch tab menu"},
+            {"text": "Go forward/backward through settings"},
+            {"text": "Change settings"}
+        ],
+        "button": [
+            {"text": "<div class=\"ti ti-help\" style=\"position: relative;left: 0.1em;\"></div>"},
+            {"text": "Settings"},
+            {"text": "Export"},
+            {"text": "Developper Profile"},
+            {"text": "User Manual"},
+            {"cmt": "a直下のdivの２番目"}
+        ],
+        "other": {
+            "lasttext": "I am the sole developer of this extension. Sorry if it doesn't work.😇",
+            "warning": "\n<div class=\"flex left-small middle\">\n<div class=\"ti ti-info\"></div>\n<h2>Please read</h2>\n</div>\nThis extension not work.<br>If you are using firefox, you can change your settings to use it.<br>\n<br>\n<li>Type <b> about:config </b> in address bar</li>\n<li>A warning message appears, ignore and continue.</li>\n<li>Find setting: <b> layout.css.has-selector.enabled </b></li>\n(Type in the textbox on the screen, it will come right up)\n<li>Double-click on the that and set the value to <b>true</b></li>\n<li>Restart Firefox</li>\n",
+            "multiselecthover": "Change to click",
+            "nooptions": "If you add CSS from the settings, it will appear here.",
+            "cmt": "warningだけinnerHTMLで置き換えること"
+        }
+    },
+    "usercssedit": {
+        "title": [  "QuickCSS Options", 
+                    "Always-ON CSS"
+                 ],
+        "text":  [
+                    "If you write custom CSS here, you can turn it on and off at any time from the main screen. You can register up to 5 CSS.",
+                    "The CSS described here is always valid. It will also be reflected in Misskey the moment it is entered."
+                 ],
+        "supplementTltle": "This setting should only be used if you know what it does.",
+        "supplementText": "This setting requires knowledge; if you do not know anything about CSS, we recommend that you do not use it. <br>The display may also be incorrect when Misskey is apped. <br>If the display is not correct, try turning this setting off",
+        "save": "Save"
+    },
+    "css": {
+        "status" :{
+            "save": "Setting saved",
+            "empty": "Code is empty, Please enter code",
+            "error": "error: failed to save"
+        }
+    },
+    "disable": {
+        "title": "Not available on this page",
+        "text" : "When you open Misskey, you will see the settings screen"
     }
 }
