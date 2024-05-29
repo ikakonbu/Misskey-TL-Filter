@@ -595,7 +595,7 @@
                             右上の「設定」からCSSを追加すると、この画面から<br>リアルタイムに 有効/無効 を切り替えられます。
                         </div>
                         <div class="TabUI-content-main">
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock" tabindex="1" style="display: none;">
                                 <div class="flex buttonlabel">オプション1</div>
                                 <label class="checkbox">
                                     <input type="checkbox" class="filterbtn" data-kinds="usercss" data-id="1">
@@ -604,7 +604,7 @@
                                     </div>
                                 </label>
                             </div>
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock" tabindex="1" style="display: none;">
                                 <div class="flex buttonlabel">オプション2</div>
                                 <label class="checkbox">
                                     <input type="checkbox" class="filterbtn" data-kinds="usercss" data-id="2">
@@ -613,7 +613,7 @@
                                     </div>
                                 </label>
                             </div>
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock" tabindex="1" style="display: none;">
                                 <div class="flex buttonlabel">オプション3</div>
                                 <label class="checkbox">
                                     <input type="checkbox" class="filterbtn" data-kinds="usercss" data-id="3">
@@ -622,7 +622,7 @@
                                     </div>
                                 </label>
                             </div>
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock" tabindex="1" style="display: none;">
                                 <div class="flex buttonlabel">オプション4</div>
                                 <label class="checkbox">
                                     <input type="checkbox" class="filterbtn" data-kinds="usercss" data-id="4">
@@ -631,7 +631,7 @@
                                     </div>
                                 </label>
                             </div>
-                            <div class="flex buttonblock" tabindex="1">
+                            <div class="flex buttonblock" tabindex="1" style="display: none;">
                                 <div class="flex buttonlabel">オプション5</div>
                                 <label class="checkbox">
                                     <input type="checkbox" class="filterbtn" data-kinds="usercss" data-id="5">
@@ -775,7 +775,7 @@
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
-                                        <div class="description-popup">特定の絵文字を「❤」に変換して見えなくします。<br>例   :igyo:, :tiken:, :issue:</div>
+                                        <div class="description-popup">特定の絵文字を「❤」に変換して見えなくします。<br>絵文字のIDだけではなく、名前などでも検索できます<br>複数個ある場合は、「,」で区切って入力して下さい<br>例   :igyo:, :tiken:, :issue:</div>
                                     </div>
                                     <div class="popup ti-icon">
                                         <p class="ti ti-emoji"></p>
@@ -794,7 +794,7 @@
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
-                                        <div class="description-popup">選んだ絵文字を完全非表示にします。<br>通知や絵文字ピッカーからも消えます。<br>例   :igyo:, :tiken:, :issue:</div>
+                                        <div class="description-popup">選んだ絵文字を完全非表示にします。<br>通知や絵文字ピッカーからも消えます。<br>絵文字のIDだけではなく、名前などでも検索できます<br>複数個ある場合は、「,」で区切って入力して下さい<br>例   :igyo:, :tiken:, :issue:</div>
                                     </div>
                                     <div class="popup ti-icon">
                                         <p class="ti ti-emoji"></p>
@@ -814,7 +814,7 @@
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
-                                        <div class="description-popup">「botを非表示」している時も表示されるbotを指定できます。<br><br>お気に入りのbotや災害情報発信のアカウントなど<br>重要な情報をを見逃さなくなります<br><br><br>複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123</div>
+                                        <div class="description-popup">「botを非表示」している時も表示されるbotを指定できます。<br><br>お気に入りのbotや災害情報発信のアカウントなど<br>重要な情報をを見逃さなくなります<br>アカウント名でも検索できます<br>複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123</div>
                                     </div>
                                     <div class="popup ti-icon">
                                         <p class="ti ti-bot"></p>
@@ -833,7 +833,7 @@
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
-                                        <div class="description-popup">入力されたユーザーIDのノートを問答無用ですべて非表示にします。<br>複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123 </div>
+                                        <div class="description-popup">入力されたユーザーIDのノートを問答無用ですべて非表示にします。<br>アカウント名でも検索できます<br>複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123 </div>
                                     </div>
                                     <div class="popup ti-icon">
                                         <p class="ti ti-user"></p>
@@ -853,7 +853,7 @@
                                 <div class="flex left-small">
                                     <div class="popup">
                                         <p class="ti ti-info"></p>
-                                        <div class="description-popup">入力されたユーザーのRenoteだけを非表示にします。<br>複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123 </div>
+                                        <div class="description-popup">入力されたユーザーのRenoteだけを非表示にします。<br>アカウント名でも検索できます<br>複数人いる場合は、「,」で区切って入力してください<br>例: ikakonbu,syuilo,abc123 </div>
                                     </div>
                                     <div class="popup ti-icon">
                                         <p class="ti ti-repeat"></p>

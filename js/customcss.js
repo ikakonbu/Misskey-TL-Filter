@@ -83,7 +83,7 @@ function LoadUserCSS(domain_name){
 
 function CreateCSS(){
 	let code = "";
-	code += StaticCSSSetting.value + "\n";
+	code += (StaticCSSSetting.value ?? "") + "\n";
 	
 	let setedkeys = [];
 	for(key in localStorage){
@@ -152,7 +152,7 @@ chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
 		console.log("error: " + e);
 	});
 
-	let lang = localStorage.getItem('langage');
+	let lang = localStorage.getItem('langage') ?? "japanese";
 	fetch("/lang/" + lang + ".json", {priority: 'high'})
     .then( response => response.json())
 	.then( (data) => {

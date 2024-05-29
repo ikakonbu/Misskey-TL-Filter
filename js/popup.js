@@ -102,7 +102,7 @@ const hidecss = {
     media_only: '.xcSej.x3762:not(:has(.xbIzI)){ display: none;}',
     media_hide: '.xcSej.x3762:has(.xbIzI){ display: none;}',
     bot_hide: ".xcSej.x3762:has(.xEKlD) { display: none;}",
-    play_hide: ".xcSej.x3762:has(a[href^='/play/'])",
+    play_hide: ".xcSej.x3762:has(a[href^='/play/']){ display: none;}",
     
     //for Mute Settings
     emojihide: ':is(.xlT1y .xeJ4G,.x3762 .xeJ4G, .x3kEw .xeJ4G, .xagin, .xwUec .xeJ4G):is(:is([title^="unko@"],[title^="unko:"])),:is(.xlT1y,.emojis) ._button .xeJ4G:is(:is([title^="unko@"],[title^="unko:"])){ display:none;}._button:has(.xeJ4G:is(:is([title^="unko@"],[title^="unko:"]))):before{ content: ""; display: inline-block; width: 1.25em !important; height: 1.25em !important; background-image: url(/twemoji/2764.svg); background-size: 1.25em 1.25em;}.xAV2R:has(img:is(:is([title^="unko@"],[title^="unko:"]))):after{ content: ""; display: inline-block; width: 20px !important; height: 20px !important; background-image: url(/twemoji/2764.svg); background-size: 20px 20px;}',
@@ -110,7 +110,7 @@ const hidecss = {
     pinnedflex: '.contents._gaps > ._gaps { display: flex; flex-direction: row; overflow: scroll; width: calc(100% - 20px); max-height: min(90vw, 90vh); border-radius: 10px; border: solid 1px rgba(180,180,180,0.5); padding: 10px; & .xcSej{ min-width: 93% !important; height: max-content; overflow: unset; & .xrEoV{ left: unset; top: unset; } }}@media (max-width: 599px) { .contents._gaps > ._gaps { width: calc(125% - 20px); transform:translate(-10%) scale(0.8); margin: -5% auto; }} .contents._gaps > ._gaps { overscroll-behavior: none; }',
     chan: ':is(.x8KMZ, .x4ZLV, .xngrp)::after { content: "ちゃん"; }',
     formsize: '.xoGjR { max-height: none;} .xxski{ max-height: none;} .xpDI4.xxtDg{max-width: min(800px, 90vw);} ',
-    botexcep: '.xcSej.x3762:not(:has(.xBwhh)):has(.xEKlD):has(a[href$="unko"]) { display: block !important; }',
+    botexcep: '.xcSej.x3762:has(.xEKlD):has(a[href$="unko"]) { display: block !important; }',
     usermute: '.xcSej.x3762:has(a[href="/@unko"]){ display: none; }',
     userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
     userstatus: '{} .status a:nth-child(n+2)  b,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2), .xyEEg .x8w8X:nth-child(n+2) span{font-size: 0;}.status a:nth-child(n+2)  b:after,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2):after, .xyEEg .x8w8X:nth-child(n+2) span:after{ content: "???"; font-size: 14px;}',
@@ -182,7 +182,7 @@ worker.addEventListener('message', (e) => {
         csscode     = "";
         usercsscode = "";
 
-        usercsscode += localStorage.getItem("UserStaticCSS-" + Domain_Name) + "\n";
+        usercsscode += (localStorage.getItem("UserStaticCSS-" + Domain_Name) ?? "") + "\n";
         //checkbox
         for (let target of css_chcckbox_elements) {
             if(target.dataset.kinds != "usercss"){
@@ -191,7 +191,7 @@ worker.addEventListener('message', (e) => {
                 }
             } else {
                 if(target.checked){
-                    usercsscode += usercssoptions[target.dataset.id]+ '\n';
+                    usercsscode += (usercssoptions[target.dataset.id] ?? "")+ '\n';
                 }
             }
         }
@@ -357,6 +357,7 @@ worker.addEventListener('message', (e) => {
                 usercss_options[i].querySelector(".buttonlabel").innerText = CssTitle;
                 usercssoptions[i+1] = CSSCode;
                 usercss_options[i].classList.add("show");
+                usercss_options[i].style.display = null;
             } else {
                 usercss_options[i].style.display = "none";
                 if(usercss_options[i].querySelector(".filterbtn").checked){
@@ -982,6 +983,11 @@ worker.addEventListener('message', (e) => {
                         break;
                 }
                 document.querySelector("body").scrollTo(0, 0);
+                document.activeElement.blur();
+                let targetidx = Math.trunc(Math.round(willscroll / (scroolloffset/2)));
+                window.setTimeout(function(){ 
+                    document.querySelectorAll("#timeline_setting .card")[targetidx].querySelector(".buttonblock").focus(); 
+                }, 500);
             }
         }
     });
