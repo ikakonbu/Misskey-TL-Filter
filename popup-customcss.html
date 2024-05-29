@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css" >
+    <link rel="stylesheet" type="text/css" href="css/style_2.css" >
+    <link rel="stylesheet" type="text/css" href="src/prism.css" >
+    <link rel="stylesheet" type="text/css" href="src/prism-live.css" >
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+        /*color variable*/
+        :root{ 
+            /*light mode*/
+            --code-background: #D0D0D0;
+            --code-textcolor: #101010;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root{
+                /*dark mode*/
+                --code-background: #1f1f1f;
+                --code-textcolor: #D0D0D0;
+            }
+        }
+
+        .prism-live {
+            height: 250px;
+            margin-top: 1em;
+        }
+        textarea {
+            resize:vertical;
+            width: 100%;
+            height: 250px;
+            font-family: 'Source Code Pro', monospace;
+            tab-size: 2;
+            background: var(--code-background);
+            color: var(--code-textcolor);;
+        }
+        
+        .card{
+            max-height: none;
+        }
+
+        /*accordion Menu*/
+        .accordion{
+            display: none;
+        }
+        .accordion_label {		/*タイトル*/
+            display: table;
+            width: max-content;
+            margin-right: 0;
+            padding-right: 0;
+            position: relative;
+            user-select: none;
+            text-align: left;
+            flex-grow: 1;
+        }
+        .accordion_label .ti {
+            width: 0;
+        }
+        .accordion_label+.accordion_icon::after{		/*タイトル横の矢印*/
+            content:"\ea5f";
+            font-family: "tabler-icons";
+            font-size: 2em;
+            height: 45px;
+            line-height:40px;
+        }
+        .accordion_label, .accordion_contents {
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            transition: all 0.3s;
+        }
+        .accordion_contents {		/*本文*/
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+        }
+        .card:has(.accordion:checked) .accordion_contents {	/*開閉時*/
+            height: fit-content;
+            max-height: 700px;
+            overflow: visible;
+            opacity: 1;
+            transition: all ease-out .5s;
+        }
+        .accordion_icon{
+            transition: 0.3s;
+        }
+        .accordion_icon::after{
+            content: "\ea62";
+        }
+        .card:has(.accordion:checked) .accordion_icon{
+            transition: 0.3s;
+            transform: rotate(180deg);
+        }
+        .csscard {
+            margin: 10px 30px;
+            padding: 5px 10px;
+        }
+        input[type="text"] {
+            font-size: 1.25em;
+        }
+        .link_button{
+            margin: 0.2em 1em;
+            width:60px;
+        }
+        .link_button:active{
+            transform: scale(0.9);
+            transition: 0.1s;
+        }
+
+        .status_modal{
+            position: fixed;
+            left: 50%;
+            top: -5em;
+            transform: translateX(-50%);
+            pointer-events: none;
+            text-align: center;
+            z-index: 9999;
+            transition: ease-in .3s;
+            .card{
+                padding: 1em 2em;
+                background-color: var(--accent);
+                color: var(--white);
+                opacity: 0.9;
+                transition: 0.3s;
+            }
+        }
+        .status_modal.show{
+            top: 3em;
+            transition:  ease-out 0.4s;
+            .card{
+                box-shadow: 0px 0px 30px 10px var(--background); 
+            }
+        }
+
+        .supplement{
+            padding: 1em;
+            background: var(--cardshadow);
+            opacity: 0.8;
+            border-radius: 6px;
+            .supplement-title {
+                display: flex;
+                align-items: center;
+                i {
+                    padding-left: 0;
+                    padding-right: 0.4em;
+                    font-style:normal;
+                }
+            }
+            .supplement-text {
+                margin-left: 1em;
+            }
+        }
+
+        #size_retention {
+            width: 530px;
+            overflow:hidden;    
+        }
+        body {
+            overflow: hidden;
+        }
+    </style>
+    <script src="src/prism.js" defer></script>
+    <script src="src/bliss.js" defer></script>
+    <script src="src/prism-live.js?load=css" defer></script>
+</head>
+
+<body style="overflow-y: scroll;">
+    <div class="status_modal">
+        <div class="card">
+        変更を保存しました。
+        </div>
+    </div>
+    <div id="size_retention"></div>
+    <div class="wrapper">
+        <div style="margin-top: 1em; text-align: left;">
+            <a class="link_button" style="padding: 0.5em 1.4em; margin: 0px 30px 0px; display: inline-flex;" id="export" href="popup.html">
+                <i class="ti ti-left"></i>戻る</a>
+        </div>
+        <div class="card" style="margin: 20px 30px 30px;">
+            <div class="flex-title">
+                <div class="middle"><div class="ti ti-toggle"></div><h2>クイックCSSオプション</h2></div>
+            </div>
+            <p>ここにカスタムCSSを記述すると、メイン画面から好きなタイミングでON/OFF出来ます。5個まで登録できます。
+            </p>
+            <div class="supplement">
+                <div class="supplement-title">
+                    <i class="ti ti-info"></i>
+                    <b>カスタムCSSは上級者向け機能です</b>
+                </div>
+                <div class="supplement-text">
+                <a href="https://misskey.io/notes/9n5wp7832olv0cz3" target="_blank">開発者</a>が自ら明言しています。
+                知識を要する設定です。<br>
+                また、Misskeyのアプデ時にも表示が狂うことがあります。<br>
+                表示がおかしい場合は、この設定をオフにしてみてください<br>
+                </div>
+            </div>
+        </div>
+
+        <div class="card csscard">
+            <div class="flex accordion_wrapper" style="flex-grow: 1;">
+                <input id="setting1" type="checkbox" class="accordion">
+                <label for="setting1" class="accordion_label">
+                    <input class="textinput" type="text" placeholder="設定名を入力してね">
+                </label>
+                <div class="accordion_icon">　</div>
+            </div>
+            <div class="accordion_contents">
+                <textarea class="prism-live language-css" data-kinds="quick", data-id="1"></textarea>
+                <button class="link_button save">保存</button>
+            </div>
+        </div>
+        <div class="card csscard">
+            <div class="flex accordion_wrapper" style="flex-grow: 1;">
+                <input id="setting2" type="checkbox" class="accordion">
+                <label for="setting2" class="accordion_label">
+                    <input class="textinput" type="text">
+                </label>
+                <div class="accordion_icon">　</div>
+            </div>
+            <div class="accordion_contents">
+                <textarea class="prism-live language-css" data-kinds="quick", data-id="2"></textarea>
+                <button class="link_button save">保存</button>
+            </div>
+        </div>
+        <div class="card csscard">
+            <div class="flex accordion_wrapper" style="flex-grow: 1;">
+                <input id="setting3" type="checkbox" class="accordion">
+                <label for="setting3" class="accordion_label">
+                    <input class="textinput" type="text">
+                </label>
+                <div class="accordion_icon">　</div>
+            </div>
+            <div class="accordion_contents">
+                <textarea class="prism-live language-css" data-kinds="quick", data-id="3"></textarea>
+                <button class="link_button save">保存</button>
+            </div>
+        </div>
+        <div class="card csscard">
+            <div class="flex accordion_wrapper" style="flex-grow: 1;">
+                <input id="setting4" type="checkbox" class="accordion">
+                <label for="setting4" class="accordion_label">
+                    <input class="textinput" type="text">
+                </label>
+                <div class="accordion_icon">　</div>
+            </div>
+            <div class="accordion_contents">
+                <textarea class="prism-live language-css" data-kinds="quick", data-id="4"></textarea>
+                <button class="link_button save">保存</button>
+            </div>
+        </div>
+        <div class="card csscard">
+            <div class="flex accordion_wrapper" style="flex-grow: 1;">
+                <input id="setting5" type="checkbox" class="accordion">
+                <label for="setting5" class="accordion_label">
+                    <input class="textinput" type="text">
+                </label>
+                <div class="accordion_icon">　</div>
+            </div>
+            <div class="accordion_contents">
+                <textarea class="prism-live language-css" data-kinds="quick", data-id="5"></textarea>
+                <button class="link_button save">保存</button>
+            </div>
+        </div>
+
+
+        <div class="card" style="margin: 30px 30px;">
+            <div class="flex-title">
+                <div class="middle"><div class="ti ti-css"></div><h2>通常のCSSの登録</h2></div>
+            </div>
+            <p>ここに記述したCSSは常に有効となります。また、入力した瞬間にMisskeyに反映されます。</p>
+            <textarea class="prism-live language-css" data-kinds="static"></textarea>
+        </div>
+    </div>
+</body>
+<script src="js/customcss.js" type="text/javascript" defer></script>

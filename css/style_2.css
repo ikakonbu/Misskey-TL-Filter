@@ -1,0 +1,274 @@
+.scrollbutton:hover{
+    transition: .5s;
+    transform: scaleY(1.1);
+    box-shadow: 0px 0px 20px 0px var(--hovershadow);
+}
+.scrollbutton:active{
+    transition: 0s;
+    transform: scaleY(1);
+    background-color: var(--accent);
+}
+.buttonblock:has(.filterbtn):hover{
+    transition: 0.1s;
+    background: var(--checkboxhover);
+}
+.buttonblock:has(.filterbtn):active{
+    transition: 0.1s;
+    transform: scale(0.95);
+}
+.popup:hover .description-popup{
+    transition: 0.5s;
+    opacity: 1;
+    width: 400px;
+}
+.link_button:hover{
+    color: var(--white);
+    background-color: var(--accent);
+    transition: .3s;
+    box-shadow: 0px 0px 20px 0px var(--buttonhovershadow);
+    div {
+        transition: .5s;
+        color: var(--white);
+    }
+}
+.multiselectbtn:hover{
+    transform: scale(1.12);
+    transition:  0.15s;
+    box-shadow: 0 0 10px 0 var(--btnshadow);
+    height: 3.2em;
+}
+.multiselectbtn:hover .multitext{
+    font-size: 0.9em;
+    transition: ease-out 0.15s;
+}
+.multiselectbtn:hover .hovertext{
+    transition: font-size 0.3s;
+    font-size: 0.7em;
+    opacity: 0.6;
+}
+.multiselectbtn:active{
+    transition: ease-out 0.1s;
+    transform: scale(0.96);
+    background: var(--accent);
+}
+
+.emojibtn{
+    &:hover {
+        transition: 0.1s;
+        transform: scale(1.3);
+        box-shadow: 0px 0px 10px var(--btnshadow);
+    }
+    &:active {
+        transition: 0.1s;
+        transition-delay: 0s;
+        transform: scale(0.95);
+        background: var(--accent);
+    }
+}
+.userbtn{
+    &:hover {
+        transition: 0.2s;
+        transform: scale(1.15);
+        box-shadow: 0px 0px 10px var(--btnshadow);
+    }
+    &:active {
+        transition: 0.1s;
+        transition-delay: 0s;
+        transform: scale(0.95);
+        background: var(--accent);
+    }
+}
+.TabUI-tabs label{
+    &:hover {
+        transform: scale(0.95);
+        opacity: 0.9;
+        box-shadow: 0px 0px 10px 0px var(--hovershadow);
+        transition: 0.2s;
+    }
+    &:active {
+        transform: scale(0.8);
+        opacity: 1;
+        background-color: var(--accent);
+        box-shadow: 0px 0px 10px 0px var(--hovershadow);
+        transition: 0.1s;
+    }
+}
+
+/*auto complite (emoji & user search)*/
+.autocmp_result {
+    transform-origin: 50% 0%;
+    border-radius: 7px;
+    background: rgba(160,160,160,0.1);
+    &[data-type="emoji"] {
+        text-align: center;
+    }
+}
+.autocmp_result.show{
+    &[data-type="emoji"] {
+        padding: 5px 10px;
+        height: max-content;
+        animation: ease-out iikanzi 0.3s;
+    }
+    &[data-type="user"] {
+        height: fit-content;
+        animation: ease-out iikanzi 0.3s;
+        & button {
+            display: inline-flex;
+            vertical-align: middle;
+        }
+    }
+}
+.autocmp_result.hide {
+    animation: ease-out iikanzi2 0.3s;
+    animation-fill-mode: forwards;
+}
+
+.emojibtn{
+    margin: 2px;
+    transition: 0.2s;
+    background: transparent;
+    border-radius: 4px;
+    border: none;
+    padding: 1px 3px;
+    & img {
+        height: 28px;
+        max-width: 150px;
+    }
+}
+
+/*user mute*/
+.userbtn{
+    max-width: 400px;
+    overflow-x: hidden;
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    text-align: left;
+    font-size: 15px;
+    margin: 4px 6px;
+    transition: 0.2s;
+    background: var(--buttoncolor);
+    border-radius: 4px;
+    border: none;
+    padding: 3px 8px;
+    .usericon {
+        height: 40px;
+        width: 40px;
+        object-fit: cover;
+        border-radius: 999px;
+        margin-right: 10px;
+    }
+    .usernametext{
+        overflow-x: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        img {
+            height: 15px;
+        }
+    }
+    .servername {
+        font-size: 11px;
+        opacity: 0.8;
+    }
+}
+.popup .ti{
+    font-size: 22px;
+}
+.description-popup {
+    pointer-events: none;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+    opacity: 0;
+    position: absolute;
+    padding: 16px 16px;
+    font-size: 13px;
+    line-height: 1.6em;
+    color: var(--white);
+    border-radius: 13px;
+    background: var(--modalbackground);
+    box-shadow: 0px 4px 10px 0px var(--cardshadow);
+    width: 0px;
+    transition: 0.3s;
+    top: -20px;
+    left: 35px;
+}
+.description-popup img{
+    width: 390px;
+}
+.TabUI-tabs .TabUI-content {
+    transition: 0.1s;
+}
+.TabUI-tabs input[type="radio"]:checked + label, flex-title{
+    transition: 0.3s;
+}
+.toggler-slider, .toggler-knob {
+    transition: 300ms ease;
+}
+.multiselectbtn{
+    transition: ease-in 0.2s;
+}
+.multitext.change{
+    animation: 0.2s ease-out slidein;
+}
+.TabUI-content.show{
+    animation: forwards .3s tab-open;
+}
+
+.shortcut-key{
+    display: flex;
+    .shortcut-title {
+        width: 120px;
+    }
+}
+.modal_list {
+    padding-block: 0.05em;
+    line-height: 1.5em;
+}
+.fix_modal:not(.hide) {
+    animation: 0.4s tab-open;
+}
+
+/*animations*/
+@keyframes tab-open {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes slidein {
+    0%{
+        transform: translateX(10px);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateX(0px);
+        opacity: 1;
+    }
+}
+@keyframes iikanzi{
+    0% {
+        max-height: 0px;
+        overflow-y: hidden;
+        opacity: 0.2;
+    }
+    100% {
+        max-height: 200px;
+        overflow-y: visible;
+        opacity: 1;
+    }
+}
+@keyframes iikanzi2{
+    0% {
+        max-height: 200px;
+        overflow-y: hidden;
+        opacity: 1;
+    }
+    100% {
+        max-height: 0px;
+        overflow-y: visible;
+        opacity: 0.2;
+    }
+}

@@ -1,4 +1,4 @@
-/*color variable*/
+/*MARK: color variable*/
 :root{ 
     /*light mode*/
     --background: rgb(248,248,245);
@@ -14,9 +14,10 @@
     --hovershadow:  rgba(0,120,0,0.5);
     --buttoncolor: rgb(240,238,232);
     --checkboxhover: rgba(159, 142, 89, 0.1);
-
+    --scrollbarcolor: rgb(219, 211, 188);
+    --multicheckbackground: rgba(130,130,130,0.1);
     --descriptioncolor: rgba(0,0,0,0.6);
-    --modalbackground: rgba(0,0,0,0.8);
+    --modalbackground: rgba(7, 7, 7, 0.8);
     --buttonhovershadow: rgba(87, 145, 0, 0.3);
     --white: white;
 }
@@ -36,32 +37,92 @@
         --hovershadow:  rgba(100,255,100,0.5);
         --buttoncolor: rgb(96 96 96);
         --checkboxhover: rgba(210, 193, 145, 0.1);
+        --scrollbarcolor: rgb(96 96 96);
     }
 }
 
 
+/*MARK: tabler-icon*/
 @font-face {
     font-family: "tabler-icons";
     font-style: normal;
     font-weight: 400;
-    src: url("../tabler-icons-min.woff")format('woff');
+    src: url("../font/tabler-icons-min.woff2")format('woff');
     font-display: swap;
 }
+.ti {
+    display:table-cell;
+    vertical-align: middle;
+    font-family: "tabler-icons" !important;
+    font-size: 25px;
+}
+.ti-small {
+    display: inline;
+    font-family: "tabler-icons" !important;
+    font-size: 30px;
+    margin-right: 10px;
+}
+.ti-tiny {
+    display: inline;
+    font-weight: 600;
+    font-family: "tabler-icons" !important;
+    font-size: 20px;
+    margin-right: 0.5em;
+}
+.ti.ti-info{
+    font-size: 18px;
+    padding-left: 0.4em;
+    opacity: 0.4;
+}
+.ti-multiselect {
+    font-weight: 400 !important;
+    padding-left: 0.1em;
+}
+.ti-home:before{content: "\eac1";}
+.ti-planet:before{content: "\ec08";}
+.ti-list:before{content: "\eb6b";}
+.ti-allstg:before{content: "\ed52";}
+.ti-more:before{content: '\ea5f';}
+.ti-github:before{content: '\ec1c';}
+.ti-user:before{content: '\eb4d';}
+.ti-universe:before{content: '\fcc4';}
+.ti-whirl:before{content: "\f51d"}
+.ti-left:before{content: '\ea60';}
+.ti-right:before{content: '\ea61';}
+.ti-info:before{content: '\eac5';}
+.ti-back:before{content: '\ea19';}
+.ti-server:before{content: '\eb1f';}
+.ti-other:before{content: '\eb20';}
+.ti-badge:before{content: '\efc2';}
+.ti-lang:before{content: '\ef77';}
+.ti-device-tv:before{content: '\ea8d';}
+.ti-antenna:before{content: '\f094';}
+.ti-css:before{content: '\fb08';}
+.ti-emoji:before{content: '\eb95';}
+.ti-repeat:before{content: '\eb72';}
+.ti-mute:before{content: '\f1c3';}
+.ti-bot:before{content: '\fcbe'}
+.ti-toggle:before{content: '\eb3e';}
+.ti-help:before {content: '\eabf'}
+.ti-close:before {content: '\eb55'}
 
-/*General Setting*/
+
+/*MARK: General Setting*/
 html,body{
-    max-height: 430px !important;
     overflow-y: scroll;
 }
 body {
-    max-width: 550px;
+    max-width: 536px;
+    min-width: 360px;
     background-color: var(--background);
     font-family: Hiragino Maru Gothic Pro,Roboto,HelveticaNeue,Arial,sans-serif;
     margin: 0px auto;
     font-size: 13px;
+    overflow: visible;
 }
 .wrapper{
-    max-height: 430px;
+    /*max-height: 530px;*/
+    overflow: visible;
     text-align: center;
     padding-bottom: 20px;
     position: relative;
@@ -71,59 +132,32 @@ body {
 }
 h1{
     font-size: 26px;
-    padding: 6px auto;
+    padding: 0 auto 6px;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    color: white;
+    background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+    /* color: var(--buttoncolor); */
+    background-color: var(--scrollbarcolor);
+    /* width: 8px; */
 }
 
-
-/*warning popup (for firefox)*/
-.warning{
-    position: fixed;
-    z-index: 200;
-}
-.warning-back{
-    position: fixed;
-	width: 100%;
-	height: 100%;
-    top: 0;
-    background-color: var(--modalbackground);
-}
-.warning_card{
-    position: fixed;
-    width: 400px;
-    top: 55%;
-	left: 50%;
-	transform: translate(-50%,-50%);
-    z-index: 300;
-}
-.warning b {
-    background-color: var(--textarea);
-}
-.warning_list{
-    margin-left: 10px;
-}
-.warning:has(.warning_card){
-    display: none;
-}
-
-
-/*layout specify CSS*/
 .flex{
     display: flex;
 }
-.left{
+#timeline_setting{
     justify-content:left;
-    overflow-x:scroll;
+    overflow-x: scroll;
     padding: 10px 36px 20px;
+    margin-bottom: -20px;
     scrollbar-width: none;
 }
 .left-small{
     justify-content:left;
-}
-.left::-webkit-scrollbar{
-    display:none;
-}
-.center{
-    justify-content:center;
 }
 .middle {
     height: 45px;
@@ -131,15 +165,95 @@ h1{
     text-align: center;
     vertical-align: middle;
 }
+.textinput{
+    border: none;
+    background-color: var(--textarea);
+    line-height: 25px;
+    padding: 2px 5px;
+    margin: 6px 10px 0px;
+    width: 200px;
+    border-radius: 5px;
+}
+.card{
+    margin: 0px 10px;
+    padding: 2px 18px 14px;
+    text-align: left;
+    background-color: var(--cardcolor);
+    box-shadow: 0px 4px 10px 0px var(--cardshadow);
+    border-radius: 10px;
+}
+.flex-title{
+    justify-content: start;
+    margin: 4px auto 5px;
+    padding-bottom: 5px;
+    border-bottom: solid 2px var(--textcolor);
+}
+.title-explanation {
+    color: var(--textcolor);
+    opacity: 0.8;
+    margin: 0 auto 1em;
+}
+h2 {
+    font-size: 18px;
+    display:table-cell;
+    vertical-align: middle;
+    padding-left: 6px;
+}
 
-/*langage selecter*/
+
+
+/*MARK: warning popup (for firefox) & help popup*/
+.fix_modal{
+    position: fixed;
+    z-index: 200;
+}
+.modal_back{
+    position: fixed;
+	width: 100%;
+	height: 100%;
+    top: 0;
+    background-color: var(--modalbackground);
+}
+.modal_card{
+    position: fixed;
+    width: 400px;
+    top: 55%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+    z-index: 300;
+}
+.card_bold {
+    background-color: var(--textarea);
+}
+.modal_list{
+    margin-left: 10px;
+}
+#warning:has(.modal_card){
+    display: none;
+}
+.fix_modal.hide{
+    display: none;
+}
+/*help button*/
+.help-container {
+    position: relative;
+}
+.helpbtn{
+    position: absolute;
+    top: -9px;
+    left: 6px;
+    z-index: 999;
+}
+
+
+/*MARK: langage selecter*/
 .lang-container{
     color: var(--textcolor);
     position: relative;
 }
 .lang{
     position: absolute;
-    top: 16px;
+    top: 0px;
     right: 14px;
     z-index: 999;
 }
@@ -161,7 +275,6 @@ h1{
     content: '\eb1d';
     pointer-events: none;
 }
-
 #langage{
     appearance: none;
     min-width: 80px;
@@ -176,53 +289,22 @@ h1{
 }
 
 
-
-/*card and card title*/
-.card{
-    margin: 0px 10px;
-    padding: 2px 18px 14px;
-    text-align: left;
-    background-color: var(--cardcolor);
-    box-shadow: 0px 4px 10px 0px var(--cardshadow);
-    border-radius: 10px;
-}
-.flex-title{
-    display: flex;
-    justify-content: start;
-    margin: 4px auto 10px;
-    border-bottom: solid 2px var(--textcolor);   
-}
-h2 {
-    font-size: 18px;
-    display:table-cell;
-    vertical-align: middle;
-    padding-left: 6px;
-}
-
+/*MARK: Scroll Button*/
 .scrollbutton {
     z-index: 100;
     font-size: 26px;
     position: absolute;
     overflow: hidden;
-    top: 35%;
+    top: 160px;
     background-color: var(--cardcolor);
     color: var(--textcolor);
     padding: 40px 8px;
     box-shadow: 0px 0px 20px 0px var(--btnshadow);
     transition: .5s;
 }
-.scrollbutton i{
+.ti-left, .ti-right{
     font-style: normal;
-}
-.scrollbutton:hover{
-    transition: .5s;
-    transform: scaleY(1.1);
-    box-shadow: 0px 0px 20px 0px var(--hovershadow);
-}
-.scrollbutton:active{
-    transition: 0s;
-    transform: scaleY(1);
-    background-color: var(--accent);
+    pointer-events: none;
 }
 .scrollleft {
     left: 0px;
@@ -232,123 +314,73 @@ h2 {
     right: 0px;
     border-radius: 10px 0 0 10px;;
 }
-.scrollbutton i{
-    pointer-events: none;
-}
 /*check button label*/
 .buttonblock{
     border-radius: 4px;
-}
-.buttonblock:has(.filterbtn):hover{
-    transition: 0.1s;
-    background: var(--checkboxhover);
-}
-.buttonblock:has(.filterbtn):active{
-    transition: 0.1s;
-    transform: scale(0.95);
+    justify-content: space-between;
 }
 .buttonlabel{
     cursor: pointer;
-}
-.buttonlabel {
     justify-content: flex-start;
     user-select: none;
     min-width: 100px;
     font-weight: 400;
-    height:45px;
+    align-items: center;
+    min-height: 45px;
     font-size: 14px;
-    line-height: 45px;
     padding: 0;
     margin: 0 0 0 10px;
 }
-
-
-/*User Mute setting*/
-.textinput{
-    border: none;
-    background-color: var(--textarea);
-    line-height: 25px;
-    padding: 2px 5px;
-    margin: 6px 10px 0px;
-    width: 200px;
-    border-radius: 5px;
+.multichecksetting {
+    padding: 2px 0;
+    background-color: var(--multicheckbackground);
+    border-radius: 10px;
+    margin-top: -10px;
+    justify-content: center;
 }
-
-
+.multichecksetting .buttonlabel {
+    justify-content: center;
+    margin: -5px;
+    padding: 0px 0 10px;
+    min-width: 100px;
+}
+.multichecksetting .buttonblock {
+    flex-direction: column;
+    justify-content: space-between;
+    & .checkbox {
+        margin: 0;
+        left: 50%;
+    }
+    & .toggler-slider {
+        top: -10px;
+        left: -50%; 
+    }
+}
 
 /*description popup*/
 .popup{
     position: relative;
     cursor: pointer;
     display: inline-block;
-    margin: auto;
-    transform: translateX(8px);
+    margin: auto 0;
     z-index: 100;
 }
-.popup .ti{
-    font-size: 22px;
+.popup.ti-icon {
+    z-index: 3;
+    margin: auto -0.5em auto 0.5em;
 }
 .description-popup {
-    pointer-events: none;
-    overflow: hidden;
-    white-space: nowrap;
-    display: block;
     opacity: 0;
+    width: 0;
+    overflow: hidden;
     position: absolute;
-    padding: 16px 16px;
-    font-size: 13px;
-    line-height: 1.6em;
-    color: var(--white);
-    border-radius: 13px;
-    background: var(--modalbackground);
-    box-shadow: 0px 4px 10px 0px var(--cardshadow);
-    width: 0px;
-    transition: 0.3s;
-    top: -20px;
-    left: 35px;
 }
-.description-popup img{
-    width: 390px;
-}
-.popup:hover .description-popup{
-    transition: 0.5s;
-    opacity: 1;
-    width: 400px;
-}
-.all_setting{
-    margin: 15px 30px;
-    padding: 15px 25px 4px;
-}
-.more_setting{
-    margin: 30px 30px;
-    padding: 15px 25px 4px;
-}
-.other_setting .buttonblock{
-    justify-content: space-between;
-}
-
-
-/*CSS Export button*/
-.export{
-    margin: 6px 10px;
-    padding: 6px 30px;
-    border-radius: 10px;
-    border: none;
-    background-color: var(--buttoncolor);
-}
-.export:hover{
-    color: var(--white);
-    background-color: var(--accent);
-    transition: .3s;
-    box-shadow: 0px 0px 20px 0px var(--buttonhovershadow);
-}
-
 
 /* about and my profile link*/
-.about-wrapper {
+#about-wrapper{
     padding: 0px 30px 15px;
 }
-.about {
+#about {
     z-index: -1;
     padding: 6px 30px;
     text-align: left;
@@ -356,75 +388,17 @@ h2 {
     box-shadow: 0px 4px 10px 0px var(--cardshadow);
     border-radius: 10px;
 }
-a {
+.link_button{
     width: fit-content;
-    margin: 10px 15px 0px;
-    border-radius: 10px;
-    background-color: var(--buttoncolor);
-    padding: 6px 12px;
-    text-decoration: none;
-    transition: .3s;
     align-items: center;
-}
-a:hover{
-    background-color: var(--accent);
+    background-color: var(--buttoncolor);
+    text-decoration: none;
+    border: none;
     transition: .3s;
-    box-shadow: 0px 0px 20px 0px var(--buttonhovershadow);
+    border-radius: 10px;
+    margin: 10px 15px 0px;
+    padding: 6px 12px;
 }
-a:hover div {
-    transition: .5s;
-    color: var(--white);
-}
-.version{
-   text-align: right;
-}
-
-
-
- /* icon CSS */
-.ti {
-    display:table-cell;
-    vertical-align: middle;
-    font-family: "tabler-icons" !important;
-    font-size: 25px;
-}
-.ti-center{
-    display: block;
-    font-family: "tabler-icons" !important;
-    font-size: 25px;
-}
-.ti-small {
-    display: inline;
-    font-family: "tabler-icons" !important;
-    font-size: 30px;
-    margin-right: 10px;
-}
-.ti-tiny {
-    display: inline;
-    font-weight: 600;
-    font-family: "tabler-icons" !important;
-    font-size: 20px;
-    margin-right: 0.5em;
-}
-.ti-home:before{content: "\eac1";}
-.ti-planet:before{content: "\ec08";}
-.ti-list:before{content: "\eb6b";}
-.ti-allstg:before{content: "\ea03";}
-.ti-more:before{content: '\ea5f';}
-.ti-github:before{content: '\ec1c';}
-.ti-user:before{content: '\eb4d';}
-.ti-universe:before{content: '\fcc4';}
-.ti-whirl:before{content: "\f51d"}
-.ti-left:before{content: '\ea60';}
-.ti-right:before{content: '\ea61';}
-.ti-info:before{content: '\eac5';}
-.ti-back:before{content: '\ea19';}
-.ti-server:before{content: '\eb1f';}
-.ti-other:before{content: '\eb20';}
-.ti-badge:before{content: '\efc2';}
-.ti-lang:before{content: '\ef77';}
-.ti-device-tv:before{content: '\ea8d';}
-.ti-antenna:before{content: '\f094';}
 
 /*CheckBox CSS*/
 .filterbtn{
@@ -436,6 +410,7 @@ a:hover div {
     width: 45px;
     height: 25px;
     cursor: pointer;
+    pointer-events: none;
     position: relative;
 }
 .filterbtn:checked+.toggler-slider {
@@ -447,12 +422,10 @@ a:hover div {
     border-radius: 100px;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    transition: 300ms ease;
     z-index: 10;
 }
 .toggler-knob {
     position: absolute;
-    transition: 300ms ease;
 }
 .filterbtn:checked+.toggler-slider>.toggler-knob {
     left: calc(100% - 19px - 3px);
@@ -464,6 +437,7 @@ a:hover div {
     left: 3px;  top: 3px;
     background-color: var(--toggle-knob);
 }
+
 
 /*multi select button*/
 .hovertext {
@@ -487,57 +461,111 @@ a:hover div {
     height: 2.8em;
     margin-right: 10px;
     width: 220px;
-    transition: ease-in 0.2s;
 }
 .multiselectbtn:not([data-index="0"]){
     border: solid 3px var(--accent);
 }
-.multiselectbtn:hover{
-    transform: scale(1.12);
-    transition:  0.15s;
-    box-shadow: 0 0 10px 0 var(--btnshadow);
-    height: 3.2em;
-}
-.multiselectbtn:hover .multitext{
-    font-size: 0.9em;
-    transition: ease-out 0.15s;
-}
-.multiselectbtn:hover .hovertext{
-    transition: font-size 0.3s;
-    font-size: 0.7em;
-    opacity: 0.6;
-}
-.multiselectbtn:active{
-    transition: ease-out 0.1s;
-    transform: scale(0.96);
-    background: var(--accent);
-}
-.multitext.change{
-    animation: 0.2s ease-out slidein;
-}
-.multiselect-ti {
-    font-weight: 400 !important;
-    padding-left: 0.1em;
+#export{
+    margin: 6px 10px;
+    padding: 6px 30px;
 }
 
-/*animations*/
-@keyframes fade{
-    0% {
-        height: 0px;
-        opacity: 0.4;
-    }
-    100% {
-        height: 1200px;
-        opacity: 1;
+
+/*TabUI style*/
+.TabUI-tabs {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    z-index: 1;
+    margin-top: 10px;
+    padding-top: 10px;
+    overflow: hidden;
+    transform: translateY(2px);
+    position: sticky;
+    top: -2.5px;
+    background: var(--background);
+}
+.tab-radio{
+    display: none;
+}
+
+.TabUI-Label{
+    opacity: 0.2;
+    transform-origin: 50% 100%;
+    height: 55px;
+    padding: 0 40px 0px;
+    border-radius: 10px 10px 0 0 ;
+    background-color: var(--cardcolor);
+    box-shadow: 0px 0px 20px 10px var(--cardshadow);
+    margin: 0 4px -2px;
+    z-index: 1;
+    transform: scale(0.85);
+    .ti {
+        margin-top: auto;
+        margin-bottom: auto;
     }
 }
-@keyframes slidein {
-    0%{
-        transform: translateX(10px);
-        opacity: 0.5;
+
+.tab-radio:checked+.TabUI-Label{
+    opacity: 1;
+    transform: scale(1);
+    transform: translateY(0);
+    box-shadow: 0px 0px 10px 2px var(--hovershadow);
+}
+
+.TabUI-contents{
+    z-index: 10;
+    padding-top: 10px;
+}
+.TabUI-content {
+    padding: 10px 0 0;
+    display: none;
+    opacity: 0;
+}
+.TabUI-content.show {
+    display: block;
+    /*opacity: 1;*/
+}
+.title-button {
+    margin-top:  0;
+}
+.TabUI-content-main:has(.buttonblock.show) .usercss-nooption{
+    display: none;
+}
+
+
+/* For SidePanel*/
+@media screen and (max-width: 530px){
+    h1 {
+        opacity: 0;
+        transition: 0.2s;
     }
-    100% {
-        transform: translateX(0px);
-        opacity: 1;
+    .TabUI-Label{
+        padding: 0 calc(10vw - 18px);
+    }
+    .TabUI-content .multiblock {
+        height: auto;
+        flex-direction: column;
+    }
+    .TabUI-content .buttonblock{
+        display: block;
+        padding-bottom: 0.2em;
+        .checkbox {
+            margin-top: -0.4em;
+        }
+    }
+    .TabUI-content-main .buttonblock{
+        display: block;
+        flex-wrap: wrap;
+    }
+    .multichecksetting{
+        flex-wrap: wrap;
     }
 }
+
+@media screen and (max-width: 470px){
+    #timeline_setting {
+        margin: 10px calc(50% - 155px) 20px;
+    }
+}
+

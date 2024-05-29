@@ -1,6 +1,7 @@
 {
     "name": "__MSG_Name__",
-    "version": "1.4.1",
+    "version": "1.5.0",
+    "version_name": "1.5",
     "manifest_version": 3,
     "description": "__MSG_Description__",
     "default_locale": "en",
@@ -14,7 +15,7 @@
             ]
         }
     ],
-    "permissions": ["scripting","storage","tabs"],
+    "permissions": ["scripting","storage","tabs","sidePanel"],
     "icons": {
         "16": "./img/icon_16.png",
 	    "48": "./img/icon_48.png",
@@ -26,6 +27,14 @@
     "background": {
         "service_worker": "./js/serviceworker.js"
     },
+    "side_panel": {
+        "default_path": "popup.html"
+    },
+    "sidebar_action": {
+        "default_icon": "./img/icon_48.png",
+        "default_title": "Misskey TL Filter",
+        "default_panel": "popup.html"
+    },
     "action": {
         "default_title": "Misskey TL Filter",
         "default_popup": "popup.html",
@@ -33,6 +42,15 @@
 	        "16": "./img/icon_16.png",
 	        "48": "./img/icon_48.png",
             "128": "./img/icon_128.png"
+        }
+    },
+    "commands": {
+        "_execute_action": {
+          "suggested_key": {
+            "default": "Ctrl+Shift+H",
+            "mac": "MacCtrl+Shift+H"
+          },
+          "description": "Open Extension."
         }
     }
 }
