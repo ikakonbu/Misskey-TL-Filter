@@ -1,13 +1,4 @@
 //操作音
-window.AudioContext = window.AudioContext;
-context = new AudioContext();
-gain = context.createGain();
-gain.connect(context.destination);
-gain.gain.value = 0.7;
-
-var theBuffer;
-loadBuffer("../src/cursor.mp3", finishedLoading);
-
 function finishedLoading(buffer) {
     theBuffer = buffer;
 }
@@ -21,24 +12,24 @@ function PlaySound(){
 
     soundSource.start(0);
 }
-function loadBuffer(url, finished) {
-	//Create the Request
-	var req = new XMLHttpRequest();
-	req.open('GET', url, true);
-	req.responseType = "arraybuffer";
-	
-	//When it arrives, process the audio - this could be done synchronously instead...
-	req.onload = function() {
-		context.decodeAudioData(
-			req.response,
-			finished,
-			function(error) {console.error('Problem Decoding', error);}
-		);
-	};	
-	//if request error
-	req.onerror = function() {console.log('Problem With Request')}
-	//send the request
-	req.send();
+async function loadBuffer(url, finished) {
+    //Create the Request
+    var req = new XMLHttpRequest();
+    req.open('GET', url, true);
+    req.responseType = "arraybuffer";
+    
+    //When it arrives, process the audio - this could be done synchronously instead...
+    req.onload = function() {
+        context.decodeAudioData(
+            req.response,
+            finished,
+            function(error) {console.error('Problem Decoding', error);}
+        );
+    };	
+    //if request error
+    req.onerror = function() {console.log('Problem With Request')}
+    //send the request
+    req.send();
 }
 
 
@@ -107,14 +98,14 @@ const hidecss = {
     //for Mute Settings
     emojihide: ':is(.xlT1y .xeJ4G,.x3762 .xeJ4G, .x3kEw .xeJ4G, .xagin, .xwUec .xeJ4G):is(:is([title^="unko@"],[title^="unko:"])),:is(.xlT1y,.emojis) ._button .xeJ4G:is(:is([title^="unko@"],[title^="unko:"])){ display:none;}._button:has(.xeJ4G:is(:is([title^="unko@"],[title^="unko:"]))):before{ content: ""; display: inline-block; width: 1.25em !important; height: 1.25em !important; background-image: url(/twemoji/2764.svg); background-size: 1.25em 1.25em;}.xAV2R:has(img:is(:is([title^="unko@"],[title^="unko:"]))):after{ content: ""; display: inline-block; width: 20px !important; height: 20px !important; background-image: url(/twemoji/2764.svg); background-size: 20px 20px;}',
     emojiblock: ':is(.xeJ4G, .xagin):is(:is([title^="unko@"],[title^="unko:"])),._button:has(.xeJ4G:is(:is([title^="unko@"],[title^="unko:"]))){ display:none; } .x9Bba:has(img[title="unko"]){ display: none; } :is(.emojis,.x8LRN) :is(._button,.xm7js):has(:is(:is([title^="unko@"],[title^="unko:"]))){ display: none !important; }',
-    pinnedflex: '.contents._gaps > ._gaps { display: flex; flex-direction: row; overflow: scroll; width: calc(100% - 20px); max-height: min(90vw, 90vh); border-radius: 10px; border: solid 1px rgba(180,180,180,0.5); padding: 10px; & .xcSej{ min-width: 93% !important; height: max-content; overflow: unset; & .xrEoV{ left: unset; top: unset; } }}@media (max-width: 599px) { .contents._gaps > ._gaps { width: calc(125% - 20px); transform:translate(-10%) scale(0.8); margin: -5% auto; }} .contents._gaps > ._gaps { overscroll-behavior: none; }',
-    chan: ':is(.x8KMZ, .x4ZLV, .xngrp)::after { content: "ちゃん"; }',
-    formsize: '.xoGjR { max-height: none;} .xxski{ max-height: none;} .xpDI4.xxtDg{max-width: min(800px, 90vw);} ',
+    pinnedflex: '{} .contents._gaps > ._gaps { display: flex; flex-direction: row; overflow: scroll; width: calc(100% - 20px); max-height: min(90vw, 90vh); border-radius: 10px; border: solid 1px rgba(180,180,180,0.5); padding: 10px; & .xcSej{ min-width: 93% !important; height: max-content; overflow: unset; & .xrEoV{ left: unset; top: unset; } }}@media (max-width: 599px) { .contents._gaps > ._gaps { width: calc(125% - 20px); transform:translate(-10%) scale(0.8); margin: -5% auto; }} .contents._gaps > ._gaps { overscroll-behavior: none; }',
+    chan: '{} :is(.x8KMZ, .x4ZLV, .xngrp)::after { content: "ちゃん"; }',
+    formsize: '{}.xoGjR { max-height: none;} .xxski{ max-height: none;} .xpDI4.xxtDg{max-width: min(800px, 90vw);} ',
     botexcep: '.xcSej.x3762:has(.xEKlD):has(a[href$="unko"]) { display: block !important; }',
     usermute: '.xcSej.x3762:has(a[href="/@unko"]){ display: none; }',
     userrenotemute: '.xcSej.x3762:has(.xBwhh > a[href="/@unko"]){ display: none; }',
     userstatus: '{} .status a:nth-child(n+2)  b,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2), .xyEEg .x8w8X:nth-child(n+2) span{font-size: 0;}.status a:nth-child(n+2)  b:after,.x1tDq .x33Tu:nth-child(n+2) div:nth-child(2):after, .xyEEg .x8w8X:nth-child(n+2) span:after{ content: "???"; font-size: 14px;}',
-    rollbadges: '.xks9Y { display: none;}',
+    rollbadges: '{} .xks9Y { display: none;}',
     antispam: '.xcSej.x3762:has(.xuevx):has(.xkJBF[src*="identicon/"]),.xcSej:has(.x6gsV):has(.xkJBF[src*="identicon/"]),.xcSej:has(.x6gsV:nth-child(4)){ display: none; }',
 
     //for Other Settings
@@ -148,9 +139,9 @@ const worker = new Worker("js/worker.js");
 worker.addEventListener('message', (e) => {
     //console.log('success');
     emojiDB = e.data;
-  }, false);
+}, false);
 
-  function judgeChrome(){
+function judgeChrome(){
     let agent = window.navigator;
     if(agent.vendor != "Google Inc."){
         return "firefox";
@@ -352,7 +343,7 @@ worker.addEventListener('message', (e) => {
 
         for(i=0;i<usercss_options.length;i++){
             let CssTitle = localStorage.getItem("UserQuickCSS-Title-" + (i+1));
-		    let CSSCode  = localStorage.getItem("UserQuickCSS-Code-"  + (i+1));
+            let CSSCode  = localStorage.getItem("UserQuickCSS-Code-"  + (i+1));
             if(CSSCode != null && CSSCode != ""){
                 usercss_options[i].querySelector(".buttonlabel").innerText = CssTitle;
                 usercssoptions[i+1] = CSSCode;
@@ -467,27 +458,27 @@ worker.addEventListener('message', (e) => {
 
     /*calclate scroll position*/
     function setScrollPosition(flag){
-       let targetwidth = scrolltarget.scrollWidth - document.body.clientWidth;
-       let windowsize = document.querySelector("body")
-       windowsize = windowsize.getClientRects();
-       windowsize = windowsize[0].width;
+    let targetwidth = scrolltarget.scrollWidth - document.body.clientWidth;
+    let windowsize = document.querySelector("body")
+    windowsize = windowsize.getClientRects();
+    windowsize = windowsize[0].width;
 
-       if(windowsize < 470){
+    if(windowsize < 470){
             targetwidth += 85;
             scroolloffset = 231;
-       } else {
+    } else {
             scroolloffset = 462; 
-       }
+    }
 
-       if(flag) {
+    if(flag) {
         willscroll = clamp(0, willscroll+scroolloffset , targetwidth);
         if(autoscrolled) willscroll -= (scroolloffset/2);
         autoscrolled = false;
-       } else {
+    } else {
         willscroll = clamp(0, willscroll-scroolloffset , targetwidth);
         if(autoscrolled) willscroll += (scroolloffset/2);
         autoscrolled = false;
-       }
+    }
     }
 
     /*Change Display Langage*/
@@ -513,7 +504,7 @@ worker.addEventListener('message', (e) => {
 
             fetch("/lang/" + lang + ".json", {priority: 'high'})
             .then( response => response.json())
-		    .then( (data) => {
+            .then( (data) => {
                 langdata = data;
 
                 counter=0;
@@ -586,7 +577,7 @@ worker.addEventListener('message', (e) => {
         scrolltarget.scrollTo({
             left: willscroll,
             behavior: 'smooth'
-          });
+        });
         PlaySound();
     })
     scrollright.addEventListener(`click`, () => {
@@ -594,7 +585,7 @@ worker.addEventListener('message', (e) => {
         scrolltarget.scrollTo({
             left: willscroll,
             behavior: 'smooth'
-          });
+        });
         PlaySound();
     })
 
@@ -723,6 +714,14 @@ worker.addEventListener('message', (e) => {
             link.rel = 'stylesheet';
             link.href = 'css/style_2.css';
             document.head.appendChild(link);
+
+            window.AudioContext = window.AudioContext;
+            context = new AudioContext();
+            gain = context.createGain();
+            gain.connect(context.destination);
+            gain.gain.value = 0.7;
+            var theBuffer;
+            loadBuffer("../src/cursor.mp3", finishedLoading);
         })
         .catch((e) => {
             console.log("error: " + e);
@@ -852,7 +851,7 @@ worker.addEventListener('message', (e) => {
                 searchtask = setTimeout(async function(){
                     const responce = await fetch("https://" + Domain_Name + "/api/users/search", {
                     "headers": {
-                      "content-type": "application/json",
+                    "content-type": "application/json",
                     },
                     "body": "{\"query\":\"" + text + "\",\"offset\":0,\"limit\":5,\"origin\":\"combined\",\"detail\":false}",
                     "method": "POST",
@@ -869,21 +868,21 @@ worker.addEventListener('message', (e) => {
                     }
 
                     for(let node of search_results){
-                      if(node.name != null){
+                    if(node.name != null){
                         username = node.name.split(":");
-                      } else {
+                    } else {
                         username = node.username.split(":");
-                      }
-                      var userserver = node.host;
-                      var usernameHTML = "";
-                      let search_result = [];
+                    }
+                    var userserver = node.host;
+                    var usernameHTML = "";
+                    let search_result = [];
 
-                      username.forEach((word, index) => {
+                    username.forEach((word, index) => {
                         if(index%2 == 0) {
                             usernameHTML += word;
                         } else {
                             if(userserver == null || userserver == "null"){
-                               //console.log(userserver);
+                            //console.log(userserver);
                                 search_result = emojiDB.emojis.filter(function(item, index){
                                     if (item.name == word) return true;
                                 });
@@ -896,40 +895,40 @@ worker.addEventListener('message', (e) => {
                                 usernameHTML += "<img data-kind='other' src='" + node["emojis"][word]+ "'></>";
                             }
                         }
-                      });
+                    });
 
-                      var iikanzi_html_node = "<button class='userbtn' title = '" + node.username + ((node.host!=null)? "@" + node.host : "") +  "' tabindex='1'><img class='usericon' src='" + node.avatarUrl + "'><div class='usernametext'>" + usernameHTML + ((node.host != null)? "  <div class='servername'>"+node.username+"@" + node.host + "</div>" : "<div class='servername'>" + node.username + "@" + Domain_Name + "</div>") + "</div></button>"
-                      result += iikanzi_html_node;
+                    var iikanzi_html_node = "<button class='userbtn' title = '" + node.username + ((node.host!=null)? "@" + node.host : "") +  "' tabindex='1'><img class='usericon' src='" + node.avatarUrl + "'><div class='usernametext'>" + usernameHTML + ((node.host != null)? "  <div class='servername'>"+node.username+"@" + node.host + "</div>" : "<div class='servername'>" + node.username + "@" + Domain_Name + "</div>") + "</div></button>"
+                    result += iikanzi_html_node;
                     }
-             
-                   //console.log(".autocmp_result[data-id='" + id + "'][data-type='user']");
+            
+                //console.log(".autocmp_result[data-id='" + id + "'][data-type='user']");
                     document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='user']").innerHTML = result;
                     
-                  let autocmp_buttons = document.querySelectorAll(".userbtn");
-                  let self = e.target;
-                  for(let node of autocmp_buttons){
-                      node.addEventListener("click",function(){
-                          let temp = self.value.split(",").slice(0,-1).concat();
-                          if(temp != "") temp += ",";
-                          temp += node.title;
-                          self.value = temp;
-                          let result_elm = document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='user']");
-                          window.setTimeout(function(){
-                              result_elm.innerHTML = "";
-                              SaveSetting();
-                              CreateCSS();
-                              chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
-                                  chrome.scripting.executeScript({
-                                      target : {tabId : tabs[0].id},
-                                      func : UpdateCSS,
-                                      args : [csscode, usercsscode]
-                                  });
-                              });
-                          },200);
-                          autocmp_display("user", id, false);
-                          self.focus();
-                      });
-                  }
+                let autocmp_buttons = document.querySelectorAll(".userbtn");
+                let self = e.target;
+                for(let node of autocmp_buttons){
+                    node.addEventListener("click",function(){
+                        let temp = self.value.split(",").slice(0,-1).concat();
+                        if(temp != "") temp += ",";
+                        temp += node.title;
+                        self.value = temp;
+                        let result_elm = document.querySelector(".autocmp_result[data-id='" + id + "'][data-type='user']");
+                        window.setTimeout(function(){
+                            result_elm.innerHTML = "";
+                            SaveSetting();
+                            CreateCSS();
+                            chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+                                chrome.scripting.executeScript({
+                                    target : {tabId : tabs[0].id},
+                                    func : UpdateCSS,
+                                    args : [csscode, usercsscode]
+                                });
+                            });
+                        },200);
+                        autocmp_display("user", id, false);
+                        self.focus();
+                    });
+                }
 
                 }, 10);
 
