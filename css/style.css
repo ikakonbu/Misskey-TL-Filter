@@ -105,7 +105,7 @@
 .ti-toggle:before{content: '\eb3e';}
 .ti-help:before {content: '\eabf'}
 .ti-close:before {content: '\eb55'}
-
+.ti-hash:before{content: '\eabc'}
 
 /*MARK: General Setting*/
 html,body{

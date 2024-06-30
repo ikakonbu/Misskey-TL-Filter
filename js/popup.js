@@ -66,6 +66,7 @@ const tlselector = {
     channel: ':is(.xbt7a:has(.ti-device-tv), div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xeHR5 .xlwg4  .ti-device-tv),header:has(.ti-device-tv))~div ',
     antenna: ':is(.xbt7a:has(.ti-antenna), div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xeHR5 .xlwg4 .ti-antenna),header:has(.ti-antenna))~div ',
     user: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.xy0IK), .xbt7a:has(.ti-user))~div ',
+    explore: ':is(.xbt7a:has(.ti-hash), div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:has(.ti-hash),header:has(.ti-hash))~div ',
     all: ':is(div[style="position: sticky; top: var(--stickyTop, 0); z-index: 1000;"]:not(:has(.ti-bell)), header:not(:has(.ti-at)))~div '
 }
 /*CSSs which select specfic note and other CSS*/
