@@ -5,18 +5,6 @@
 */
 (async function() {
 
-
-if (!window.Bliss) {
-	// Load Bliss if not loaded
-//console.log("Bliss not loaded. Loading remotely from blissfuljs.com");
-
-	let bliss = document.createElement("script");
-	bliss.src = "https://blissfuljs.com/bliss.shy.min.js";
-	document.head.appendChild(bliss);
-
-	await new Promise(resolve => bliss.onload = resolve);
-}
-
 var $ = Bliss, $$ = Bliss.$;
 var ready = Promise.resolve();
 var files = ["prism-live-css.js", "prism-live-javascript.js", "prism-live-markup.js", "prism-live.css"];
