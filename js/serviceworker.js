@@ -29,21 +29,14 @@ function judgeChrome(){
         return "firefox";
     } else {
         if(agent.userAgentData.brands.length > 0) {
-            let brandname = agent.userAgentData.brands[0].brand;
-            switch(brandname){
-                case "Opera":
-                    return "opera";
-                case "Google Chrome":
-                    return "chrome";
-            }
-            brandname = agent.userAgentData.brands[1].brand;
-            switch(brandname){
-                case "Google Chrome":
-                    return "chrome";
-                case "Microsoft Edge":
-                    return "edge";
-                //case "Chromium":
-                //    return "chromium";
+
+            let brands = agent.userAgentData.brands.map((node) => node.brand);
+            if(brands.includes("Opera")){
+                return "opera";
+            } else  if(brands.includes("Google Chrome")){
+                return "chrome";
+            }else  if(brands.includes("Microsoft Edge")){
+                return "edge";
             }
         }
         return "chromium";
@@ -156,19 +149,19 @@ function SetAction(tabid, active, domainname, browsertype){
 
 chrome.tabs.onUpdated.addListener((tab_Id, changeinfo, tab) => {
     if(changeinfo.status == "complete"){
-        Main_Work(tab);
+        if(tab?.id != null) Main_Work(tab);
     }
 });
 
 chrome.tabs.onActivated.addListener((result) => {
     chrome.tabs.get(result.tabId, (tab) => {
-        Main_Work(tab);
+        if(tab?.id != null) Main_Work(tab);
     })
 });
 
 chrome.tabs.onAttached.addListener((result) => {
     chrome.tabs.get(result.tabId, (tab) => {
-        Main_Work(tab);
+        if(tab?.id != null) Main_Work(tab);
     })
 });
 
@@ -176,7 +169,7 @@ chrome.tabs.onAttached.addListener((result) => {
  getCurrentTab().then((result) => {
      if(result.id){
          chrome.tabs.get(result.id, (tab) => { 
-             Main_Work(tab);
+            if(tab?.id != null) Main_Work(tab);
          }); 
      }
  });
