@@ -148,21 +148,14 @@ function judgeChrome(){
         return "firefox";
     } else {
         if(agent.userAgentData.brands.length > 0) {
-            let brandname = agent.userAgentData.brands[0].brand;
-            switch(brandname){
-                case "Opera":
-                    return "opera";
-                case "Google Chrome":
-                    return "chrome";
-            }
-            brandname = agent.userAgentData.brands[1].brand;
-            switch(brandname)   {
-                case "Google Chrome":
-                    return "chrome";
-                case "Microsoft Edge":
-                    return "edge";
-                //case "Chromium":
-                //    return "chromium";
+
+            let brands = agent.userAgentData.brands.map((node) => node.brand);
+            if(brands.includes("Opera")){
+                return "opera";
+            } else  if(brands.includes("Google Chrome")){
+                return "chrome";
+            }else  if(brands.includes("Microsoft Edge")){
+                return "edge";
             }
         }
         return "chromium";
@@ -678,6 +671,10 @@ function judgeChrome(){
 
     /*Main Function*/
     chrome.tabs.query({active: true, currentWindow: true}, (tabs) => {
+        if(!tabs.length){            
+            return;
+        }
+
         ChangeLang();
 
         const nowwatch_domain = chrome.scripting.executeScript({
