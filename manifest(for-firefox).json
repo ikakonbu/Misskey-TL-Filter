@@ -1,6 +1,6 @@
 {
     "name": "__MSG_Name__",
-    "version": "1.5.2",
+    "version": "1.5.22",
     "manifest_version": 3,
     "description": "__MSG_Description__",
     "default_locale": "en",
@@ -14,7 +14,7 @@
             ]
         }
     ],
-    "permissions": ["scripting","storage","tabs"],
+    "permissions": ["scripting","storage","tabs","sidePanel"],
     "icons": {
         "16": "./img/icon_16.png",
 	    "48": "./img/icon_48.png",
@@ -39,5 +39,10 @@
 	        "48": "./img/icon_48.png",
             "128": "./img/icon_128.png"
         }
+    },
+    "sidebar_action": {
+        "default_title": "Misskey TL Filter",
+        "default_panel": "disable.html",
+        "default_icon": "./img/icon_128.png"
     }
 }
